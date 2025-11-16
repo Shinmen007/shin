@@ -2,11 +2,11 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion, useInView, useMotionValue, useSpring } from "framer-motion";
-import { Code2, Zap, Users, Star, TrendingUp, Award, Sparkles } from "lucide-react";
+import { Code2, Zap, Users, Star, TrendingUp, Award, Sparkles, LucideIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface StatItem {
-  icon: React.ElementType;
+  icon: LucideIcon;
   value: number;
   suffix: string;
   label: string;
@@ -21,7 +21,7 @@ const stats: StatItem[] = [
     suffix: "+",
     label: "Projects Delivered",
     color: "cyan",
-    description: "Successfully completed and deployed"
+    description: "Successfully completed and deployed",
   },
   {
     icon: Zap,
@@ -29,7 +29,7 @@ const stats: StatItem[] = [
     suffix: "%",
     label: "Performance Score",
     color: "magenta",
-    description: "Average Lighthouse performance"
+    description: "Average Lighthouse performance",
   },
   {
     icon: Users,
@@ -37,7 +37,7 @@ const stats: StatItem[] = [
     suffix: "K+",
     label: "Users Reached",
     color: "purple",
-    description: "Across all platforms"
+    description: "Across all platforms",
   },
   {
     icon: Award,
@@ -45,7 +45,7 @@ const stats: StatItem[] = [
     suffix: "+",
     label: "Years Experience",
     color: "success",
-    description: "Building production software"
+    description: "Building production software",
   },
 ];
 
@@ -74,8 +74,8 @@ function AnimatedCounter({ value, suffix }: { value: number; suffix: string }) {
   }, [springValue]);
 
   return (
-    <div ref={ref} className="text-5xl sm:text-6xl md:text-7xl font-black tracking-tight">
-      <span className="bg-gradient-to-br from-cyber-cyan via-cyber-magenta to-cyber-purple bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(34,211,238,0.5)]">
+    <div ref={ref} className="text-5xl font-black tracking-tight sm:text-6xl md:text-7xl">
+      <span className="from-cyber-cyan via-cyber-magenta to-cyber-purple bg-gradient-to-br bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(34,211,238,0.5)]">
         {count}
         {suffix}
       </span>
@@ -157,7 +157,7 @@ function StatCard({ stat, index }: { stat: StatItem; index: number }) {
       <motion.div
         className={cn(
           "relative overflow-hidden rounded-3xl border-2 backdrop-blur-xl transition-all duration-700",
-          "bg-gradient-to-br from-background/95 via-background/90 to-background/85",
+          "from-background/95 via-background/90 to-background/85 bg-gradient-to-br",
           colors.border,
           colors.hoverBorder,
           "shadow-2xl",
@@ -169,7 +169,7 @@ function StatCard({ stat, index }: { stat: StatItem; index: number }) {
         {/* Animated gradient background */}
         <motion.div
           className={cn(
-            "absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700",
+            "absolute inset-0 opacity-0 transition-opacity duration-700 group-hover:opacity-100",
             "bg-gradient-to-br",
             colors.gradient
           )}
@@ -194,7 +194,7 @@ function StatCard({ stat, index }: { stat: StatItem; index: number }) {
         />
 
         {/* Mesh pattern */}
-        <div className="absolute inset-0 opacity-[0.03] group-hover:opacity-[0.06] transition-opacity duration-700">
+        <div className="absolute inset-0 opacity-[0.03] transition-opacity duration-700 group-hover:opacity-[0.06]">
           <div
             className="h-full w-full"
             style={{
@@ -206,9 +206,10 @@ function StatCard({ stat, index }: { stat: StatItem; index: number }) {
 
         {/* Shimmer effect */}
         <motion.div
-          className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700"
+          className="absolute inset-0 opacity-0 transition-opacity duration-700 group-hover:opacity-100"
           style={{
-            background: "linear-gradient(110deg, transparent 30%, rgba(255, 255, 255, 0.08) 50%, transparent 70%)",
+            background:
+              "linear-gradient(110deg, transparent 30%, rgba(255, 255, 255, 0.08) 50%, transparent 70%)",
           }}
           animate={{
             x: ["-200%", "200%"],
@@ -222,7 +223,7 @@ function StatCard({ stat, index }: { stat: StatItem; index: number }) {
         />
 
         {/* Content */}
-        <div className="relative p-8 sm:p-10 space-y-6">
+        <div className="relative space-y-6 p-8 sm:p-10">
           {/* Icon with pulsing ring */}
           <div className="relative inline-flex">
             <motion.div
@@ -240,10 +241,7 @@ function StatCard({ stat, index }: { stat: StatItem; index: number }) {
 
             {/* Pulsing rings */}
             <motion.div
-              className={cn(
-                "absolute inset-0 rounded-2xl",
-                colors.pulse
-              )}
+              className={cn("absolute inset-0 rounded-2xl", colors.pulse)}
               animate={{
                 scale: [1, 1.4, 1.4],
                 opacity: [0.5, 0, 0],
@@ -255,10 +253,7 @@ function StatCard({ stat, index }: { stat: StatItem; index: number }) {
               }}
             />
             <motion.div
-              className={cn(
-                "absolute inset-0 rounded-2xl",
-                colors.pulse
-              )}
+              className={cn("absolute inset-0 rounded-2xl", colors.pulse)}
               animate={{
                 scale: [1, 1.4, 1.4],
                 opacity: [0.5, 0, 0],
@@ -273,7 +268,7 @@ function StatCard({ stat, index }: { stat: StatItem; index: number }) {
 
             {/* Sparkle effect on hover */}
             <motion.div
-              className="absolute -right-1 -top-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+              className="absolute -right-1 -top-1 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
               animate={{
                 rotate: [0, 360],
                 scale: [1, 1.2, 1],
@@ -294,15 +289,14 @@ function StatCard({ stat, index }: { stat: StatItem; index: number }) {
 
             {/* Label */}
             <div className="space-y-1">
-              <h3 className="text-xl sm:text-2xl font-bold text-foreground group-hover:text-foreground transition-colors">
+              <h3 className="text-foreground group-hover:text-foreground text-xl font-bold transition-colors sm:text-2xl">
                 {stat.label}
               </h3>
-              <p className="text-sm text-muted-foreground group-hover:text-muted-foreground/90 transition-colors leading-relaxed">
+              <p className="text-muted-foreground group-hover:text-muted-foreground/90 text-sm leading-relaxed transition-colors">
                 {stat.description}
               </p>
             </div>
           </div>
-
         </div>
 
         {/* Bottom accent line */}
@@ -319,7 +313,7 @@ function StatCard({ stat, index }: { stat: StatItem; index: number }) {
       {/* Floating glow behind card */}
       <motion.div
         className={cn(
-          "absolute inset-0 rounded-3xl blur-2xl opacity-0 group-hover:opacity-50 transition-opacity duration-700 -z-10",
+          "absolute inset-0 -z-10 rounded-3xl opacity-0 blur-2xl transition-opacity duration-700 group-hover:opacity-50",
           colors.glow
         )}
         animate={{
@@ -337,11 +331,11 @@ function StatCard({ stat, index }: { stat: StatItem; index: number }) {
 
 export function StatsSection() {
   return (
-    <section className="relative py-24 sm:py-32 overflow-hidden border-b border-border/40">
+    <section className="border-border/40 relative overflow-hidden border-b py-24 sm:py-32">
       {/* Animated background elements */}
-      <div className="absolute inset-0 pointer-events-none">
+      <div className="pointer-events-none absolute inset-0">
         <motion.div
-          className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-cyber-cyan/5 rounded-full blur-3xl"
+          className="bg-cyber-cyan/5 absolute left-1/4 top-0 h-[500px] w-[500px] rounded-full blur-3xl"
           animate={{
             scale: [1, 1.2, 1],
             opacity: [0.3, 0.5, 0.3],
@@ -353,7 +347,7 @@ export function StatsSection() {
           }}
         />
         <motion.div
-          className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-cyber-magenta/5 rounded-full blur-3xl"
+          className="bg-cyber-magenta/5 absolute bottom-0 right-1/4 h-[500px] w-[500px] rounded-full blur-3xl"
           animate={{
             scale: [1, 1.3, 1],
             opacity: [0.3, 0.5, 0.3],
@@ -366,7 +360,7 @@ export function StatsSection() {
           }}
         />
         <motion.div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-cyber-purple/3 rounded-full blur-3xl"
+          className="bg-cyber-purple/3 absolute left-1/2 top-1/2 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full blur-3xl"
           animate={{
             scale: [1, 1.25, 1],
             opacity: [0.2, 0.4, 0.2],
@@ -381,11 +375,11 @@ export function StatsSection() {
       </div>
 
       {/* Animated grid pattern */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:48px_48px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] pointer-events-none" />
+      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:48px_48px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)]" />
 
-      <div className="container mx-auto px-4 sm:px-6 relative z-10">
+      <div className="container relative z-10 mx-auto px-4 sm:px-6">
         {/* Stats grid */}
-        <div className="grid gap-6 sm:gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-8 lg:grid-cols-4">
           {stats.map((stat, index) => (
             <StatCard key={stat.label} stat={stat} index={index} />
           ))}
