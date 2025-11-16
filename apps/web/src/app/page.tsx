@@ -31,14 +31,9 @@ export default async function HomePage() {
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
-      <section className="border-border/40 relative min-h-[100vh] w-full overflow-hidden border-b">
-        {/* Gradient Background - No 3D */}
-        <div className="absolute inset-0 z-0 bg-gradient-to-br from-background via-background/95 to-background" />
-
-        {/* Enhanced gradient overlays for depth and readability */}
-        <div className="from-background via-background/90 to-background/50 pointer-events-none absolute inset-0 z-[1] bg-gradient-to-r" />
-        <div className="to-background/40 pointer-events-none absolute inset-0 z-[1] bg-gradient-to-b from-transparent via-transparent" />
-        <div className="pointer-events-none absolute inset-0 z-[1] bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(10,10,15,0.85)_90%)]" />
+      <section className="border-border/40 relative min-h-[100vh] w-full overflow-hidden border-b bg-black">
+        {/* Void Black Background */}
+        <div className="absolute inset-0 z-0 bg-black" />
 
         {/* Animated grid overlay with parallax effect - hidden on small mobile */}
         <div
