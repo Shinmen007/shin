@@ -1,8 +1,8 @@
 /// <reference types="@react-three/fiber" />
 "use client";
 
-import '@react-three/fiber';
-import { useRef, useMemo } from "react";
+import "@react-three/fiber";
+import { useRef, useMemo, useState, useEffect } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 
@@ -12,10 +12,39 @@ function seededRandom(seed: number) {
   return x - Math.floor(x);
 }
 
-// Galaxy particle system with swirling nebula effect
+// Mouse tracking camera controller for subtle parallax effect
+function CameraController() {
+  const { camera } = useRef({ camera: null as THREE.Camera | null }).current;
+  const mouse = useRef({ x: 0, y: 0 });
+  const targetRotation = useRef({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const handleMouseMove = (event: MouseEvent) => {
+      mouse.current.x = (event.clientX / window.innerWidth) * 2 - 1;
+      mouse.current.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+      targetRotation.current.y = mouse.current.x * 0.15;
+      targetRotation.current.x = mouse.current.y * 0.15;
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, []);
+
+  useFrame(({ camera }) => {
+    // Smooth camera rotation based on mouse position
+    camera.rotation.order = "YXZ";
+    camera.rotation.y += (targetRotation.current.y - camera.rotation.y) * 0.05;
+    camera.rotation.x += (targetRotation.current.x - camera.rotation.x) * 0.05;
+  });
+
+  return null;
+}
+
+// Galaxy particle system with swirling nebula effect - Enhanced with modern visual effects
 function GalaxyParticles() {
   const particlesRef = useRef<THREE.Points>(null!);
-  const particleCount = 3000;
+  const particleCount = 6000; // Increased for more density
 
   const { positions, colors, sizes, velocities } = useMemo(() => {
     const positions = new Float32Array(particleCount * 3);
@@ -23,23 +52,25 @@ function GalaxyParticles() {
     const sizes = new Float32Array(particleCount);
     const velocities = new Float32Array(particleCount * 3);
 
-    // Color palette for nebula
+    // Modern vibrant color palette for nebula with enhanced gradients
     const colorPalette = [
-      new THREE.Color("#00f5ff"), // cyan
-      new THREE.Color("#00d9ff"), // light cyan
-      new THREE.Color("#ff00ff"), // magenta
+      new THREE.Color("#00ffff"), // bright cyan
+      new THREE.Color("#00e5ff"), // light cyan
+      new THREE.Color("#ff0099"), // hot magenta
       new THREE.Color("#ff66ff"), // light magenta
-      new THREE.Color("#9d00ff"), // purple
-      new THREE.Color("#bb66ff"), // light purple
-      new THREE.Color("#00ffaa"), // aqua
+      new THREE.Color("#a000ff"), // bright purple
+      new THREE.Color("#dd44ff"), // light purple
+      new THREE.Color("#00ffdd"), // aqua green
       new THREE.Color("#ffffff"), // white
+      new THREE.Color("#00ff99"), // lime green
+      new THREE.Color("#ff00cc"), // deep magenta
     ];
 
     for (let i = 0; i < particleCount; i++) {
-      // Create spiral galaxy distribution
-      const radius = Math.random() * 25;
-      const spinAngle = radius * 0.5; // Creates spiral arms
-      const branchAngle = ((i % 5) / 5) * Math.PI * 2; // 5 spiral arms
+      // Create spiral galaxy distribution with more tighter spiral arms
+      const radius = Math.pow(Math.random(), 0.8) * 28; // Power function for more clustering
+      const spinAngle = radius * 0.7; // Creates tighter spiral arms
+      const branchAngle = ((i % 8) / 8) * Math.PI * 2; // 8 spiral arms for more detail
 
       const randomRadius = Math.pow(Math.random(), 3) * 3;
       const angle = branchAngle + spinAngle;
@@ -52,10 +83,10 @@ function GalaxyParticles() {
       positions[i * 3 + 1] = randomY * 2;
       positions[i * 3 + 2] = Math.sin(angle) * (radius + randomRadius) + randomZ;
 
-      // Velocity for orbital motion
-      velocities[i * 3] = Math.sin(angle) * 0.01;
-      velocities[i * 3 + 1] = (Math.random() - 0.5) * 0.002;
-      velocities[i * 3 + 2] = -Math.cos(angle) * 0.01;
+      // Velocity for orbital motion - increased for more dynamic effect
+      velocities[i * 3] = Math.sin(angle) * 0.015;
+      velocities[i * 3 + 1] = (Math.random() - 0.5) * 0.003;
+      velocities[i * 3 + 2] = -Math.cos(angle) * 0.015;
 
       // Color based on distance from center (inner = brighter)
       const distanceRatio = radius / 25;
@@ -73,8 +104,8 @@ function GalaxyParticles() {
       colors[i * 3 + 1] = mixedColor.g;
       colors[i * 3 + 2] = mixedColor.b;
 
-      // Size based on distance and randomness
-      sizes[i] = (1 - distanceRatio * 0.5) * (0.3 + Math.random() * 0.4);
+      // Size based on distance and randomness - enhanced variation
+      sizes[i] = (1 - distanceRatio * 0.4) * (0.25 + Math.random() * 0.6);
     }
 
     return { positions, colors, sizes, velocities };
@@ -85,9 +116,9 @@ function GalaxyParticles() {
 
     const time = state.clock.elapsedTime;
 
-    // Rotate entire galaxy
-    particlesRef.current.rotation.y = time * 0.03;
-    particlesRef.current.rotation.x = Math.sin(time * 0.02) * 0.1;
+    // Rotate entire galaxy with more dynamic motion
+    particlesRef.current.rotation.y = time * 0.05; // Faster rotation
+    particlesRef.current.rotation.x = Math.sin(time * 0.03) * 0.15; // More pronounced tilt
 
     // Animate particle positions for swirling effect
     const positionsArray = particlesRef.current.geometry.attributes.position.array as Float32Array;
@@ -95,18 +126,15 @@ function GalaxyParticles() {
     for (let i = 0; i < particleCount; i++) {
       const i3 = i * 3;
 
-      // Add subtle orbital motion
-      positionsArray[i3] += velocities[i3];
-      positionsArray[i3 + 1] += velocities[i3 + 1];
-      positionsArray[i3 + 2] += velocities[i3 + 2];
+      // Add subtle orbital motion with wave effect
+      positionsArray[i3] += velocities[i3] * (1 + Math.sin(time * 0.5 + i * 0.01) * 0.3);
+      positionsArray[i3 + 1] += velocities[i3 + 1] * (1 + Math.sin(time * 0.3 + i * 0.02) * 0.2);
+      positionsArray[i3 + 2] += velocities[i3 + 2] * (1 + Math.sin(time * 0.5 + i * 0.01) * 0.3);
 
       // Keep particles in bounds with wave motion
-      const distance = Math.sqrt(
-        positionsArray[i3] ** 2 +
-        positionsArray[i3 + 2] ** 2
-      );
+      const distance = Math.sqrt(positionsArray[i3] ** 2 + positionsArray[i3 + 2] ** 2);
 
-      if (distance > 30) {
+      if (distance > 35) {
         const angle = Math.atan2(positionsArray[i3 + 2], positionsArray[i3]);
         positionsArray[i3] = Math.cos(angle) * 5;
         positionsArray[i3 + 2] = Math.sin(angle) * 5;
@@ -115,9 +143,10 @@ function GalaxyParticles() {
 
     particlesRef.current.geometry.attributes.position.needsUpdate = true;
 
-    // Pulsing glow effect
+    // Enhanced pulsing glow effect
     const material = particlesRef.current.material as THREE.PointsMaterial;
-    material.opacity = 0.7 + Math.sin(time * 0.5) * 0.15;
+    material.opacity = 0.75 + Math.sin(time * 0.8) * 0.2 + Math.cos(time * 1.3) * 0.1;
+    material.size = 0.16 + Math.sin(time * 0.6) * 0.04; // Subtle size pulsing
   });
 
   return (
@@ -143,10 +172,10 @@ function GalaxyParticles() {
         />
       </bufferGeometry>
       <pointsMaterial
-        size={0.15}
+        size={0.16}
         vertexColors
         transparent
-        opacity={0.7}
+        opacity={0.75}
         sizeAttenuation
         blending={THREE.AdditiveBlending}
         depthWrite={false}
@@ -155,23 +184,23 @@ function GalaxyParticles() {
   );
 }
 
-// Nebula clouds using layered planes with noise
+// Nebula clouds using layered planes with noise - Enhanced with more dynamic effects
 function NebulaClouds() {
   const cloudRefs = useRef<THREE.Mesh[]>([]);
-  const cloudCount = 8;
+  const cloudCount = 12; // Increased for more visual richness
 
   const clouds = useMemo(() => {
     return Array.from({ length: cloudCount }, (_, i) => ({
       position: [
-        (Math.random() - 0.5) * 40,
-        (Math.random() - 0.5) * 20,
-        (Math.random() - 0.5) * 40 - 10,
+        (Math.random() - 0.5) * 50,
+        (Math.random() - 0.5) * 30,
+        (Math.random() - 0.5) * 50 - 15,
       ] as [number, number, number],
-      scale: 8 + Math.random() * 12,
+      scale: 10 + Math.random() * 20, // Larger clouds
       rotation: Math.random() * Math.PI * 2,
-      color: i % 3 === 0 ? "#00f5ff" : i % 3 === 1 ? "#ff00ff" : "#9d00ff",
-      opacity: 0.05 + Math.random() * 0.1,
-      speed: 0.1 + Math.random() * 0.2,
+      color: i % 4 === 0 ? "#00ffff" : i % 4 === 1 ? "#ff00cc" : i % 4 === 2 ? "#a000ff" : "#00ffaa",
+      opacity: 0.08 + Math.random() * 0.15, // More visible
+      speed: 0.15 + Math.random() * 0.35,
     }));
   }, []);
 
@@ -183,15 +212,19 @@ function NebulaClouds() {
 
       const cloudData = clouds[i];
 
-      // Slow rotation
-      cloud.rotation.z = cloudData.rotation + time * cloudData.speed * 0.05;
+      // More dynamic rotation with multiple axes
+      cloud.rotation.z = cloudData.rotation + time * cloudData.speed * 0.08;
+      cloud.rotation.x = Math.sin(time * 0.2 + i) * 0.08;
+      cloud.rotation.y = Math.cos(time * 0.15 + i) * 0.06;
 
-      // Pulsing opacity
+      // Pulsing opacity with more variation
       const material = cloud.material as THREE.MeshBasicMaterial;
-      material.opacity = cloudData.opacity + Math.sin(time * 0.3 + i) * 0.03;
+      material.opacity = cloudData.opacity + Math.sin(time * 0.4 + i) * 0.05 + Math.cos(time * 0.7 + i) * 0.03;
 
-      // Gentle floating
-      cloud.position.y = cloudData.position[1] + Math.sin(time * 0.2 + i) * 2;
+      // More dynamic floating with multiple wave functions
+      cloud.position.y = cloudData.position[1] + Math.sin(time * 0.25 + i) * 3 + Math.sin(time * 0.15 + i * 2) * 2;
+      cloud.position.x = cloudData.position[0] + Math.cos(time * 0.1 + i) * 2;
+      cloud.position.z = cloudData.position[2] + Math.sin(time * 0.12 + i) * 1.5;
     });
   });
 
@@ -222,26 +255,26 @@ function NebulaClouds() {
   );
 }
 
-// Bright star particles
+// Bright star particles - Enhanced with more visual prominence
 function StarField() {
   const starsRef = useRef<THREE.Points>(null!);
-  const starCount = 800;
+  const starCount = 1200; // Increased for more stellar density
 
   const { positions, sizes } = useMemo(() => {
     const positions = new Float32Array(starCount * 3);
     const sizes = new Float32Array(starCount);
 
     for (let i = 0; i < starCount; i++) {
-      // Distribute stars in a sphere
+      // Distribute stars in a sphere with more variation
       const theta = Math.random() * Math.PI * 2;
       const phi = Math.random() * Math.PI;
-      const r = 30 + Math.random() * 40;
+      const r = 35 + Math.random() * 50; // Wider distribution
 
       positions[i * 3] = r * Math.sin(phi) * Math.cos(theta);
       positions[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta);
       positions[i * 3 + 2] = r * Math.cos(phi);
 
-      sizes[i] = Math.random() * 0.2 + 0.05;
+      sizes[i] = Math.random() * 0.3 + 0.08; // Larger, more visible stars
     }
 
     return { positions, sizes };
@@ -252,13 +285,14 @@ function StarField() {
 
     const time = state.clock.elapsedTime;
 
-    // Slow rotation
-    starsRef.current.rotation.y = time * 0.01;
-    starsRef.current.rotation.x = time * 0.005;
+    // More dynamic rotation
+    starsRef.current.rotation.y = time * 0.015;
+    starsRef.current.rotation.x = time * 0.008 + Math.sin(time * 0.05) * 0.1;
 
-    // Twinkling effect
+    // Enhanced twinkling effect with more variation
     const material = starsRef.current.material as THREE.PointsMaterial;
-    material.opacity = 0.8 + Math.sin(time * 2) * 0.2;
+    material.opacity = 0.85 + Math.sin(time * 2.5) * 0.25 + Math.sin(time * 1.2) * 0.1;
+    material.size = 0.12 + Math.sin(time * 1.8) * 0.04 + Math.cos(time * 1.3) * 0.03;
   });
 
   return (
@@ -278,10 +312,10 @@ function StarField() {
         />
       </bufferGeometry>
       <pointsMaterial
-        size={0.1}
+        size={0.12}
         color="#ffffff"
         transparent
-        opacity={0.8}
+        opacity={0.85}
         sizeAttenuation
         blending={THREE.AdditiveBlending}
         depthWrite={false}
@@ -290,54 +324,102 @@ function StarField() {
   );
 }
 
-// Central glow orb
+// Central glow orb - Enhanced with more dynamic and modern effects
 function CentralGlow() {
   const glowRef = useRef<THREE.Mesh>(null!);
+  const innerGlowRef = useRef<THREE.Mesh>(null!);
 
   useFrame((state) => {
     if (!glowRef.current) return;
 
     const time = state.clock.elapsedTime;
 
-    // Pulsing scale
-    const scale = 1 + Math.sin(time * 0.5) * 0.2;
+    // More dramatic pulsing scale with multiple frequencies
+    const scale = 1.2 + Math.sin(time * 0.7) * 0.35 + Math.sin(time * 1.3) * 0.15;
     glowRef.current.scale.setScalar(scale);
 
-    // Slow rotation
-    glowRef.current.rotation.x = time * 0.1;
-    glowRef.current.rotation.y = time * 0.15;
+    // More dynamic multi-axis rotation
+    glowRef.current.rotation.x = time * 0.15 + Math.sin(time * 0.3) * 0.2;
+    glowRef.current.rotation.y = time * 0.2 + Math.cos(time * 0.4) * 0.15;
+    glowRef.current.rotation.z = Math.sin(time * 0.1) * 0.1;
 
-    // Pulsing opacity
+    // More dramatic pulsing opacity
     const material = glowRef.current.material as THREE.MeshBasicMaterial;
-    material.opacity = 0.3 + Math.sin(time * 0.8) * 0.1;
+    material.opacity = 0.35 + Math.sin(time * 1.2) * 0.2 + Math.cos(time * 0.8) * 0.15;
+
+    // Inner glow animation
+    if (innerGlowRef.current) {
+      const innerMaterial = innerGlowRef.current.material as THREE.MeshBasicMaterial;
+      const innerScale = 0.8 + Math.sin(time * 0.9) * 0.2;
+      innerGlowRef.current.scale.setScalar(innerScale);
+      innerMaterial.opacity = 0.5 + Math.sin(time * 1.5) * 0.25;
+    }
   });
 
   return (
-    <mesh ref={glowRef} position={[0, 0, -5]}>
-      <sphereGeometry args={[3, 32, 32]} />
-      <meshBasicMaterial
-        color="#00f5ff"
-        transparent
-        opacity={0.3}
-        blending={THREE.AdditiveBlending}
-        depthWrite={false}
-      />
-    </mesh>
+    <group position={[0, 0, -8]}>
+      {/* Outer glow sphere */}
+      <mesh ref={glowRef}>
+        <sphereGeometry args={[4, 32, 32]} />
+        <meshBasicMaterial
+          color="#00ffff"
+          transparent
+          opacity={0.35}
+          blending={THREE.AdditiveBlending}
+          depthWrite={false}
+        />
+      </mesh>
+
+      {/* Inner glow core */}
+      <mesh ref={innerGlowRef}>
+        <sphereGeometry args={[2.5, 32, 32]} />
+        <meshBasicMaterial
+          color="#ff00cc"
+          transparent
+          opacity={0.5}
+          blending={THREE.AdditiveBlending}
+          depthWrite={false}
+        />
+      </mesh>
+
+      {/* Additional accent glow */}
+      <mesh scale={1.3}>
+        <sphereGeometry args={[3.5, 16, 16]} />
+        <meshBasicMaterial
+          color="#a000ff"
+          transparent
+          opacity={0.15}
+          blending={THREE.AdditiveBlending}
+          depthWrite={false}
+        />
+      </mesh>
+    </group>
   );
 }
 
 export default function GalaxyScene() {
   return (
     <>
-      {/* Atmospheric lighting */}
-      <ambientLight intensity={0.3} />
+      {/* Enhanced dynamic lighting with multiple colors and intensities */}
+      <ambientLight intensity={0.4} />
 
-      <pointLight position={[0, 0, 0]} intensity={2} color="#00f5ff" distance={50} decay={2} />
-      <pointLight position={[20, 10, -10]} intensity={1} color="#ff00ff" distance={40} decay={2} />
-      <pointLight position={[-20, -10, -10]} intensity={1} color="#9d00ff" distance={40} decay={2} />
+      {/* Primary cyan glow */}
+      <pointLight position={[0, 0, 0]} intensity={2.5} color="#00ffff" distance={60} decay={2} />
 
-      {/* Fog for depth */}
-      <fog attach="fog" args={["#0a0a0f", 20, 80]} />
+      {/* Hot magenta accent */}
+      <pointLight position={[25, 15, -15]} intensity={1.5} color="#ff00cc" distance={50} decay={2} />
+
+      {/* Purple accent */}
+      <pointLight position={[-25, -15, -10]} intensity={1.3} color="#a000ff" distance={45} decay={2} />
+
+      {/* Secondary cyan for ambient fill */}
+      <pointLight position={[0, 20, 20]} intensity={0.8} color="#00ffdd" distance={40} decay={2} />
+
+      {/* Fog for enhanced depth perception */}
+      <fog attach="fog" args={["#0a0a0f", 15, 100]} />
+
+      {/* Mouse tracking camera controller */}
+      <CameraController />
 
       {/* Background stars (furthest) */}
       <StarField />
