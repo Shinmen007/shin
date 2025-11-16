@@ -35,54 +35,6 @@ export default async function HomePage() {
         {/* Void Black Background */}
         <div className="absolute inset-0 z-0 bg-black" />
 
-        {/* Animated grid overlay with parallax effect - hidden on small mobile */}
-        <div
-          className="pointer-events-none absolute inset-0 z-[1] hidden animate-pulse bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_50%,#000_70%,transparent_110%)] sm:block"
-          style={{ animationDuration: "8s" }}
-        />
-
-        {/* Corner accent glows - reduced on mobile */}
-        <div
-          className="bg-cyber-cyan/10 pointer-events-none absolute -left-40 -top-40 z-[1] h-40 w-40 animate-pulse rounded-full blur-3xl sm:h-80 sm:w-80"
-          style={{ animationDuration: "5s" }}
-        />
-        <div
-          className="bg-cyber-magenta/10 pointer-events-none absolute -bottom-40 -right-40 z-[1] h-40 w-40 animate-pulse rounded-full blur-3xl sm:h-80 sm:w-80"
-          style={{ animationDuration: "7s" }}
-        />
-        <div
-          className="bg-cyber-purple/8 pointer-events-none absolute right-1/4 top-1/3 z-[1] hidden h-40 w-40 animate-pulse rounded-full blur-3xl sm:block sm:h-60 sm:w-60"
-          style={{ animationDuration: "6s" }}
-        />
-
-        {/* Animated accent lines with flowing gradient - simplified on mobile */}
-        <div className="pointer-events-none absolute left-0 top-1/2 z-[1] hidden h-px w-full -translate-y-1/2 md:block">
-          <div
-            className="via-cyber-cyan/60 via-cyber-magenta/40 h-full w-full animate-pulse bg-gradient-to-r from-transparent to-transparent"
-            style={{ animationDuration: "4s" }}
-          />
-        </div>
-        <div className="pointer-events-none absolute left-1/2 top-0 z-[1] hidden h-full w-px -translate-x-1/2 md:block">
-          <div
-            className="via-cyber-purple/30 h-full w-full animate-pulse bg-gradient-to-b from-transparent to-transparent"
-            style={{ animationDuration: "6s" }}
-          />
-        </div>
-
-        {/* Diagonal accent lines for extra depth - hidden on mobile */}
-        <div className="pointer-events-none absolute -left-1/4 top-0 z-[1] hidden h-full w-px rotate-12 lg:block">
-          <div
-            className="via-cyber-cyan/20 h-full w-full animate-pulse bg-gradient-to-b from-transparent to-transparent"
-            style={{ animationDuration: "7s" }}
-          />
-        </div>
-        <div className="pointer-events-none absolute -right-1/4 top-0 z-[1] hidden h-full w-px -rotate-12 lg:block">
-          <div
-            className="via-cyber-magenta/20 h-full w-full animate-pulse bg-gradient-to-b from-transparent to-transparent"
-            style={{ animationDuration: "9s" }}
-          />
-        </div>
-
         {/* Hero Content */}
         <div className="relative z-10 flex min-h-[100vh] items-center">
           <div className="container mx-auto px-4 py-20 md:py-32">
