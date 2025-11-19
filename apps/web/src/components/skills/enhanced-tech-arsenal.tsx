@@ -15,7 +15,16 @@ interface TechItem {
   category: string;
 }
 
-const techStack: TechItem[] = {
+interface TechStackCategories {
+  frontend: TechItem[];
+  backend: TechItem[];
+  database: TechItem[];
+  cloud: TechItem[];
+  devops?: TechItem[];
+  tools: TechItem[];
+}
+
+const techStack: TechStackCategories = {
   frontend: [
     { name: "React", icon: "react", proficiency: 95, yearsExp: "4+", category: "frontend" },
     { name: "Next.js", icon: "nextdotjs", proficiency: 95, yearsExp: "4+", category: "frontend" },

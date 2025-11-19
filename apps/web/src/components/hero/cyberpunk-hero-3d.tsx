@@ -84,12 +84,18 @@ function CyberpunkGrid() {
 
     if (grid1Ref.current) {
       grid1Ref.current.position.z = -10 + (time * 2) % 20;
-      grid1Ref.current.material.opacity = 0.3 * (1 - Math.abs(grid1Ref.current.position.z) / 20);
+      const material = grid1Ref.current.material;
+      if (!Array.isArray(material) && 'opacity' in material) {
+        material.opacity = 0.3 * (1 - Math.abs(grid1Ref.current.position.z) / 20);
+      }
     }
 
     if (grid2Ref.current) {
       grid2Ref.current.position.z = -10 + ((time * 2 + 10) % 20);
-      grid2Ref.current.material.opacity = 0.3 * (1 - Math.abs(grid2Ref.current.position.z) / 20);
+      const material = grid2Ref.current.material;
+      if (!Array.isArray(material) && 'opacity' in material) {
+        material.opacity = 0.3 * (1 - Math.abs(grid2Ref.current.position.z) / 20);
+      }
     }
   });
 

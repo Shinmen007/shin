@@ -5,7 +5,7 @@ import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { audioSystem } from "@/lib/audio-system";
 
-interface CyberpunkCardProps extends React.HTMLAttributes<HTMLDivElement> {
+interface CyberpunkCardProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onDrag' | 'onDragEnd' | 'onDragStart' | 'onAnimationStart' | 'onAnimationEnd'> {
   variant?: 'default' | 'holographic' | 'neon' | 'glass';
   intensity?: 'low' | 'medium' | 'high';
   enable3D?: boolean;
