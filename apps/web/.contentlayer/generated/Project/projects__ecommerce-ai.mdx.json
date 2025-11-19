@@ -4,19 +4,8 @@
   "cover": "/images/projects/ecommerce-ai.jpg",
   "repoUrl": "https://github.com/roshankhatri/ecommerce-ai",
   "liveUrl": "https://shop-demo.example.com",
-  "tags": [
-    "Featured",
-    "AI/ML",
-    "E-Commerce"
-  ],
-  "stack": [
-    "Next.js",
-    "Python",
-    "TensorFlow",
-    "Elasticsearch",
-    "Stripe",
-    "PostgreSQL"
-  ],
+  "tags": ["Featured", "AI/ML", "E-Commerce"],
+  "stack": ["Next.js", "Python", "TensorFlow", "Elasticsearch", "Stripe", "PostgreSQL"],
   "metrics": {
     "lighthouse": 96,
     "perfScore": 92,

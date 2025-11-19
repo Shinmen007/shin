@@ -98,7 +98,6 @@ Represents a skill for the skills matrix.
 
 **Fields:**
 
-
 - `id` - string/UUID.
 - `name` - string; skill name (e.g., Next.js).
 - `category` - enum/string; e.g., `frontend`, `backend`, `devops`, `data`, `soft`.
@@ -197,10 +196,10 @@ This structure should be stable so a PDF generator or external consumer can rely
 
 ## 7. Relationships
 
-- Project  Skills: many-to-many via junction table (`project_skills`) or tags.
-- Project  Metrics: stored inline in `metrics` field or in related table if needed.
-- User  Messages: messages are not tied to an authenticated user (public contact).
-- Posts  Tags: tags stored as array (simple for MVP).
+- Project Skills: many-to-many via junction table (`project_skills`) or tags.
+- Project Metrics: stored inline in `metrics` field or in related table if needed.
+- User Messages: messages are not tied to an authenticated user (public contact).
+- Posts Tags: tags stored as array (simple for MVP).
 
 ---
 
@@ -213,7 +212,6 @@ This structure should be stable so a PDF generator or external consumer can rely
     - Use Supabase for storing updated content in a `body` column.
 - Media assets:
   - Stored in Supabase Storage or remote CDN; referenced via URL.
-
 
 ---
 

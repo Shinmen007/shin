@@ -25,13 +25,9 @@ export default function ProjectsPage() {
     });
 
   // Extract unique tags and stack items for filters
-  const allTags = Array.from(
-    new Set(projects.flatMap((project) => project.tags))
-  ).sort();
+  const allTags = Array.from(new Set(projects.flatMap((project) => project.tags))).sort();
 
-  const allStackItems = Array.from(
-    new Set(projects.flatMap((project) => project.stack))
-  ).sort();
+  const allStackItems = Array.from(new Set(projects.flatMap((project) => project.stack))).sort();
 
   return (
     <div className="container py-12">
@@ -40,35 +36,31 @@ export default function ProjectsPage() {
           <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
             <span className="gradient-text">Projects</span>
           </h1>
-          <p className="text-lg text-muted-foreground max-w-3xl leading-relaxed">
-            A collection of full-stack projects showcasing expertise in AI/ML,
-            3D graphics, real-time systems, and modern web development.
+          <p className="text-muted-foreground max-w-3xl text-lg leading-relaxed">
+            A collection of full-stack projects showcasing expertise in AI/ML, 3D graphics,
+            real-time systems, and modern web development.
           </p>
         </div>
 
         <div className="flex items-center gap-4 pt-4">
-          <div className="flex items-center gap-2 text-sm text-muted-foreground">
-            <div className="h-2 w-2 rounded-full bg-cyber-cyan animate-pulse" />
+          <div className="text-muted-foreground flex items-center gap-2 text-sm">
+            <div className="bg-cyber-cyan h-2 w-2 animate-pulse rounded-full" />
             <span>{projects.length} Projects</span>
           </div>
-          <div className="h-4 w-px bg-border" />
-          <div className="flex items-center gap-2 text-sm text-muted-foreground">
-            <div className="h-2 w-2 rounded-full bg-cyber-magenta animate-pulse" />
+          <div className="bg-border h-4 w-px" />
+          <div className="text-muted-foreground flex items-center gap-2 text-sm">
+            <div className="bg-cyber-magenta h-2 w-2 animate-pulse rounded-full" />
             <span>{allTags.length} Categories</span>
           </div>
-          <div className="h-4 w-px bg-border" />
-          <div className="flex items-center gap-2 text-sm text-muted-foreground">
-            <div className="h-2 w-2 rounded-full bg-cyber-purple animate-pulse" />
+          <div className="bg-border h-4 w-px" />
+          <div className="text-muted-foreground flex items-center gap-2 text-sm">
+            <div className="bg-cyber-purple h-2 w-2 animate-pulse rounded-full" />
             <span>{allStackItems.length} Technologies</span>
           </div>
         </div>
       </div>
 
-      <ProjectsGrid
-        projects={projects}
-        allTags={allTags}
-        allStackItems={allStackItems}
-      />
+      <ProjectsGrid projects={projects} allTags={allTags} allStackItems={allStackItems} />
     </div>
   );
 }

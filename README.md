@@ -1,11 +1,13 @@
 # RK Portfolio - Modern Digital Experience
 
 ## About
+
 A cutting-edge personal portfolio showcasing immersive digital experiences through modern web technologies. Built with Next.js, TypeScript, and featuring interactive 3D elements powered by Three.js and React Three Fiber. The portfolio emphasizes performance, accessibility, and stunning visual experiences while maintaining excellent Web Vitals.
 
 **Live Portfolio**: [roshankhatri.dev](https://roshankhatri.dev)
 
 ## Features
+
 - 🚀 **High Performance**: Edge-friendly rendering with minimal blocking scripts
 - 🎨 **Stunning Visuals**: Interactive 3D hero scenes with Framer Motion animations
 - 📱 **Responsive Design**: Mobile-first approach with seamless cross-device experience
@@ -17,6 +19,7 @@ A cutting-edge personal portfolio showcasing immersive digital experiences throu
 ## Technology Stack
 
 ### Frontend
+
 - **Next.js 16** with App Router and React Server Components
 - **React 19** for cutting-edge features
 - **TypeScript** for type safety throughout
@@ -25,11 +28,13 @@ A cutting-edge personal portfolio showcasing immersive digital experiences throu
 - **Three.js** + **@react-three/fiber** for 3D experiences
 
 ### Content & Data
+
 - **MDX** via Contentlayer for blog posts and projects
 - **Supabase** for database, authentication, and storage
 - **Row-Level Security** policies on all tables
 
 ### Development Tools
+
 - **Turborepo** for monorepo management
 - **pnpm** as package manager
 - **ESLint** + **Prettier** for code quality
@@ -61,10 +66,12 @@ shin/
 ## Development
 
 ### Prerequisites
+
 - Node.js >= 18.0.0
 - pnpm >= 8.0.0
 
 ### Getting Started
+
 ```bash
 # Install dependencies
 pnpm install
@@ -86,19 +93,23 @@ pnpm format
 ```
 
 ## Key Pages
+
 - **Home** (`/`) - Interactive 3D hero with featured projects
 - **Projects** (`/projects`) - Complete project portfolio
 - **Blog** (`/blog`) - Technical writing and insights
 - **Contact** - Get in touch for opportunities
 
 ## Content Management
+
 Projects and blog posts are written in MDX format and automatically processed by Contentlayer. Each piece of content includes:
+
 - Metadata (title, date, tags, featured status)
 - SEO optimization
 - Reading time calculation
 - Responsive layouts
 
 ## Performance Optimizations
+
 - Server-side rendering with React Server Components
 - Image optimization with Next.js Image component
 - Code splitting and lazy loading
@@ -106,7 +117,9 @@ Projects and blog posts are written in MDX format and automatically processed by
 - CSS-in-JS with Tailwind for minimal bundle size
 
 ## Contributing
+
 See `AGENTS.md` for detailed development guidelines and contribution process.
 
 ## License
+
 No explicit license yet; assume private/internal use unless a LICENSE is added.

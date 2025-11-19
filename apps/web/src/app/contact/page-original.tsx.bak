@@ -1,0 +1,237 @@
+"use client";
+
+import { useState, useEffect } from "react";
+import { Button } from "@/components/ui/button";
+import { ArrowRight, Sparkles, MessageSquare } from "lucide-react";
+import { ContactForm } from "@/components/contact/contact-form";
+import { ContactInfo } from "@/components/contact/contact-info";
+import { ContactStats } from "@/components/contact/contact-stats";
+import { ContactBenefits } from "@/components/contact/contact-benefits";
+import { FAQ } from "@/components/ui/faq";
+
+// Mock submission function - replace with actual API call
+async function handleContactSubmit(_formData: any) {
+  // Simulate API call
+  await new Promise((resolve) => setTimeout(resolve, 2000));
+
+  // Simulate success - in real app, this would be actual API response
+  if (Math.random() > 0.1) {
+    // 90% success rate for demo
+    return Promise.resolve();
+  } else {
+    throw new Error("Failed to send message. Please try again.");
+  }
+}
+
+export default function ContactPage() {
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    setIsVisible(true);
+  }, []);
+
+  const faqItems = [
+    {
+      question: "What's your typical project timeline?",
+      answer:
+        "Project timelines vary based on scope. Small projects take 2-4 weeks, larger applications 2-6 months. I provide detailed timelines after understanding your requirements.",
+    },
+    {
+      question: "Do you work with startups?",
+      answer:
+        "Absolutely! I enjoy working with startups and have experience with various engagement models, including equity arrangements.",
+    },
+    {
+      question: "What technologies do you use?",
+      answer:
+        "I specialize in React, Next.js, TypeScript, Node.js, and cloud platforms. I stay current with industry trends.",
+    },
+    {
+      question: "Do you provide ongoing support?",
+      answer:
+        "Yes, I offer maintenance and support packages. We can customize a plan that fits your needs and budget.",
+    },
+    {
+      question: "How do you handle confidentiality?",
+      answer:
+        "I take confidentiality seriously and can sign NDAs. All client information is kept strictly confidential.",
+    },
+    {
+      question: "Can you work globally?",
+      answer:
+        "Yes, I work with international clients and am comfortable with different time zones. I use modern communication tools.",
+    },
+  ];
+
+  return (
+    <div className="relative min-h-screen overflow-hidden bg-black text-white">
+      {/* Background */}
+      <div className="absolute inset-0 -z-10 overflow-hidden">
+        {/* Circuit grid */}
+        <div className="absolute inset-0 opacity-20">
+          <div
+            className="h-full w-full"
+            style={{
+              backgroundImage: `
+                linear-gradient(rgba(0, 245, 255, 0.08) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 245, 255, 0.08) 1px, transparent 1px),
+                radial-gradient(circle at 10% 0%, rgba(236, 72, 153, 0.12), transparent 60%),
+                radial-gradient(circle at 90% 100%, rgba(94, 234, 212, 0.16), transparent 55%)
+              `,
+              backgroundSize: "40px 40px, 40px 40px, 480px 480px, 520px 520px",
+            }}
+          />
+        </div>
+
+        {/* Soft glows */}
+        <div className="absolute right-0 top-0 h-80 w-80 animate-pulse rounded-full bg-cyber-cyan/15 blur-3xl" />
+        <div
+          className="absolute bottom-0 left-0 h-80 w-80 animate-pulse rounded-full bg-cyber-magenta/15 blur-3xl"
+          style={{ animationDelay: "1s" }}
+        />
+        <div
+          className="absolute left-1/2 top-1/3 h-72 w-72 animate-pulse rounded-full bg-cyber-purple/12 blur-3xl"
+          style={{ animationDelay: "1.5s" }}
+        />
+
+        {/* Scanlines */}
+        <div className="pointer-events-none absolute inset-0 opacity-10">
+          <div
+            className="h-full w-full"
+            style={{
+              background: `repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(0, 245, 255, 0.06) 2px,
+                rgba(0, 245, 255, 0.06) 4px
+              )`,
+            }}
+          />
+        </div>
+      </div>
+
+      <div className="relative z-10 mx-auto max-w-7xl px-6 py-20">
+        {/* Hero Section */}
+        <section
+          className={`mb-16 transition-all duration-1000 ${
+            isVisible ? "translate-y-0 opacity-100" : "translate-y-12 opacity-0"
+          }`}
+        >
+          <div className="mx-auto max-w-4xl text-center">
+            {/* Badge */}
+            <div className="mb-6 inline-block">
+              <div className="flex items-center gap-2 rounded-full border border-cyber-cyan/50 bg-gradient-to-r from-cyber-cyan/20 to-cyber-purple/20 px-4 py-2 shadow-lg shadow-cyber-cyan/20">
+                <Sparkles className="h-4 w-4 text-cyber-cyan" />
+                <span className="text-xs font-semibold tracking-[0.25em] text-cyber-cyan/90">
+                  OPEN FOR COLLABORATION
+                </span>
+              </div>
+            </div>
+
+            {/* Main Heading */}
+            <h1 className="mb-4 text-4xl font-black tracking-tight md:text-6xl">
+              <span className="animate-text-shimmer bg-gradient-to-r from-cyber-cyan via-cyber-magenta to-cyber-purple bg-clip-text text-transparent">
+                Let&apos;s Build What&apos;s Next
+              </span>
+            </h1>
+
+            <p className="mx-auto mb-10 max-w-2xl text-base leading-relaxed text-slate-300 md:text-lg">
+              Share your idea, product, or role you&apos;re hiring for. I&apos;ll respond with a clear,
+              practical next stepno fluff, just straightforward collaboration.
+            </p>
+
+            {/* Stats Grid */}
+            <ContactStats />
+
+            {/* CTA Button */}
+            <Button
+              onClick={() =>
+                document.getElementById("contact-form")?.scrollIntoView({ behavior: "smooth" })
+              }
+              className="group inline-flex h-auto items-center gap-2 rounded-lg border-2 border-cyber-cyan bg-transparent px-8 py-3 text-sm font-semibold uppercase tracking-[0.25em] text-cyber-cyan shadow-lg shadow-cyber-cyan/30 transition-all duration-300 hover:-translate-y-0.5 hover:bg-cyber-cyan/10 hover:shadow-cyber-cyan/50"
+            >
+              Start a Project
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </Button>
+          </div>
+        </section>
+
+        {/* Benefits Section */}
+        <section className="mb-16">
+          <ContactBenefits />
+        </section>
+
+        {/* Main Content Section */}
+        <div className="mb-20 grid gap-12 lg:grid-cols-3">
+          {/* Contact Form */}
+          <div className="lg:col-span-2">
+            <div
+              id="contact-form"
+              className="group relative overflow-hidden rounded-2xl border border-cyber-cyan/30 bg-gradient-to-br from-neutral-900/80 to-black/80 shadow-2xl shadow-cyber-cyan/10 backdrop-blur-xl transition-all duration-300 hover:border-cyber-cyan/50 hover:shadow-cyber-cyan/20"
+            >
+              <div className="pointer-events-none absolute inset-px rounded-[1rem] border border-cyber-cyan/10" />
+
+              <div className="relative z-10 border-b border-cyber-cyan/20 p-6">
+                <div className="mb-2 flex items-center gap-3">
+                  <div className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-cyber-cyan to-cyber-purple">
+                    <MessageSquare className="h-5 w-5 text-black" />
+                  </div>
+                  <div className="text-left">
+                    <h2 className="text-2xl font-bold text-white">Share a bit about your needs</h2>
+                    <p className="mt-1 text-xs text-slate-400">
+                      The more context you provide, the better I can prepare for our conversation.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="relative z-10 p-6">
+                <ContactForm onSubmit={handleContactSubmit} />
+              </div>
+            </div>
+          </div>
+
+          {/* Contact Information Sidebar */}
+          <ContactInfo />
+        </div>
+
+        {/* FAQ Section */}
+        <section className="mb-20">
+          <div className="mx-auto mb-12 max-w-3xl text-center">
+            <h2 className="mb-4 text-3xl font-bold text-white md:text-4xl">Frequently asked</h2>
+            <p className="text-sm text-slate-400 md:text-base">
+              Practical details about timelines, collaboration, and support.
+            </p>
+          </div>
+
+          <FAQ items={faqItems} className="grid gap-6 md:grid-cols-2" />
+        </section>
+
+        {/* Final CTA Section */}
+        <section className="relative overflow-hidden rounded-2xl border border-cyber-cyan/30 bg-gradient-to-br from-neutral-900/80 to-black/80 p-8 text-center backdrop-blur-xl md:p-12">
+          <div className="absolute inset-0 bg-gradient-to-r from-cyber-cyan/5 via-cyber-magenta/5 to-cyber-purple/5" />
+
+          <div className="relative z-10">
+            <h2 className="mb-4 text-2xl font-bold text-white md:text-3xl">
+              Ready when you are.
+            </h2>
+            <p className="mx-auto mb-8 max-w-2xl text-sm text-slate-400 md:text-base">
+              Whether you&apos;re validating an idea, scaling an existing product, or hiring for a key
+              role, I&apos;d love to hear what you&apos;re working on.
+            </p>
+            <Button
+              onClick={() =>
+                document.getElementById("contact-form")?.scrollIntoView({ behavior: "smooth" })
+              }
+              className="group inline-flex h-auto items-center gap-2 rounded-lg border-2 border-cyber-cyan bg-transparent px-8 py-3 text-sm font-semibold uppercase tracking-[0.25em] text-cyber-cyan shadow-lg shadow-cyber-cyan/30 transition-all duration-300 hover:-translate-y-0.5 hover:bg-cyber-cyan/10 hover:shadow-cyber-cyan/50"
+            >
+              Contact Roshan
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </Button>
+          </div>
+        </section>
+      </div>
+    </div>
+  );
+}

@@ -1,0 +1,512 @@
+"use client";
+
+import { Button } from "@/components/ui/button";
+import { CyberpunkCard } from "@/components/ui/cyberpunk-card";
+import { Badge } from "@/components/ui/badge";
+import {
+  ArrowRight,
+  Mail,
+  Award,
+  Star,
+} from "lucide-react";
+import Link from "next/link";
+import { allProjects, allPosts } from "contentlayer/generated";
+import { GlitchText } from "@/components/effects/glitch-text";
+import { TechStackGrid } from "@/components/effects/logo-3d";
+import { DataBars, CircularProgress, StatCounter, LiveDataFeed } from "@/components/effects/data-viz";
+import { motion } from "framer-motion";
+import { useAudioSystem } from "@/lib/audio-system";
+import { EnhancedHero } from "@/components/hero/enhanced-hero";
+
+export default function CyberpunkHomePage() {
+  const { playClick, playSuccess } = useAudioSystem();
+  const { quality, fps } = usePerformance();
+
+  // Get featured projects and recent posts
+  const featuredProjects = allProjects
+    .filter((project) => project.published && project.tags.includes("Featured"))
+    .slice(0, 3);
+
+  const recentPosts = allPosts
+    .filter((post) => post.published)
+    .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime())
+    .slice(0, 2);
+
+  const skills = [
+    { label: 'React/Next.js', value: 95, max: 100 },
+    { label: 'TypeScript', value: 90, max: 100 },
+    { label: 'Three.js/WebGL', value: 85, max: 100 },
+    { label: 'Node.js/Backend', value: 88, max: 100 },
+    { label: 'System Design', value: 92, max: 100 },
+  ];
+
+  const technologies = [
+    'react', 'nextjs', 'typescript', 'tailwind',
+    'threejs', 'nodejs', 'postgresql', 'docker',
+    'graphql', 'redis', 'github', 'vercel',
+  ];
+
+  return (
+    <div className="flex flex-col relative">
+      {/* Matrix background effect */}
+      <MatrixText className="hidden md:block" />
+
+      {/* Hero Section with 3D Scene */}
+      <section className="border-border/40 relative min-h-screen w-full overflow-hidden border-b bg-black">
+        {/* 3D Background */}
+        <div className="absolute inset-0 z-0">
+          <Suspense fallback={<div className="w-full h-full bg-black/50" />}>
+            <CyberpunkHero3D />
+          </Suspense>
+        </div>
+
+        {/* Animated glow orbs */}
+        <div className="pointer-events-none absolute inset-0 z-[1] overflow-hidden">
+          <motion.div
+            className="bg-cyber-cyan/20 absolute -left-32 -top-32 h-64 w-64 rounded-full blur-3xl"
+            animate={{
+              scale: [1, 1.2, 1],
+              opacity: [0.2, 0.4, 0.2],
+            }}
+            transition={{
+              duration: 8,
+              repeat: Infinity,
+              ease: 'easeInOut',
+            }}
+          />
+          <motion.div
+            className="bg-cyber-magenta/15 absolute -right-40 -top-40 h-80 w-80 rounded-full blur-3xl"
+            animate={{
+              scale: [1, 1.3, 1],
+              opacity: [0.15, 0.35, 0.15],
+            }}
+            transition={{
+              duration: 10,
+              repeat: Infinity,
+              ease: 'easeInOut',
+              delay: 1,
+            }}
+          />
+        </div>
+
+        {/* Cyberpunk grid overlay */}
+        <div className="pointer-events-none absolute inset-0 z-[1]">
+          <div
+            className="h-full w-full"
+            style={{
+              backgroundImage: `linear-gradient(to right, rgba(0,245,255,0.03) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(0,245,255,0.03) 1px, transparent 1px)`,
+              backgroundSize: "60px 60px",
+            }}
+          />
+        </div>
+
+        {/* Hero Content */}
+        <div className="relative z-10 flex min-h-screen items-center">
+          <div className="container mx-auto px-4 py-20 md:py-32">
+            <div className="max-w-5xl space-y-10">
+              {/* Status Badge with glitch */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8 }}
+                className="inline-flex"
+              >
+                <Badge
+                  variant="cyan"
+                  className="animate-pulse-glow shadow-cyber-cyan/30 border-cyber-cyan/30 hover:shadow-cyber-cyan/60 group relative border px-5 py-2.5 text-sm font-medium shadow-lg backdrop-blur-sm transition-all duration-300 hover:scale-110 hover:shadow-2xl"
+                >
+                  <motion.span
+                    className="relative mr-2 flex h-2.5 w-2.5"
+                    animate={{
+                      scale: [1, 1.2, 1],
+                    }}
+                    transition={{
+                      duration: 2,
+                      repeat: Infinity,
+                    }}
+                  >
+                    <span className="bg-cyber-cyan absolute inline-flex h-full w-full animate-ping rounded-full opacity-75"></span>
+                    <span className="bg-cyber-cyan shadow-cyber-cyan/50 animate-pulse-ring relative inline-flex h-2.5 w-2.5 rounded-full shadow-lg"></span>
+                  </motion.span>
+                  <span className="relative z-10">SYSTEM ONLINE • AVAILABLE FOR OPPORTUNITIES</span>
+                </Badge>
+              </motion.div>
+
+              {/* Main Heading with glitch effect */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2, duration: 0.8 }}
+                className="space-y-6"
+              >
+                <div className="space-y-3">
+                  <div className="text-muted-foreground flex items-center gap-2 text-sm font-semibold uppercase tracking-wider">
+                    <motion.div
+                      className="from-cyber-cyan via-cyber-cyan/50 h-px w-16 bg-gradient-to-r to-transparent"
+                      animate={{
+                        opacity: [0.5, 1, 0.5],
+                        scaleX: [0.8, 1, 0.8],
+                      }}
+                      transition={{
+                        duration: 3,
+                        repeat: Infinity,
+                      }}
+                    />
+                    <span>Full-Stack Developer • 3D Specialist</span>
+                  </div>
+
+                  <h1 className="text-5xl font-black leading-tight tracking-tight sm:text-7xl md:text-8xl lg:text-9xl">
+                    <GlitchText
+                      text="ROSHAN KHATRI"
+                      intensity="medium"
+                      color="multi"
+                      className="text-6xl md:text-8xl lg:text-9xl"
+                    />
+                  </h1>
+                </div>
+
+                <motion.h2
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.4, duration: 0.8 }}
+                  className="text-foreground/90 text-2xl font-semibold leading-snug sm:text-3xl md:text-4xl lg:text-5xl"
+                >
+                  Crafting{" "}
+                  <span className="gradient-text relative inline-block">
+                    immersive digital experiences
+                  </span>
+                  <br />
+                  with cutting-edge technology
+                </motion.h2>
+              </motion.div>
+
+              {/* Terminal-style description */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.6, duration: 0.8 }}
+                className="max-w-3xl"
+              >
+                <TerminalText
+                  lines={[
+                    'Initializing portfolio system...',
+                    'Loading expertise: React • Next.js • Three.js • Node.js',
+                    'Specialization: High-performance web applications + 3D experiences',
+                    'Status: Ready for collaboration',
+                  ]}
+                  className="text-sm md:text-base"
+                />
+              </motion.div>
+
+              {/* CTA Buttons */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.8, duration: 0.8 }}
+                className="flex flex-col flex-wrap gap-4 pt-6 sm:flex-row"
+              >
+                <Button
+                  size="lg"
+                  variant="holographic"
+                  asChild
+                  enableSound
+                  glowIntensity="high"
+                  className="group relative w-full overflow-hidden shadow-2xl transition-all duration-300 hover:scale-105 sm:w-auto"
+                  onClick={() => playClick()}
+                >
+                  <Link href="/projects">
+                    <span className="relative z-10 flex items-center justify-center gap-2">
+                      <Zap className="h-5 w-5" />
+                      Explore Projects
+                      <ArrowRight className="h-5 w-5 transition-all duration-300 group-hover:translate-x-2" />
+                    </span>
+                  </Link>
+                </Button>
+
+                <Button
+                  size="lg"
+                  variant="plasma"
+                  asChild
+                  enableSound
+                  glowIntensity="high"
+                  className="w-full overflow-hidden shadow-2xl transition-all duration-300 hover:scale-105 sm:w-auto"
+                >
+                  <Link href="/contact">
+                    <span className="relative z-10 flex items-center gap-2">
+                      <Mail className="h-4 w-4" />
+                      Get in Touch
+                    </span>
+                  </Link>
+                </Button>
+
+                <Button
+                  size="lg"
+                  variant="neon"
+                  asChild
+                  enableSound
+                  className="w-full overflow-hidden shadow-2xl transition-all duration-300 hover:scale-105 sm:w-auto"
+                >
+                  <a href="/api/resume" download>
+                    <span className="relative z-10 flex items-center gap-2">
+                      <Award className="h-4 w-4" />
+                      Download Resume
+                    </span>
+                  </a>
+                </Button>
+              </motion.div>
+
+              {/* Social Links */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 1, duration: 0.8 }}
+                className="flex gap-4 pt-6"
+              >
+                {[
+                  { href: "https://github.com/roshankhatri", icon: Github, label: "GitHub", color: "cyan" },
+                  { href: "https://linkedin.com/in/roshankhatri", icon: Linkedin, label: "LinkedIn", color: "magenta" },
+                  { href: "mailto:hello@roshankhatri.dev", icon: Mail, label: "Email", color: "purple" },
+                ].map((social, index) => (
+                  <motion.a
+                    key={social.label}
+                    href={social.href}
+                    target={social.href.startsWith('http') ? '_blank' : undefined}
+                    rel={social.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                    className={`border-border/50 bg-background/60 text-muted-foreground hover:border-cyber-${social.color}/60 hover:bg-cyber-${social.color}/10 hover:text-cyber-${social.color} hover:shadow-cyber-${social.color}/50 group relative flex h-14 w-14 items-center justify-center rounded-xl border-2 backdrop-blur-md transition-all duration-300 hover:-translate-y-2 hover:scale-125 hover:shadow-2xl`}
+                    initial={{ opacity: 0, scale: 0 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 1 + index * 0.1, type: 'spring' }}
+                    whileHover={{ rotate: 5 }}
+                  >
+                    <social.icon className="h-6 w-6 transition-all duration-300 group-hover:scale-125" />
+                  </motion.a>
+                ))}
+              </motion.div>
+
+              {/* Live stats */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 1.2, duration: 0.8 }}
+                className="grid grid-cols-3 gap-6 pt-12"
+              >
+                <StatCounter value={50} suffix="+" label="Projects" duration={2} />
+                <StatCounter value={10} suffix="+" label="Years" duration={2.5} />
+                <StatCounter value={100} suffix="K+" label="Lines of Code" duration={3} />
+              </motion.div>
+            </div>
+          </div>
+        </div>
+
+        {/* FPS Counter (debug) */}
+        {quality !== 'high' && (
+          <div className="absolute top-24 right-4 z-50 px-3 py-2 bg-black/80 border border-cyber-cyan/30 rounded-lg text-xs font-mono text-cyber-cyan">
+            FPS: {fps} | Quality: {quality.toUpperCase()}
+          </div>
+        )}
+      </section>
+
+      {/* Skills Section with Data Visualization */}
+      <section className="border-border/40 relative overflow-hidden border-b py-24">
+        <div className="container relative z-10 mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mx-auto mb-16 max-w-4xl space-y-6 text-center"
+          >
+            <GlitchText text="TECHNICAL ARSENAL" className="text-4xl md:text-6xl font-black" color="cyan" />
+            <p className="text-muted-foreground/90 text-lg md:text-xl">
+              Mastery across the full stack with specialized expertise in 3D web experiences
+            </p>
+          </motion.div>
+
+          <div className="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
+            {/* Skill bars */}
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+            >
+              <CyberpunkCard variant="neon" className="p-8">
+                <h3 className="text-2xl font-bold text-cyber-cyan mb-6" style={{ fontFamily: 'monospace' }}>
+                  CORE COMPETENCIES
+                </h3>
+                <DataBars data={skills} />
+              </CyberpunkCard>
+            </motion.div>
+
+            {/* Circular progress */}
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="space-y-8"
+            >
+              <div className="grid grid-cols-2 gap-6">
+                <CircularProgress value={95} label="Frontend" />
+                <CircularProgress value={88} label="Backend" />
+                <CircularProgress value={85} label="3D/WebGL" />
+                <CircularProgress value={92} label="Architecture" />
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Tech stack logos */}
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            className="mt-20"
+          >
+            <TechStackGrid technologies={technologies} />
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Featured Projects */}
+      <section className="from-background via-background/98 to-background relative overflow-hidden bg-gradient-to-b py-24">
+        <div className="container relative z-10 mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mx-auto mb-16 max-w-4xl space-y-6 text-center"
+          >
+            <GlitchText text="FEATURED PROJECTS" className="text-4xl md:text-6xl font-black" color="magenta" />
+            <p className="text-muted-foreground/90 text-lg md:text-xl">
+              Transforming ideas into production-ready solutions with real impact
+            </p>
+          </motion.div>
+
+          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+            {featuredProjects.map((project, index) => (
+              <motion.div
+                key={project.slug}
+                initial={{ opacity: 0, y: 50, scale: 0.9 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1, duration: 0.6 }}
+              >
+                <Link href={`/projects/${project.slug}`}>
+                  <CyberpunkCard
+                    variant="holographic"
+                    enable3D
+                    enableSound
+                    glowColor={['cyan', 'magenta', 'purple'][index % 3] as any}
+                    intensity="high"
+                    className="h-full p-6 space-y-4"
+                  >
+                    <div className="flex gap-2 flex-wrap">
+                      {project.tags.slice(0, 3).map((tag) => (
+                        <Badge key={tag} variant="cyan">{tag}</Badge>
+                      ))}
+                    </div>
+
+                    <h3 className="text-2xl font-bold gradient-text">
+                      {project.title}
+                    </h3>
+
+                    <p className="text-muted-foreground">
+                      {project.summary}
+                    </p>
+
+                    <div className="flex gap-2 flex-wrap">
+                      {project.stack.slice(0, 4).map((tech) => (
+                        <Badge key={tech} variant="outline" className="text-xs">
+                          {tech}
+                        </Badge>
+                      ))}
+                    </div>
+
+                    <div className="flex items-center justify-between pt-4 border-t border-cyber-cyan/20">
+                      <span className="text-sm font-semibold text-cyber-cyan">View Details</span>
+                      <ArrowRight className="h-4 w-4 text-cyber-cyan" />
+                    </div>
+                  </CyberpunkCard>
+                </Link>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Live Data Feed Section */}
+      <section className="border-border/40 border-t py-24 bg-black/50">
+        <div className="container mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="max-w-4xl mx-auto"
+          >
+            <LiveDataFeed className="w-full" />
+          </motion.div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="relative overflow-hidden py-24 border-t border-border/40">
+        <div className="container relative z-10 mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+          >
+            <CyberpunkCard
+              variant="holographic"
+              intensity="high"
+              glowColor="multi"
+              className="max-w-4xl mx-auto p-12 text-center space-y-8"
+            >
+              <GlitchText text="LET'S BUILD SOMETHING AMAZING" className="text-3xl md:text-5xl font-black" />
+
+              <p className="text-muted-foreground/90 text-lg md:text-xl max-w-2xl mx-auto">
+                I'm always interested in hearing about new projects, opportunities, and collaborations.
+                Let's create the future together.
+              </p>
+
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Button
+                  size="lg"
+                  variant="holographic"
+                  asChild
+                  enableSound
+                  glowIntensity="high"
+                  onClick={() => playSuccess()}
+                >
+                  <Link href="/contact">
+                    <span className="flex items-center gap-2">
+                      <Mail className="h-5 w-5" />
+                      Start a Conversation
+                      <ArrowRight className="h-5 w-5" />
+                    </span>
+                  </Link>
+                </Button>
+
+                <Button
+                  size="lg"
+                  variant="plasma"
+                  asChild
+                  enableSound
+                  glowIntensity="high"
+                >
+                  <a href="/api/resume" download>
+                    <span className="flex items-center gap-2">
+                      <Award className="h-5 w-5" />
+                      Download Resume
+                    </span>
+                  </a>
+                </Button>
+              </div>
+            </CyberpunkCard>
+          </motion.div>
+        </div>
+      </section>
+    </div>
+  );
+}

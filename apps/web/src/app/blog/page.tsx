@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { allPosts } from "contentlayer/generated";
 import { BlogGrid } from "@/components/blog/blog-grid";
+import { BlogHero } from "@/components/blog/blog-hero";
 
 export const metadata: Metadata = {
   title: "Blog | Roshan Khatri",
@@ -25,23 +26,18 @@ export default function BlogPage() {
     });
 
   // Extract unique tags
-  const allTags = Array.from(
-    new Set(posts.flatMap((post) => post.tags))
-  ).sort();
+  const allTags = Array.from(new Set(posts.flatMap((post) => post.tags))).sort();
 
   return (
-    <div className="container py-12">
-      <div className="mb-12 space-y-4">
-        <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">
-          <span className="gradient-text">Blog</span>
-        </h1>
-        <p className="text-lg text-muted-foreground max-w-2xl">
-          Technical deep-dives, tutorials, and insights on building
-          high-performance web applications.
-        </p>
-      </div>
+    <div className="min-h-screen bg-black">
+      {/* Content */}
+      <div className="relative">
+        <BlogHero postsCount={posts.length} tagsCount={allTags.length} />
 
-      <BlogGrid posts={posts} allTags={allTags} />
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
+          <BlogGrid posts={posts} allTags={allTags} />
+        </div>
+      </div>
     </div>
   );
 }

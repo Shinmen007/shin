@@ -49,11 +49,11 @@ const footerLinks = [
 
 export function Footer() {
   return (
-    <footer className="relative border-t border-border/40 bg-gradient-to-b from-background via-background to-background/95 overflow-hidden">
+    <footer className="border-border/40 from-background via-background to-background/95 relative overflow-hidden border-t bg-gradient-to-b">
       {/* Animated background effects */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <motion.div
-          className="absolute -top-40 -right-40 w-80 h-80 bg-cyber-cyan/10 rounded-full blur-3xl"
+          className="bg-cyber-cyan/10 absolute -right-40 -top-40 h-80 w-80 rounded-full blur-3xl"
           animate={{
             scale: [1, 1.2, 1],
             opacity: [0.3, 0.5, 0.3],
@@ -65,7 +65,7 @@ export function Footer() {
           }}
         />
         <motion.div
-          className="absolute -bottom-40 -left-40 w-80 h-80 bg-cyber-magenta/10 rounded-full blur-3xl"
+          className="bg-cyber-magenta/10 absolute -bottom-40 -left-40 h-80 w-80 rounded-full blur-3xl"
           animate={{
             scale: [1, 1.3, 1],
             opacity: [0.2, 0.4, 0.2],
@@ -79,7 +79,7 @@ export function Footer() {
         />
       </div>
 
-      <div className="container mx-auto px-4 py-16 relative z-10">
+      <div className="container relative z-10 mx-auto px-4 py-16">
         <div className="grid grid-cols-1 gap-12 md:grid-cols-4">
           {/* Brand */}
           <motion.div
@@ -94,7 +94,7 @@ export function Footer() {
                 whileHover={{ scale: 1.05, rotate: 5 }}
                 transition={{ type: "spring", stiffness: 300 }}
               >
-                <span className="gradient-text text-2xl font-bold flex items-center gap-2">
+                <span className="gradient-text flex items-center gap-2 text-2xl font-bold">
                   Roshan Khatri
                   <motion.div
                     animate={{
@@ -107,14 +107,14 @@ export function Footer() {
                       ease: "easeInOut",
                     }}
                   >
-                    <Sparkles className="h-4 w-4 text-cyber-cyan" />
+                    <Sparkles className="text-cyber-cyan h-4 w-4" />
                   </motion.div>
                 </span>
               </motion.div>
             </Link>
-            <p className="text-sm text-muted-foreground leading-relaxed">
-              Full-Stack Developer crafting performant, accessible web experiences
-              with modern technologies and creative solutions.
+            <p className="text-muted-foreground text-sm leading-relaxed">
+              Full-Stack Developer crafting performant, accessible web experiences with modern
+              technologies and creative solutions.
             </p>
             <div className="flex space-x-3">
               {socialLinks.map((social, index) => {
@@ -125,7 +125,7 @@ export function Footer() {
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="relative group"
+                    className="group relative"
                     aria-label={social.name}
                     initial={{ opacity: 0, scale: 0.8 }}
                     whileInView={{ opacity: 1, scale: 1 }}
@@ -135,11 +135,11 @@ export function Footer() {
                     whileTap={{ scale: 0.95 }}
                   >
                     <motion.div
-                      className="absolute -inset-2 rounded-lg bg-gradient-to-r from-cyber-cyan via-cyber-magenta to-cyber-purple opacity-0 group-hover:opacity-75 blur-lg"
+                      className="from-cyber-cyan via-cyber-magenta to-cyber-purple absolute -inset-2 rounded-lg bg-gradient-to-r opacity-0 blur-lg group-hover:opacity-75"
                       transition={{ duration: 0.3 }}
                     />
-                    <div className="relative flex h-10 w-10 items-center justify-center rounded-lg border border-border/50 bg-background/50 backdrop-blur-sm transition-all group-hover:border-cyber-cyan/50 group-hover:bg-cyber-cyan/10">
-                      <Icon className="h-5 w-5 text-muted-foreground group-hover:text-cyber-cyan transition-colors" />
+                    <div className="border-border/50 bg-background/50 group-hover:border-cyber-cyan/50 group-hover:bg-cyber-cyan/10 relative flex h-10 w-10 items-center justify-center rounded-lg border backdrop-blur-sm transition-all">
+                      <Icon className="text-muted-foreground group-hover:text-cyber-cyan h-5 w-5 transition-colors" />
                     </div>
                   </motion.a>
                 );
@@ -157,8 +157,8 @@ export function Footer() {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: (sectionIndex + 1) * 0.1 }}
             >
-              <h3 className="text-sm font-bold uppercase tracking-wider text-foreground flex items-center gap-2">
-                <div className="h-px w-6 bg-gradient-to-r from-cyber-cyan to-transparent" />
+              <h3 className="text-foreground flex items-center gap-2 text-sm font-bold uppercase tracking-wider">
+                <div className="from-cyber-cyan h-px w-6 bg-gradient-to-r to-transparent" />
                 {section.title}
               </h3>
               <ul className="space-y-3">
@@ -172,16 +172,16 @@ export function Footer() {
                   >
                     <Link
                       href={link.href}
-                      className="group relative inline-flex items-center text-sm text-muted-foreground transition-all hover:text-foreground"
+                      className="text-muted-foreground hover:text-foreground group relative inline-flex items-center text-sm transition-all"
                     >
                       <motion.span
-                        className="absolute -left-2 opacity-0 group-hover:opacity-100 transition-opacity"
+                        className="absolute -left-2 opacity-0 transition-opacity group-hover:opacity-100"
                         initial={{ x: -5 }}
                         whileHover={{ x: 0 }}
                       >
                         →
                       </motion.span>
-                      <span className="group-hover:translate-x-1 transition-transform duration-300">
+                      <span className="transition-transform duration-300 group-hover:translate-x-1">
                         {link.name}
                       </span>
                     </Link>
@@ -199,27 +199,28 @@ export function Footer() {
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.4 }}
           >
-            <h3 className="text-sm font-bold uppercase tracking-wider text-foreground flex items-center gap-2">
-              <div className="h-px w-6 bg-gradient-to-r from-cyber-cyan to-transparent" />
+            <h3 className="text-foreground flex items-center gap-2 text-sm font-bold uppercase tracking-wider">
+              <div className="from-cyber-cyan h-px w-6 bg-gradient-to-r to-transparent" />
               Get in Touch
             </h3>
-            <p className="text-sm text-muted-foreground leading-relaxed">
+            <p className="text-muted-foreground text-sm leading-relaxed">
               Interested in working together? Let's create something amazing.
             </p>
             <Link href="/contact">
               <motion.div
-                className="relative inline-flex items-center justify-center rounded-xl border-2 border-cyber-cyan/40 bg-background/50 backdrop-blur-sm px-6 py-3 text-sm font-semibold text-cyber-cyan overflow-hidden group"
+                className="border-cyber-cyan/40 bg-background/50 text-cyber-cyan group relative inline-flex items-center justify-center overflow-hidden rounded-xl border-2 px-6 py-3 text-sm font-semibold backdrop-blur-sm"
                 whileHover={{ scale: 1.05, borderColor: "rgba(34, 211, 238, 0.8)" }}
                 whileTap={{ scale: 0.95 }}
               >
                 <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-cyber-cyan/20 via-cyber-magenta/20 to-cyber-purple/20 opacity-0 group-hover:opacity-100"
+                  className="from-cyber-cyan/20 via-cyber-magenta/20 to-cyber-purple/20 absolute inset-0 bg-gradient-to-r opacity-0 group-hover:opacity-100"
                   transition={{ duration: 0.3 }}
                 />
                 <motion.div
                   className="absolute inset-0"
                   style={{
-                    background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent)",
+                    background:
+                      "linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent)",
                   }}
                   animate={{
                     x: ["-100%", "200%"],
@@ -238,14 +239,14 @@ export function Footer() {
 
         {/* Bottom bar */}
         <motion.div
-          className="mt-16 border-t border-border/40 pt-8"
+          className="border-border/40 mt-16 border-t pt-8"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.6 }}
         >
           <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
-            <p className="text-center text-sm text-muted-foreground flex items-center gap-2">
+            <p className="text-muted-foreground flex items-center gap-2 text-center text-sm">
               © {new Date().getFullYear()} Roshan Khatri. Made with
               <motion.span
                 animate={{
@@ -257,15 +258,14 @@ export function Footer() {
                   ease: "easeInOut",
                 }}
               >
-                <Heart className="h-4 w-4 text-red-500 fill-red-500" />
+                <Heart className="h-4 w-4 fill-red-500 text-red-500" />
               </motion.span>
               and lots of coffee
             </p>
-            <p className="text-center text-sm text-muted-foreground">
-              Built with{" "}
-              <span className="font-semibold text-cyber-cyan">Next.js</span>,{" "}
-              <span className="font-semibold text-cyber-magenta">TypeScript</span>, and{" "}
-              <span className="font-semibold text-cyber-purple">Three.js</span>
+            <p className="text-muted-foreground text-center text-sm">
+              Built with <span className="text-cyber-cyan font-semibold">Next.js</span>,{" "}
+              <span className="text-cyber-magenta font-semibold">TypeScript</span>, and{" "}
+              <span className="text-cyber-purple font-semibold">Three.js</span>
             </p>
           </div>
         </motion.div>

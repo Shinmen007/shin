@@ -217,7 +217,6 @@ Sections:
 - Ultra-wide:
   - Maximum content width; avoid lines too long to read.
 
-
 ---
 
 ## 8. Component API Guidelines
@@ -244,4 +243,3 @@ Sections:
   - Use skeletons for project cards and post previews.
 - Error:
   - Show an inline error message with a “Retry” button for failed API fetches, plus a link to contact if the issue persists.
-

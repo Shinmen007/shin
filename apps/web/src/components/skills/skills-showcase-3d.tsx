@@ -396,37 +396,37 @@ const categories = [
     id: "all",
     label: "All Skills",
     icon: "https://api.iconify.design/lucide:sparkles.svg?color=%2300f5ff",
-    iconDark: "https://api.iconify.design/lucide:sparkles.svg?color=%2300f5ff"
+    iconDark: "https://api.iconify.design/lucide:sparkles.svg?color=%2300f5ff",
   },
   {
     id: "frontend",
     label: "Frontend",
     icon: "https://api.iconify.design/lucide:layout-dashboard.svg?color=%2300f5ff",
-    iconDark: "https://api.iconify.design/lucide:layout-dashboard.svg?color=%2300f5ff"
+    iconDark: "https://api.iconify.design/lucide:layout-dashboard.svg?color=%2300f5ff",
   },
   {
     id: "backend",
     label: "Backend",
     icon: "https://api.iconify.design/lucide:server.svg?color=%23ff00ff",
-    iconDark: "https://api.iconify.design/lucide:server.svg?color=%23ff00ff"
+    iconDark: "https://api.iconify.design/lucide:server.svg?color=%23ff00ff",
   },
   {
     id: "devops",
     label: "DevOps",
     icon: "https://api.iconify.design/lucide:rocket.svg?color=%239d00ff",
-    iconDark: "https://api.iconify.design/lucide:rocket.svg?color=%239d00ff"
+    iconDark: "https://api.iconify.design/lucide:rocket.svg?color=%239d00ff",
   },
   {
     id: "languages",
     label: "Languages",
     icon: "https://api.iconify.design/lucide:code-2.svg?color=%2300ff88",
-    iconDark: "https://api.iconify.design/lucide:code-2.svg?color=%2300ff88"
+    iconDark: "https://api.iconify.design/lucide:code-2.svg?color=%2300ff88",
   },
   {
     id: "tools",
     label: "Tools",
     icon: "https://api.iconify.design/lucide:wrench.svg?color=%2399a0a8",
-    iconDark: "https://api.iconify.design/lucide:wrench.svg?color=%2399a0a8"
+    iconDark: "https://api.iconify.design/lucide:wrench.svg?color=%2399a0a8",
   },
 ] as const;
 
@@ -511,13 +511,13 @@ function SkillCard3D({ skill, index }: { skill: Skill; index: number }) {
       className="relative"
       whileHover={{
         scale: 1.05,
-        transition: { duration: 0.3, ease: "easeOut" }
+        transition: { duration: 0.3, ease: "easeOut" },
       }}
     >
       <Card
         className={cn(
-          "group relative overflow-hidden transition-all duration-500 cursor-pointer",
-          "border-2 border-border/40",
+          "group relative cursor-pointer overflow-hidden transition-all duration-500",
+          "border-border/40 border-2",
           "bg-gradient-to-br backdrop-blur-xl",
           getCategoryColor(),
           isHovered && "border-cyber-cyan/60 shadow-2xl"
@@ -571,7 +571,7 @@ function SkillCard3D({ skill, index }: { skill: Skill; index: number }) {
           }}
           transition={{
             opacity: { duration: 0.4 },
-            rotate: { duration: 3, repeat: Infinity, ease: "linear" }
+            rotate: { duration: 3, repeat: Infinity, ease: "linear" },
           }}
         />
 
@@ -588,15 +588,15 @@ function SkillCard3D({ skill, index }: { skill: Skill; index: number }) {
           }}
           transition={{
             opacity: { duration: 0.3 },
-            x: { duration: 1.2, ease: "easeInOut" }
+            x: { duration: 1.2, ease: "easeInOut" },
           }}
         />
 
         {/* Glassmorphism overlay */}
-        <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-transparent to-black/5 rounded-lg" />
+        <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-white/5 via-transparent to-black/5" />
 
         <CardContent
-          className="relative p-6 space-y-4"
+          className="relative space-y-4 p-6"
           style={{
             transform: "translateZ(75px)",
             transformStyle: "preserve-3d",
@@ -604,7 +604,7 @@ function SkillCard3D({ skill, index }: { skill: Skill; index: number }) {
         >
           {/* Logo Container with enhanced 3D effect */}
           <motion.div
-            className="relative flex items-center justify-center h-24 w-24 mx-auto mb-4"
+            className="relative mx-auto mb-4 flex h-24 w-24 items-center justify-center"
             style={{
               transform: "translateZ(100px)",
             }}
@@ -654,7 +654,7 @@ function SkillCard3D({ skill, index }: { skill: Skill; index: number }) {
 
             {/* Logo background with depth */}
             <motion.div
-              className="relative w-20 h-20 rounded-2xl border-2 p-4 flex items-center justify-center"
+              className="relative flex h-20 w-20 items-center justify-center rounded-2xl border-2 p-4"
               style={{
                 background: `linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05))`,
                 borderColor: `${skill.color}40`,
@@ -671,7 +671,7 @@ function SkillCard3D({ skill, index }: { skill: Skill; index: number }) {
                 alt={`${skill.name} logo`}
                 width={56}
                 height={56}
-                className="object-contain drop-shadow-2xl relative z-10"
+                className="relative z-10 object-contain drop-shadow-2xl"
                 style={{
                   filter: isHovered ? `drop-shadow(0 0 8px ${skill.color})` : "none",
                 }}
@@ -699,7 +699,7 @@ function SkillCard3D({ skill, index }: { skill: Skill; index: number }) {
           <div className="space-y-3">
             <div className="flex items-start justify-between gap-2">
               <motion.h3
-                className="font-bold text-lg text-foreground transition-all duration-300"
+                className="text-foreground text-lg font-bold transition-all duration-300"
                 style={{
                   transform: "translateZ(60px)",
                   textShadow: isHovered ? `0 0 20px ${skill.color}60` : "none",
@@ -708,13 +708,10 @@ function SkillCard3D({ skill, index }: { skill: Skill; index: number }) {
               >
                 {skill.name}
               </motion.h3>
-              <motion.div
-                style={{ transform: "translateZ(60px)" }}
-                whileHover={{ scale: 1.1 }}
-              >
+              <motion.div style={{ transform: "translateZ(60px)" }} whileHover={{ scale: 1.1 }}>
                 <Badge
                   variant="outline"
-                  className="text-xs font-semibold border-2 transition-all duration-300"
+                  className="border-2 text-xs font-semibold transition-all duration-300"
                   style={{
                     borderColor: isHovered ? `${skill.color}80` : `${skill.color}40`,
                     color: skill.color,
@@ -729,7 +726,7 @@ function SkillCard3D({ skill, index }: { skill: Skill; index: number }) {
 
             {/* Enhanced Progress Bar */}
             <div className="space-y-2" style={{ transform: "translateZ(50px)" }}>
-              <div className="flex justify-between text-xs text-muted-foreground">
+              <div className="text-muted-foreground flex justify-between text-xs">
                 <span className="font-medium">Proficiency</span>
                 <motion.span
                   className="font-bold tabular-nums"
@@ -748,7 +745,8 @@ function SkillCard3D({ skill, index }: { skill: Skill; index: number }) {
               </div>
 
               {/* Progress container with 3D effect */}
-              <div className="relative h-3 w-full overflow-hidden rounded-full bg-muted/30 border border-border/20"
+              <div
+                className="bg-muted/30 border-border/20 relative h-3 w-full overflow-hidden rounded-full border"
                 style={{
                   boxShadow: "inset 0 2px 4px rgba(0,0,0,0.2)",
                 }}
@@ -763,7 +761,7 @@ function SkillCard3D({ skill, index }: { skill: Skill; index: number }) {
 
                 {/* Animated progress bar */}
                 <motion.div
-                  className="relative h-full rounded-full overflow-hidden"
+                  className="relative h-full overflow-hidden rounded-full"
                   style={{
                     background: `linear-gradient(90deg, ${skill.color}, ${skill.color}cc, ${skill.color})`,
                     boxShadow: isHovered
@@ -782,7 +780,8 @@ function SkillCard3D({ skill, index }: { skill: Skill; index: number }) {
                   <motion.div
                     className="absolute inset-0"
                     style={{
-                      background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent)",
+                      background:
+                        "linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent)",
                     }}
                     animate={{
                       x: ["-100%", "200%"],
@@ -797,7 +796,7 @@ function SkillCard3D({ skill, index }: { skill: Skill; index: number }) {
 
                   {/* Highlight strip */}
                   <div
-                    className="absolute top-0 left-0 right-0 h-[40%] rounded-full"
+                    className="absolute left-0 right-0 top-0 h-[40%] rounded-full"
                     style={{
                       background: "linear-gradient(180deg, rgba(255,255,255,0.3), transparent)",
                     }}
@@ -809,7 +808,7 @@ function SkillCard3D({ skill, index }: { skill: Skill; index: number }) {
                       {[...Array(3)].map((_, i) => (
                         <motion.div
                           key={i}
-                          className="absolute w-1 h-1 rounded-full bg-white"
+                          className="absolute h-1 w-1 rounded-full bg-white"
                           style={{
                             left: `${20 + i * 25}%`,
                             top: "50%",
@@ -834,14 +833,14 @@ function SkillCard3D({ skill, index }: { skill: Skill; index: number }) {
 
             {/* Category Tag with enhanced styling */}
             <motion.div
-              className="flex items-center gap-2 text-xs uppercase tracking-wider pt-2"
+              className="flex items-center gap-2 pt-2 text-xs uppercase tracking-wider"
               style={{
                 transform: "translateZ(40px)",
                 color: `${skill.color}cc`,
               }}
             >
               <div
-                className="w-2 h-2 rounded-full"
+                className="h-2 w-2 rounded-full"
                 style={{
                   backgroundColor: skill.color,
                   boxShadow: `0 0 8px ${skill.color}`,
@@ -854,7 +853,7 @@ function SkillCard3D({ skill, index }: { skill: Skill; index: number }) {
 
         {/* Enhanced corner accents */}
         <motion.div
-          className="absolute top-0 right-0 w-24 h-24 opacity-30 blur-3xl rounded-full"
+          className="absolute right-0 top-0 h-24 w-24 rounded-full opacity-30 blur-3xl"
           style={{
             background: `radial-gradient(circle, ${skill.color}, transparent)`,
           }}
@@ -870,7 +869,7 @@ function SkillCard3D({ skill, index }: { skill: Skill; index: number }) {
         />
 
         <motion.div
-          className="absolute bottom-0 left-0 w-24 h-24 opacity-20 blur-3xl rounded-full"
+          className="absolute bottom-0 left-0 h-24 w-24 rounded-full opacity-20 blur-3xl"
           style={{
             background: `radial-gradient(circle, ${skill.color}, transparent)`,
           }}
@@ -892,7 +891,7 @@ function SkillCard3D({ skill, index }: { skill: Skill; index: number }) {
             {[...Array(4)].map((_, i) => (
               <motion.div
                 key={i}
-                className="absolute w-1 h-1 rounded-full"
+                className="absolute h-1 w-1 rounded-full"
                 style={{
                   backgroundColor: skill.color,
                   boxShadow: `0 0 10px ${skill.color}`,
@@ -934,7 +933,7 @@ export function SkillsShowcase3D() {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="flex flex-wrap gap-3 justify-center"
+        className="flex flex-wrap justify-center gap-3"
       >
         {categories.map((category, index) => {
           const isSelected = selectedCategory === category.id;
@@ -944,9 +943,9 @@ export function SkillsShowcase3D() {
               onClick={() => setSelectedCategory(category.id)}
               className={cn(
                 "group relative overflow-hidden rounded-xl px-6 py-3 text-sm font-bold transition-all duration-300",
-                "border-2 hover:scale-105 active:scale-95 backdrop-blur-sm",
+                "border-2 backdrop-blur-sm hover:scale-105 active:scale-95",
                 isSelected
-                  ? "border-cyber-cyan bg-cyber-cyan/20 text-cyber-cyan shadow-2xl shadow-cyber-cyan/30"
+                  ? "border-cyber-cyan bg-cyber-cyan/20 text-cyber-cyan shadow-cyber-cyan/30 shadow-2xl"
                   : "border-border/50 bg-background/40 text-muted-foreground hover:border-cyber-cyan/50 hover:text-foreground hover:bg-background/60"
               )}
               initial={{ opacity: 0, y: 20, scale: 0.9 }}
@@ -969,7 +968,7 @@ export function SkillsShowcase3D() {
               {isSelected && (
                 <>
                   <motion.div
-                    className="absolute inset-0 bg-gradient-to-r from-cyber-cyan/30 via-cyber-cyan/15 to-transparent"
+                    className="from-cyber-cyan/30 via-cyber-cyan/15 absolute inset-0 bg-gradient-to-r to-transparent"
                     layoutId="categoryHighlight"
                     transition={{
                       type: "spring",
@@ -980,7 +979,7 @@ export function SkillsShowcase3D() {
 
                   {/* Pulsing glow effect */}
                   <motion.div
-                    className="absolute -inset-[2px] rounded-xl blur-lg bg-cyber-cyan/30"
+                    className="bg-cyber-cyan/30 absolute -inset-[2px] rounded-xl blur-lg"
                     animate={{
                       opacity: [0.3, 0.6, 0.3],
                       scale: [0.95, 1.05, 0.95],
@@ -996,7 +995,8 @@ export function SkillsShowcase3D() {
                   <motion.div
                     className="absolute inset-0 rounded-xl"
                     style={{
-                      background: "conic-gradient(from 0deg, transparent, rgba(34, 211, 238, 0.3), transparent)",
+                      background:
+                        "conic-gradient(from 0deg, transparent, rgba(34, 211, 238, 0.3), transparent)",
                     }}
                     animate={{
                       rotate: 360,
@@ -1014,7 +1014,8 @@ export function SkillsShowcase3D() {
               <motion.div
                 className="absolute inset-0 opacity-0 group-hover:opacity-100"
                 style={{
-                  background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent)",
+                  background:
+                    "linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent)",
                 }}
                 animate={{
                   x: ["-100%", "200%"],
@@ -1026,7 +1027,7 @@ export function SkillsShowcase3D() {
                 }}
               />
 
-              <span className="relative flex items-center gap-2 z-10">
+              <span className="relative z-10 flex items-center gap-2">
                 <motion.span
                   className="flex items-center justify-center"
                   animate={{
@@ -1058,7 +1059,7 @@ export function SkillsShowcase3D() {
 
       {/* Skills Grid with enhanced 3D perspective and improved responsiveness */}
       <motion.div
-        className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5"
+        className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5"
         style={{
           perspective: "1500px",
           perspectiveOrigin: "center",
@@ -1078,7 +1079,7 @@ export function SkillsShowcase3D() {
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.5 }}
-        className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 mt-16"
+        className="mt-16 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4"
       >
         {[
           {
@@ -1119,8 +1120,8 @@ export function SkillsShowcase3D() {
           >
             <Card
               className={cn(
-                "relative overflow-hidden border-2 border-border/40 backdrop-blur-xl",
-                "bg-gradient-to-br backdrop-blur-sm transition-all duration-500 cursor-pointer group",
+                "border-border/40 relative overflow-hidden border-2 backdrop-blur-xl",
+                "group cursor-pointer bg-gradient-to-br backdrop-blur-sm transition-all duration-500",
                 stat.gradient,
                 "hover:border-opacity-60 hover:shadow-2xl"
               )}
@@ -1147,7 +1148,7 @@ export function SkillsShowcase3D() {
 
               {/* Glow effect on hover */}
               <motion.div
-                className="absolute -inset-[2px] rounded-xl blur-xl opacity-0 group-hover:opacity-60"
+                className="absolute -inset-[2px] rounded-xl opacity-0 blur-xl group-hover:opacity-60"
                 style={{
                   background: `radial-gradient(circle, var(--${stat.color})60, transparent)`,
                 }}
@@ -1158,7 +1159,8 @@ export function SkillsShowcase3D() {
               <motion.div
                 className="absolute inset-0 opacity-0 group-hover:opacity-100"
                 style={{
-                  background: "linear-gradient(110deg, transparent, rgba(255,255,255,0.1), transparent)",
+                  background:
+                    "linear-gradient(110deg, transparent, rgba(255,255,255,0.1), transparent)",
                 }}
                 animate={{
                   x: ["-100%", "200%"],
@@ -1170,9 +1172,9 @@ export function SkillsShowcase3D() {
                 }}
               />
 
-              <CardContent className="relative p-6 text-center space-y-3">
+              <CardContent className="relative space-y-3 p-6 text-center">
                 <motion.div
-                  className={cn("text-5xl font-bold gradient-text", `text-${stat.color}`)}
+                  className={cn("gradient-text text-5xl font-bold", `text-${stat.color}`)}
                   initial={{ opacity: 0, scale: 0 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{
@@ -1187,13 +1189,14 @@ export function SkillsShowcase3D() {
                 >
                   {stat.count}
                 </motion.div>
-                <div className="text-sm text-muted-foreground font-semibold uppercase tracking-wide">
+                <div className="text-muted-foreground text-sm font-semibold uppercase tracking-wide">
                   {stat.label} {stat.label !== "Expert" && "Technologies"}
                   {stat.label === "Expert" && "Level Skills"}
                 </div>
 
                 {/* Decorative corner elements */}
-                <div className="absolute top-2 right-2 w-12 h-12 opacity-20 blur-2xl rounded-full"
+                <div
+                  className="absolute right-2 top-2 h-12 w-12 rounded-full opacity-20 blur-2xl"
                   style={{
                     background: `radial-gradient(circle, var(--${stat.color}), transparent)`,
                   }}

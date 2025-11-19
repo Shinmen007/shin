@@ -4,19 +4,8 @@
   "cover": "/images/projects/collab-platform.jpg",
   "repoUrl": "https://github.com/roshankhatri/collab-platform",
   "liveUrl": "https://collab-platform-demo.vercel.app",
-  "tags": [
-    "Featured",
-    "Full-Stack",
-    "Real-Time"
-  ],
-  "stack": [
-    "Next.js",
-    "TypeScript",
-    "WebSockets",
-    "PostgreSQL",
-    "Redis",
-    "Tailwind CSS"
-  ],
+  "tags": ["Featured", "Full-Stack", "Real-Time"],
+  "stack": ["Next.js", "TypeScript", "WebSockets", "PostgreSQL", "Redis", "Tailwind CSS"],
   "metrics": {
     "lighthouse": 98,
     "perfScore": 95,

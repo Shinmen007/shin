@@ -1,12 +1,7 @@
 {
   "title": "Building Performant 3D Experiences on the Web",
   "summary": "A deep dive into optimizing Three.js applications for production, covering rendering techniques, memory management, and mobile performance.",
-  "tags": [
-    "WebGL",
-    "Performance",
-    "Three.js",
-    "Tutorial"
-  ],
+  "tags": ["WebGL", "Performance", "Three.js", "Tutorial"],
   "publishedAt": "2024-10-15T00:00:00.000Z",
   "published": true,
   "body": {

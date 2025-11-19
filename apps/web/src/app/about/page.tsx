@@ -34,7 +34,15 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
 // Animated Counter Component
-function AnimatedCounter({ end, duration = 2000, suffix = "" }: { end: number; duration?: number; suffix?: string }) {
+function AnimatedCounter({
+  end,
+  duration = 2000,
+  suffix = "",
+}: {
+  end: number;
+  duration?: number;
+  suffix?: string;
+}) {
   const [count, setCount] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -79,8 +87,9 @@ function AnimatedCounter({ end, duration = 2000, suffix = "" }: { end: number; d
   }, [isVisible, end, duration]);
 
   return (
-    <div ref={ref} className="text-4xl md:text-5xl font-bold gradient-text">
-      {count}{suffix}
+    <div ref={ref} className="gradient-text text-4xl font-bold md:text-5xl">
+      {count}
+      {suffix}
     </div>
   );
 }
@@ -112,18 +121,18 @@ function SkillBar({ skill, level, delay = 0 }: { skill: string; level: number; d
   return (
     <div ref={ref} className="space-y-2">
       <div className="flex items-center justify-between">
-        <span className="text-sm font-semibold text-foreground">{skill}</span>
-        <span className="text-sm font-bold text-cyber-cyan">{level}%</span>
+        <span className="text-foreground text-sm font-semibold">{skill}</span>
+        <span className="text-cyber-cyan text-sm font-bold">{level}%</span>
       </div>
-      <div className="relative h-3 w-full overflow-hidden rounded-full bg-muted/30 border border-border/50">
+      <div className="bg-muted/30 border-border/50 relative h-3 w-full overflow-hidden rounded-full border">
         <div
-          className="absolute inset-y-0 left-0 rounded-full bg-gradient-to-r from-cyber-cyan via-cyber-magenta to-cyber-purple transition-all duration-1000 ease-out"
+          className="from-cyber-cyan via-cyber-magenta to-cyber-purple absolute inset-y-0 left-0 rounded-full bg-gradient-to-r transition-all duration-1000 ease-out"
           style={{ width: `${width}%` }}
         >
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-shimmer" />
+          <div className="animate-shimmer absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent" />
         </div>
         <div
-          className="absolute inset-y-0 left-0 rounded-full bg-cyber-cyan/20 blur-md transition-all duration-1000 ease-out"
+          className="bg-cyber-cyan/20 absolute inset-y-0 left-0 rounded-full blur-md transition-all duration-1000 ease-out"
           style={{ width: `${width}%` }}
         />
       </div>
@@ -290,55 +299,72 @@ export default function AboutPage() {
   return (
     <div className="relative overflow-hidden">
       {/* Animated Background */}
-      <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-cyber-cyan/5 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '8s' }} />
-        <div className="absolute top-1/3 right-1/4 w-96 h-96 bg-cyber-magenta/5 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '10s', animationDelay: '2s' }} />
-        <div className="absolute bottom-0 left-1/3 w-96 h-96 bg-cyber-purple/5 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '12s', animationDelay: '4s' }} />
+      <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
+        <div
+          className="bg-cyber-cyan/5 absolute left-1/4 top-0 h-96 w-96 animate-pulse rounded-full blur-3xl"
+          style={{ animationDuration: "8s" }}
+        />
+        <div
+          className="bg-cyber-magenta/5 absolute right-1/4 top-1/3 h-96 w-96 animate-pulse rounded-full blur-3xl"
+          style={{ animationDuration: "10s", animationDelay: "2s" }}
+        />
+        <div
+          className="bg-cyber-purple/5 absolute bottom-0 left-1/3 h-96 w-96 animate-pulse rounded-full blur-3xl"
+          style={{ animationDuration: "12s", animationDelay: "4s" }}
+        />
       </div>
 
-      <div className="container py-12 md:py-20 max-w-7xl">
+      <div className="container max-w-7xl py-12 md:py-20">
         {/* Hero Section */}
-        <section className="mb-32 relative">
+        <section className="relative mb-32">
           <div className="space-y-8">
             {/* Badge with animation */}
-            <div className="inline-flex animate-in fade-in slide-in-from-bottom-1 duration-700">
+            <div className="animate-in fade-in slide-in-from-bottom-1 inline-flex duration-700">
               <Badge
                 variant="cyan"
-                className="px-5 py-2.5 text-sm font-semibold shadow-lg shadow-cyber-cyan/30 backdrop-blur-xl animate-pulse-glow"
+                className="shadow-cyber-cyan/30 animate-pulse-glow px-5 py-2.5 text-sm font-semibold shadow-lg backdrop-blur-xl"
               >
-                <Sparkles className="mr-2 h-4 w-4 animate-spin" style={{ animationDuration: '3s' }} />
+                <Sparkles
+                  className="mr-2 h-4 w-4 animate-spin"
+                  style={{ animationDuration: "3s" }}
+                />
                 About Me
               </Badge>
             </div>
 
             {/* Main Heading with staggered animation */}
-            <div className="space-y-6 animate-in fade-in slide-in-from-bottom-2 duration-1000 delay-150">
-              <h1 className="text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight">
-                <span className="gradient-text inline-block relative">
+            <div className="animate-in fade-in slide-in-from-bottom-2 space-y-6 delay-150 duration-1000">
+              <h1 className="text-6xl font-bold tracking-tight md:text-7xl lg:text-8xl">
+                <span className="gradient-text relative inline-block">
                   Building Digital Experiences
-                  <span className="absolute inset-0 gradient-text blur-2xl opacity-30 animate-pulse pointer-events-none" style={{ animationDuration: '4s' }}>
+                  <span
+                    className="gradient-text pointer-events-none absolute inset-0 animate-pulse opacity-30 blur-2xl"
+                    style={{ animationDuration: "4s" }}
+                  >
                     Building Digital Experiences
                   </span>
                 </span>
               </h1>
-              <p className="text-xl md:text-2xl text-muted-foreground max-w-4xl leading-relaxed">
+              <p className="text-muted-foreground max-w-4xl text-xl leading-relaxed md:text-2xl">
                 I'm a passionate{" "}
-                <span className="font-bold text-cyber-cyan">full-stack developer</span> with a love for creating
-                exceptional digital experiences. With expertise spanning from{" "}
-                <span className="font-bold text-cyber-magenta">pixel-perfect frontend design</span> to{" "}
-                <span className="font-bold text-cyber-purple">robust backend architecture</span>, I bring ideas to
-                life through code.
+                <span className="text-cyber-cyan font-bold">full-stack developer</span> with a love
+                for creating exceptional digital experiences. With expertise spanning from{" "}
+                <span className="text-cyber-magenta font-bold">pixel-perfect frontend design</span>{" "}
+                to <span className="text-cyber-purple font-bold">robust backend architecture</span>,
+                I bring ideas to life through code.
               </p>
             </div>
 
             {/* Interests Pills */}
-            <div className="flex flex-wrap gap-3 pt-4 animate-in fade-in slide-in-from-bottom-3 duration-1000 delay-300">
+            <div className="animate-in fade-in slide-in-from-bottom-3 flex flex-wrap gap-3 pt-4 delay-300 duration-1000">
               {interests.map((interest, index) => (
                 <div
                   key={interest.label}
-                  className={`group flex items-center gap-2 px-4 py-2 rounded-full border border-cyber-${interest.color}/30 bg-cyber-${interest.color}/5 backdrop-blur-xl hover:border-cyber-${interest.color} hover:bg-cyber-${interest.color}/10 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-cyber-${interest.color}/30 cursor-default`}
+                  className={`group flex items-center gap-2 rounded-full border px-4 py-2 border-cyber-${interest.color}/30 bg-cyber-${interest.color}/5 backdrop-blur-xl hover:border-cyber-${interest.color} hover:bg-cyber-${interest.color}/10 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-cyber-${interest.color}/30 cursor-default`}
                 >
-                  <interest.icon className={`h-4 w-4 text-cyber-${interest.color} group-hover:scale-110 transition-transform`} />
+                  <interest.icon
+                    className={`h-4 w-4 text-cyber-${interest.color} transition-transform group-hover:scale-110`}
+                  />
                   <span className="text-sm font-medium">{interest.label}</span>
                 </div>
               ))}
@@ -346,25 +372,25 @@ export default function AboutPage() {
           </div>
 
           {/* Animated Stats Grid */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 pt-16 animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-500">
+          <div className="animate-in fade-in slide-in-from-bottom-4 grid grid-cols-2 gap-6 pt-16 delay-500 duration-1000 md:grid-cols-4">
             {stats.map((stat, index) => (
               <Card
                 key={stat.label}
-                className="group relative overflow-hidden border-border/50 bg-gradient-to-br from-background/80 via-background/60 to-background/40 backdrop-blur-xl hover:border-cyber-cyan/50 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-cyber-cyan/20"
+                className="border-border/50 from-background/80 via-background/60 to-background/40 hover:border-cyber-cyan/50 hover:shadow-cyber-cyan/20 group relative overflow-hidden bg-gradient-to-br backdrop-blur-xl transition-all duration-500 hover:scale-105 hover:shadow-2xl"
                 style={{ animationDelay: `${600 + index * 100}ms` }}
               >
                 {/* Animated gradient background */}
-                <div className="absolute inset-0 bg-gradient-to-br from-cyber-cyan/0 via-cyber-cyan/5 to-cyber-magenta/5 opacity-0 group-hover:opacity-100 transition-all duration-500" />
+                <div className="from-cyber-cyan/0 via-cyber-cyan/5 to-cyber-magenta/5 absolute inset-0 bg-gradient-to-br opacity-0 transition-all duration-500 group-hover:opacity-100" />
 
                 {/* Corner glow */}
-                <div className="absolute -top-20 -right-20 w-40 h-40 bg-cyber-cyan/30 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="bg-cyber-cyan/30 absolute -right-20 -top-20 h-40 w-40 rounded-full opacity-0 blur-3xl transition-opacity duration-500 group-hover:opacity-100" />
 
-                <CardContent className="relative p-6 md:p-8 text-center space-y-4">
-                  <div className="inline-flex items-center justify-center h-14 w-14 rounded-xl bg-cyber-cyan/10 border border-cyber-cyan/20 group-hover:scale-110 group-hover:rotate-12 transition-all duration-500">
-                    <stat.icon className="h-7 w-7 text-cyber-cyan" />
+                <CardContent className="relative space-y-4 p-6 text-center md:p-8">
+                  <div className="bg-cyber-cyan/10 border-cyber-cyan/20 inline-flex h-14 w-14 items-center justify-center rounded-xl border transition-all duration-500 group-hover:rotate-12 group-hover:scale-110">
+                    <stat.icon className="text-cyber-cyan h-7 w-7" />
                   </div>
                   <AnimatedCounter end={stat.value} suffix={stat.suffix} />
-                  <div className="text-sm text-muted-foreground font-medium">{stat.label}</div>
+                  <div className="text-muted-foreground text-sm font-medium">{stat.label}</div>
                 </CardContent>
               </Card>
             ))}
@@ -375,37 +401,55 @@ export default function AboutPage() {
         <section className="mb-32 space-y-8">
           <div className="space-y-6">
             <div className="inline-flex">
-              <Badge variant="outline" className="px-4 py-2 text-sm font-medium border-cyber-magenta/40 text-cyber-magenta">
+              <Badge
+                variant="outline"
+                className="border-cyber-magenta/40 text-cyber-magenta px-4 py-2 text-sm font-medium"
+              >
                 <Heart className="mr-2 h-4 w-4" />
                 My Story
               </Badge>
             </div>
 
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold">
+            <h2 className="text-4xl font-bold md:text-5xl lg:text-6xl">
               <span className="gradient-text">The Journey So Far</span>
             </h2>
 
-            <div className="grid md:grid-cols-2 gap-8 text-lg text-muted-foreground leading-relaxed">
+            <div className="text-muted-foreground grid gap-8 text-lg leading-relaxed md:grid-cols-2">
               <div className="space-y-6">
-                <p className="relative pl-6 border-l-2 border-cyber-cyan">
-                  My journey into software development began with a simple curiosity about how websites work. That
-                  curiosity grew into a <span className="font-semibold text-cyber-cyan">passion for creating beautiful, functional, and performant web applications</span> that make a difference in people's lives.
+                <p className="border-cyber-cyan relative border-l-2 pl-6">
+                  My journey into software development began with a simple curiosity about how
+                  websites work. That curiosity grew into a{" "}
+                  <span className="text-cyber-cyan font-semibold">
+                    passion for creating beautiful, functional, and performant web applications
+                  </span>{" "}
+                  that make a difference in people's lives.
                 </p>
-                <p className="relative pl-6 border-l-2 border-cyber-magenta">
+                <p className="border-cyber-magenta relative border-l-2 pl-6">
                   Over the years, I've had the privilege of working on diverse projects—from{" "}
-                  <span className="font-semibold text-cyber-magenta">e-commerce platforms handling millions of users</span> to{" "}
-                  <span className="font-semibold text-cyber-purple">interactive 3D experiences</span> that push the boundaries of what's possible on the web.
+                  <span className="text-cyber-magenta font-semibold">
+                    e-commerce platforms handling millions of users
+                  </span>{" "}
+                  to{" "}
+                  <span className="text-cyber-purple font-semibold">
+                    interactive 3D experiences
+                  </span>{" "}
+                  that push the boundaries of what's possible on the web.
                 </p>
               </div>
               <div className="space-y-6">
-                <p className="relative pl-6 border-l-2 border-cyber-purple">
-                  Each project has taught me something new and reinforced my commitment to continuous learning and
-                  improvement. I believe in <span className="font-semibold text-cyber-purple">writing code that not only works but is elegant, maintainable, and scalable</span>.
+                <p className="border-cyber-purple relative border-l-2 pl-6">
+                  Each project has taught me something new and reinforced my commitment to
+                  continuous learning and improvement. I believe in{" "}
+                  <span className="text-cyber-purple font-semibold">
+                    writing code that not only works but is elegant, maintainable, and scalable
+                  </span>
+                  .
                 </p>
-                <p className="relative pl-6 border-l-2 border-cyber-cyan">
-                  Today, I specialize in building full-stack applications with modern technologies, exploring the
-                  intersection of <span className="font-semibold text-cyber-cyan">AI/ML and web development</span>, creating more
-                  intelligent and intuitive user experiences.
+                <p className="border-cyber-cyan relative border-l-2 pl-6">
+                  Today, I specialize in building full-stack applications with modern technologies,
+                  exploring the intersection of{" "}
+                  <span className="text-cyber-cyan font-semibold">AI/ML and web development</span>,
+                  creating more intelligent and intuitive user experiences.
                 </p>
               </div>
             </div>
@@ -416,70 +460,88 @@ export default function AboutPage() {
         <section className="mb-32 space-y-12">
           <div className="space-y-6 text-center">
             <div className="inline-flex">
-              <Badge variant="outline" className="px-4 py-2 text-sm font-medium border-cyber-purple/40 text-cyber-purple">
+              <Badge
+                variant="outline"
+                className="border-cyber-purple/40 text-cyber-purple px-4 py-2 text-sm font-medium"
+              >
                 <Code2 className="mr-2 h-4 w-4" />
                 Technical Skills
               </Badge>
             </div>
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold">
+            <h2 className="text-4xl font-bold md:text-5xl lg:text-6xl">
               <span className="gradient-text">My Tech Stack</span>
             </h2>
-            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+            <p className="text-muted-foreground mx-auto max-w-3xl text-lg">
               A comprehensive overview of my technical expertise across different domains
             </p>
           </div>
 
-          <div className="grid lg:grid-cols-3 gap-8">
+          <div className="grid gap-8 lg:grid-cols-3">
             {/* Frontend Skills */}
-            <Card className="relative overflow-hidden border-border/50 bg-gradient-to-br from-background/90 to-background/70 backdrop-blur-xl hover:border-cyber-cyan/50 transition-all duration-500">
-              <div className="absolute inset-0 bg-gradient-to-br from-cyber-cyan/5 to-transparent opacity-50" />
+            <Card className="border-border/50 from-background/90 to-background/70 hover:border-cyber-cyan/50 relative overflow-hidden bg-gradient-to-br backdrop-blur-xl transition-all duration-500">
+              <div className="from-cyber-cyan/5 absolute inset-0 bg-gradient-to-br to-transparent opacity-50" />
               <CardHeader className="relative space-y-4">
                 <div className="flex items-center gap-3">
-                  <div className="h-12 w-12 rounded-xl bg-cyber-cyan/10 border border-cyber-cyan/20 flex items-center justify-center">
-                    <Layout className="h-6 w-6 text-cyber-cyan" />
+                  <div className="bg-cyber-cyan/10 border-cyber-cyan/20 flex h-12 w-12 items-center justify-center rounded-xl border">
+                    <Layout className="text-cyber-cyan h-6 w-6" />
                   </div>
                   <CardTitle className="text-2xl">Frontend</CardTitle>
                 </div>
               </CardHeader>
               <CardContent className="relative space-y-4">
                 {skills.frontend.map((skill, index) => (
-                  <SkillBar key={skill.name} skill={skill.name} level={skill.level} delay={index * 100} />
+                  <SkillBar
+                    key={skill.name}
+                    skill={skill.name}
+                    level={skill.level}
+                    delay={index * 100}
+                  />
                 ))}
               </CardContent>
             </Card>
 
             {/* Backend Skills */}
-            <Card className="relative overflow-hidden border-border/50 bg-gradient-to-br from-background/90 to-background/70 backdrop-blur-xl hover:border-cyber-magenta/50 transition-all duration-500">
-              <div className="absolute inset-0 bg-gradient-to-br from-cyber-magenta/5 to-transparent opacity-50" />
+            <Card className="border-border/50 from-background/90 to-background/70 hover:border-cyber-magenta/50 relative overflow-hidden bg-gradient-to-br backdrop-blur-xl transition-all duration-500">
+              <div className="from-cyber-magenta/5 absolute inset-0 bg-gradient-to-br to-transparent opacity-50" />
               <CardHeader className="relative space-y-4">
                 <div className="flex items-center gap-3">
-                  <div className="h-12 w-12 rounded-xl bg-cyber-magenta/10 border border-cyber-magenta/20 flex items-center justify-center">
-                    <Database className="h-6 w-6 text-cyber-magenta" />
+                  <div className="bg-cyber-magenta/10 border-cyber-magenta/20 flex h-12 w-12 items-center justify-center rounded-xl border">
+                    <Database className="text-cyber-magenta h-6 w-6" />
                   </div>
                   <CardTitle className="text-2xl">Backend</CardTitle>
                 </div>
               </CardHeader>
               <CardContent className="relative space-y-4">
                 {skills.backend.map((skill, index) => (
-                  <SkillBar key={skill.name} skill={skill.name} level={skill.level} delay={index * 100} />
+                  <SkillBar
+                    key={skill.name}
+                    skill={skill.name}
+                    level={skill.level}
+                    delay={index * 100}
+                  />
                 ))}
               </CardContent>
             </Card>
 
             {/* Tools & DevOps */}
-            <Card className="relative overflow-hidden border-border/50 bg-gradient-to-br from-background/90 to-background/70 backdrop-blur-xl hover:border-cyber-purple/50 transition-all duration-500">
-              <div className="absolute inset-0 bg-gradient-to-br from-cyber-purple/5 to-transparent opacity-50" />
+            <Card className="border-border/50 from-background/90 to-background/70 hover:border-cyber-purple/50 relative overflow-hidden bg-gradient-to-br backdrop-blur-xl transition-all duration-500">
+              <div className="from-cyber-purple/5 absolute inset-0 bg-gradient-to-br to-transparent opacity-50" />
               <CardHeader className="relative space-y-4">
                 <div className="flex items-center gap-3">
-                  <div className="h-12 w-12 rounded-xl bg-cyber-purple/10 border border-cyber-purple/20 flex items-center justify-center">
-                    <Terminal className="h-6 w-6 text-cyber-purple" />
+                  <div className="bg-cyber-purple/10 border-cyber-purple/20 flex h-12 w-12 items-center justify-center rounded-xl border">
+                    <Terminal className="text-cyber-purple h-6 w-6" />
                   </div>
                   <CardTitle className="text-2xl">Tools & DevOps</CardTitle>
                 </div>
               </CardHeader>
               <CardContent className="relative space-y-4">
                 {skills.tools.map((skill, index) => (
-                  <SkillBar key={skill.name} skill={skill.name} level={skill.level} delay={index * 100} />
+                  <SkillBar
+                    key={skill.name}
+                    skill={skill.name}
+                    level={skill.level}
+                    delay={index * 100}
+                  />
                 ))}
               </CardContent>
             </Card>
@@ -490,48 +552,57 @@ export default function AboutPage() {
         <section className="mb-32 space-y-12">
           <div className="space-y-6">
             <div className="inline-flex">
-              <Badge variant="outline" className="px-4 py-2 text-sm font-medium border-cyber-cyan/40 text-cyber-cyan">
+              <Badge
+                variant="outline"
+                className="border-cyber-cyan/40 text-cyber-cyan px-4 py-2 text-sm font-medium"
+              >
                 <Rocket className="mr-2 h-4 w-4" />
                 Expertise
               </Badge>
             </div>
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold">
+            <h2 className="text-4xl font-bold md:text-5xl lg:text-6xl">
               <span className="gradient-text">What I Do Best</span>
             </h2>
-            <p className="text-lg text-muted-foreground max-w-3xl">
-              My expertise spans the full development lifecycle, from concept to deployment. Here's what I bring to the
-              table:
+            <p className="text-muted-foreground max-w-3xl text-lg">
+              My expertise spans the full development lifecycle, from concept to deployment. Here's
+              what I bring to the table:
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {expertise.map((item, index) => (
               <Card
                 key={item.title}
-                className="group relative overflow-hidden border-border/50 bg-gradient-to-br from-background/90 to-background/70 backdrop-blur-xl hover:border-cyber-cyan/50 hover:shadow-2xl hover:shadow-cyber-cyan/20 transition-all duration-500 hover:scale-105"
+                className="border-border/50 from-background/90 to-background/70 hover:border-cyber-cyan/50 hover:shadow-cyber-cyan/20 group relative overflow-hidden bg-gradient-to-br backdrop-blur-xl transition-all duration-500 hover:scale-105 hover:shadow-2xl"
               >
                 {/* Animated background gradient */}
-                <div className={`absolute inset-0 bg-gradient-to-br ${item.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
+                <div
+                  className={`absolute inset-0 bg-gradient-to-br ${item.gradient} opacity-0 transition-opacity duration-500 group-hover:opacity-100`}
+                />
 
                 {/* Corner glow effect */}
-                <div className="absolute -top-24 -right-24 w-48 h-48 bg-cyber-cyan/20 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="bg-cyber-cyan/20 absolute -right-24 -top-24 h-48 w-48 rounded-full opacity-0 blur-3xl transition-opacity duration-500 group-hover:opacity-100" />
 
                 <CardHeader className="relative space-y-4 pb-4">
                   <div
-                    className={`inline-flex h-14 w-14 items-center justify-center rounded-xl bg-cyber-${item.color}/10 border border-cyber-${item.color}/20 text-cyber-${item.color} group-hover:scale-110 group-hover:rotate-12 transition-all duration-500`}
+                    className={`inline-flex h-14 w-14 items-center justify-center rounded-xl bg-cyber-${item.color}/10 border border-cyber-${item.color}/20 text-cyber-${item.color} transition-all duration-500 group-hover:rotate-12 group-hover:scale-110`}
                   >
                     <item.icon className="h-7 w-7" />
                   </div>
-                  <CardTitle className="text-xl group-hover:text-cyber-cyan transition-colors duration-300">
+                  <CardTitle className="group-hover:text-cyber-cyan text-xl transition-colors duration-300">
                     {item.title}
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="relative">
-                  <CardDescription className="text-base leading-relaxed">{item.description}</CardDescription>
+                  <CardDescription className="text-base leading-relaxed">
+                    {item.description}
+                  </CardDescription>
                 </CardContent>
 
                 {/* Bottom accent line */}
-                <div className={`absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-cyber-${item.color} to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
+                <div
+                  className={`absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-cyber-${item.color} to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100`}
+                />
               </Card>
             ))}
           </div>
@@ -541,34 +612,43 @@ export default function AboutPage() {
         <section className="mb-32 space-y-12">
           <div className="space-y-6 text-center">
             <div className="inline-flex">
-              <Badge variant="outline" className="px-4 py-2 text-sm font-medium border-cyber-magenta/40 text-cyber-magenta">
+              <Badge
+                variant="outline"
+                className="border-cyber-magenta/40 text-cyber-magenta px-4 py-2 text-sm font-medium"
+              >
                 <Heart className="mr-2 h-4 w-4" />
                 Core Values
               </Badge>
             </div>
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold">
+            <h2 className="text-4xl font-bold md:text-5xl lg:text-6xl">
               <span className="gradient-text">Guiding Principles</span>
             </h2>
-            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+            <p className="text-muted-foreground mx-auto max-w-3xl text-lg">
               These principles guide my work and shape how I approach every project
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
             {values.map((value, index) => (
               <Card
                 key={value.title}
-                className="group relative overflow-hidden border-border/50 bg-gradient-to-br from-background/90 to-background/70 backdrop-blur-xl hover:border-cyber-purple/50 hover:shadow-2xl hover:shadow-cyber-purple/20 transition-all duration-500 hover:-translate-y-2"
+                className="border-border/50 from-background/90 to-background/70 hover:border-cyber-purple/50 hover:shadow-cyber-purple/20 group relative overflow-hidden bg-gradient-to-br backdrop-blur-xl transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl"
               >
-                <div className="absolute inset-0 bg-gradient-to-br from-cyber-purple/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="from-cyber-purple/5 absolute inset-0 bg-gradient-to-br to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
 
-                <CardContent className="relative p-6 space-y-4">
-                  <div className={`h-12 w-12 rounded-xl bg-cyber-${value.color}/10 border border-cyber-${value.color}/20 flex items-center justify-center group-hover:scale-110 group-hover:rotate-12 transition-all duration-300`}>
+                <CardContent className="relative space-y-4 p-6">
+                  <div
+                    className={`h-12 w-12 rounded-xl bg-cyber-${value.color}/10 border border-cyber-${value.color}/20 flex items-center justify-center transition-all duration-300 group-hover:rotate-12 group-hover:scale-110`}
+                  >
                     <value.icon className={`h-6 w-6 text-cyber-${value.color}`} />
                   </div>
                   <div className="space-y-2">
-                    <h3 className="font-bold text-xl group-hover:text-cyber-purple transition-colors">{value.title}</h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed">{value.description}</p>
+                    <h3 className="group-hover:text-cyber-purple text-xl font-bold transition-colors">
+                      {value.title}
+                    </h3>
+                    <p className="text-muted-foreground text-sm leading-relaxed">
+                      {value.description}
+                    </p>
                   </div>
                 </CardContent>
               </Card>
@@ -580,52 +660,63 @@ export default function AboutPage() {
         <section className="mb-32 space-y-12">
           <div className="space-y-6">
             <div className="inline-flex">
-              <Badge variant="outline" className="px-4 py-2 text-sm font-medium border-cyber-purple/40 text-cyber-purple">
+              <Badge
+                variant="outline"
+                className="border-cyber-purple/40 text-cyber-purple px-4 py-2 text-sm font-medium"
+              >
                 <TrendingUp className="mr-2 h-4 w-4" />
                 Journey
               </Badge>
             </div>
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold">
+            <h2 className="text-4xl font-bold md:text-5xl lg:text-6xl">
               <span className="gradient-text">Professional Timeline</span>
             </h2>
-            <p className="text-lg text-muted-foreground max-w-3xl">
+            <p className="text-muted-foreground max-w-3xl text-lg">
               A timeline of my professional growth and key milestones
             </p>
           </div>
 
-          <div className="space-y-8 relative">
+          <div className="relative space-y-8">
             {/* Animated Timeline line */}
-            <div className="absolute left-8 md:left-12 top-12 bottom-12 w-px bg-gradient-to-b from-cyber-cyan via-cyber-magenta to-cyber-purple overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white to-transparent opacity-50 animate-shimmer" />
+            <div className="from-cyber-cyan via-cyber-magenta to-cyber-purple absolute bottom-12 left-8 top-12 w-px overflow-hidden bg-gradient-to-b md:left-12">
+              <div className="animate-shimmer absolute inset-0 bg-gradient-to-b from-transparent via-white to-transparent opacity-50" />
             </div>
 
             {journey.map((item, index) => (
               <div
                 key={item.year}
-                className="group relative pl-24 md:pl-32 animate-in fade-in slide-in-from-left duration-700"
+                className="animate-in fade-in slide-in-from-left group relative pl-24 duration-700 md:pl-32"
                 style={{ animationDelay: `${index * 150}ms` }}
               >
                 {/* Animated Timeline dot */}
-                <div className={`absolute left-6 md:left-10 top-8 h-6 w-6 rounded-full border-4 border-background bg-cyber-${item.color} shadow-lg shadow-cyber-${item.color}/50 group-hover:scale-150 group-hover:rotate-180 transition-all duration-500 z-10`}>
-                  <div className={`absolute inset-0 rounded-full bg-cyber-${item.color} animate-ping opacity-75`} />
+                <div
+                  className={`border-background absolute left-6 top-8 h-6 w-6 rounded-full border-4 md:left-10 bg-cyber-${item.color} shadow-lg shadow-cyber-${item.color}/50 z-10 transition-all duration-500 group-hover:rotate-180 group-hover:scale-150`}
+                >
+                  <div
+                    className={`absolute inset-0 rounded-full bg-cyber-${item.color} animate-ping opacity-75`}
+                  />
                 </div>
 
-                <Card className="border-border/50 bg-gradient-to-br from-background/90 to-background/70 backdrop-blur-xl hover:border-cyber-cyan/50 hover:shadow-2xl hover:shadow-cyber-cyan/20 transition-all duration-500 hover:scale-105">
-                  <div className="absolute inset-0 bg-gradient-to-r from-cyber-cyan/0 via-cyber-cyan/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-lg" />
+                <Card className="border-border/50 from-background/90 to-background/70 hover:border-cyber-cyan/50 hover:shadow-cyber-cyan/20 bg-gradient-to-br backdrop-blur-xl transition-all duration-500 hover:scale-105 hover:shadow-2xl">
+                  <div className="from-cyber-cyan/0 via-cyber-cyan/5 absolute inset-0 rounded-lg bg-gradient-to-r to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
 
                   <CardContent className="relative p-6 md:p-8">
-                    <div className="flex flex-col md:flex-row md:items-start gap-4">
-                      <div className={`h-14 w-14 rounded-xl bg-cyber-${item.color}/10 border border-cyber-${item.color}/20 flex items-center justify-center flex-shrink-0 group-hover:scale-110 group-hover:rotate-12 transition-all duration-300`}>
+                    <div className="flex flex-col gap-4 md:flex-row md:items-start">
+                      <div
+                        className={`h-14 w-14 rounded-xl bg-cyber-${item.color}/10 border border-cyber-${item.color}/20 flex flex-shrink-0 items-center justify-center transition-all duration-300 group-hover:rotate-12 group-hover:scale-110`}
+                      >
                         <item.icon className={`h-7 w-7 text-cyber-${item.color}`} />
                       </div>
-                      <div className="space-y-3 flex-1">
+                      <div className="flex-1 space-y-3">
                         <div className="flex flex-wrap items-center gap-3">
-                          <Badge variant="cyan" className="font-bold text-base px-3 py-1">
+                          <Badge variant="cyan" className="px-3 py-1 text-base font-bold">
                             {item.year}
                           </Badge>
-                          <h3 className="font-bold text-xl md:text-2xl">{item.title}</h3>
+                          <h3 className="text-xl font-bold md:text-2xl">{item.title}</h3>
                         </div>
-                        <p className="text-muted-foreground leading-relaxed text-base">{item.description}</p>
+                        <p className="text-muted-foreground text-base leading-relaxed">
+                          {item.description}
+                        </p>
                       </div>
                     </div>
                   </CardContent>
@@ -637,39 +728,47 @@ export default function AboutPage() {
 
         {/* CTA Section */}
         <section className="mb-12">
-          <Card className="group relative overflow-hidden border-2 border-cyber-cyan/30 bg-gradient-to-br from-cyber-cyan/10 via-background/80 to-cyber-magenta/10 backdrop-blur-xl hover:border-cyber-cyan/50 transition-all duration-500">
+          <Card className="border-cyber-cyan/30 from-cyber-cyan/10 via-background/80 to-cyber-magenta/10 hover:border-cyber-cyan/50 group relative overflow-hidden border-2 bg-gradient-to-br backdrop-blur-xl transition-all duration-500">
             {/* Animated background */}
-            <div className="absolute inset-0 bg-gradient-to-r from-cyber-cyan/5 via-cyber-magenta/5 to-cyber-purple/5 animate-gradient" />
+            <div className="from-cyber-cyan/5 via-cyber-magenta/5 to-cyber-purple/5 animate-gradient absolute inset-0 bg-gradient-to-r" />
 
             {/* Glowing orbs */}
-            <div className="absolute -top-24 -left-24 w-48 h-48 bg-cyber-cyan/20 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-1000" />
-            <div className="absolute -bottom-24 -right-24 w-48 h-48 bg-cyber-magenta/20 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-1000" />
+            <div className="bg-cyber-cyan/20 absolute -left-24 -top-24 h-48 w-48 rounded-full blur-3xl transition-transform duration-1000 group-hover:scale-150" />
+            <div className="bg-cyber-magenta/20 absolute -bottom-24 -right-24 h-48 w-48 rounded-full blur-3xl transition-transform duration-1000 group-hover:scale-150" />
 
-            <CardContent className="relative p-8 md:p-16 text-center space-y-8">
+            <CardContent className="relative space-y-8 p-8 text-center md:p-16">
               <div className="space-y-4">
                 <div className="inline-flex">
-                  <Badge variant="cyan" className="px-4 py-2 text-sm font-semibold animate-pulse-glow">
+                  <Badge
+                    variant="cyan"
+                    className="animate-pulse-glow px-4 py-2 text-sm font-semibold"
+                  >
                     <Star className="mr-2 h-4 w-4" />
                     Let's Collaborate
                   </Badge>
                 </div>
-                <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold">
+                <h2 className="text-4xl font-bold md:text-5xl lg:text-6xl">
                   <span className="gradient-text">Let's Build Something Amazing</span>
                 </h2>
-                <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-                  I'm always excited to work on new projects and collaborate with talented people. Let's create
-                  something exceptional together.
+                <p className="text-muted-foreground mx-auto max-w-2xl text-lg leading-relaxed md:text-xl">
+                  I'm always excited to work on new projects and collaborate with talented people.
+                  Let's create something exceptional together.
                 </p>
               </div>
 
-              <div className="flex flex-wrap gap-4 justify-center pt-4">
-                <Button size="lg" variant="neon" asChild className="group/btn relative overflow-hidden">
+              <div className="flex flex-wrap justify-center gap-4 pt-4">
+                <Button
+                  size="lg"
+                  variant="neon"
+                  asChild
+                  className="group/btn relative overflow-hidden"
+                >
                   <Link href="/contact">
                     <span className="relative z-10 flex items-center">
                       Get in Touch
-                      <ArrowRight className="ml-2 h-5 w-5 group-hover/btn:translate-x-1 transition-transform" />
+                      <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover/btn:translate-x-1" />
                     </span>
-                    <div className="absolute inset-0 bg-gradient-to-r from-cyber-cyan/20 via-cyber-magenta/20 to-cyber-purple/20 opacity-0 group-hover/btn:opacity-100 blur-xl transition-opacity" />
+                    <div className="from-cyber-cyan/20 via-cyber-magenta/20 to-cyber-purple/20 absolute inset-0 bg-gradient-to-r opacity-0 blur-xl transition-opacity group-hover/btn:opacity-100" />
                   </Link>
                 </Button>
                 <Button

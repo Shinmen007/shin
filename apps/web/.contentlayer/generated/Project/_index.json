@@ -5,19 +5,8 @@
     "cover": "/images/projects/3d-viz.jpg",
     "repoUrl": "https://github.com/roshankhatri/3d-data-viz",
     "liveUrl": "https://3d-viz-demo.vercel.app",
-    "tags": [
-      "3D/WebGL",
-      "Data Viz",
-      "Frontend"
-    ],
-    "stack": [
-      "Three.js",
-      "React",
-      "D3.js",
-      "WebGL",
-      "TypeScript",
-      "Tailwind CSS"
-    ],
+    "tags": ["3D/WebGL", "Data Viz", "Frontend"],
+    "stack": ["Three.js", "React", "D3.js", "WebGL", "TypeScript", "Tailwind CSS"],
     "metrics": {
       "lighthouse": 94,
       "perfScore": 91,
@@ -62,19 +51,8 @@
     "cover": "/images/projects/collab-platform.jpg",
     "repoUrl": "https://github.com/roshankhatri/collab-platform",
     "liveUrl": "https://collab-platform-demo.vercel.app",
-    "tags": [
-      "Featured",
-      "Full-Stack",
-      "Real-Time"
-    ],
-    "stack": [
-      "Next.js",
-      "TypeScript",
-      "WebSockets",
-      "PostgreSQL",
-      "Redis",
-      "Tailwind CSS"
-    ],
+    "tags": ["Featured", "Full-Stack", "Real-Time"],
+    "stack": ["Next.js", "TypeScript", "WebSockets", "PostgreSQL", "Redis", "Tailwind CSS"],
     "metrics": {
       "lighthouse": 98,
       "perfScore": 95,
@@ -119,19 +97,8 @@
     "cover": "/images/projects/ecommerce-ai.jpg",
     "repoUrl": "https://github.com/roshankhatri/ecommerce-ai",
     "liveUrl": "https://shop-demo.example.com",
-    "tags": [
-      "Featured",
-      "AI/ML",
-      "E-Commerce"
-    ],
-    "stack": [
-      "Next.js",
-      "Python",
-      "TensorFlow",
-      "Elasticsearch",
-      "Stripe",
-      "PostgreSQL"
-    ],
+    "tags": ["Featured", "AI/ML", "E-Commerce"],
+    "stack": ["Next.js", "Python", "TensorFlow", "Elasticsearch", "Stripe", "PostgreSQL"],
     "metrics": {
       "lighthouse": 96,
       "perfScore": 92,

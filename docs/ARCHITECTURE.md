@@ -137,7 +137,6 @@ Design:
   - /studio edits metadata in DB only; MDX content is still updated manually in the repo.
   - Future: add a `body` column and use DB as the source of truth for edited posts.
 
-
 ### 5.2 RLS & Security
 
 - Enable RLS on all tables.
@@ -158,7 +157,6 @@ Design:
   - A simple IP + path based rate limiter (e.g., 3 requests / 5 minutes / IP).
   - Fallback to blocking the request with a structured error response.
 - Read APIs (`/api/projects`, `/api/posts`) can be cached at the edge with a short TTL (e.g., 60s) and `stale-while-revalidate` where supported.
-
 
 ### 6.1 Route Handlers
 
@@ -239,10 +237,8 @@ Design:
   - Event tracking for key user actions.
   - Simple dashboard in Plausible/PostHog.
 
-
 ## 10. Client State Management
 
 - Prefer React Server Components for data fetching wherever possible.
 - Use TanStack Query only where live client re-fetching or optimistic mutations are needed (e.g., filters that do not warrant full server navigation, admin forms with auto-save).
 - Avoid additional global state libraries in MVP; rely on React context sparingly and only for cross-cutting concerns (theme, auth session).
-

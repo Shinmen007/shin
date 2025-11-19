@@ -1,47 +1,33 @@
-# Repository Guidelines
+# Agent Guidelines for Roshan Khatri Portfolio
 
-Welcome. This document orients human contributors and AI agents working in this repo.
+## Build & Development Commands
 
-## Project Structure & Organization
-- Root: `README.md`, `docs/` (architecture, plan, content model, design). Treat `docs/` as authoritative for product/domain decisions.
-- Monorepo lives in `portfolio/` (pnpm + Turborepo). Workspaces: `apps/*`, `packages/*`.
-- Expected (per architecture docs): `apps/web`, optional `apps/admin`. Shared code in `packages/ui`, `packages/config`, `packages/types`.
-- Add MDX/content under a future `content/` directory inside `apps/web` (e.g., `content/projects/*.mdx`, `content/posts/*.mdx`).
-
-## Build, Dev, and Utility Commands (run inside `portfolio/`)
 - Install: `pnpm install`
-- Dev (all apps): `pnpm dev` (runs `turbo dev`).
-- Build: `pnpm build` (caches per Turborepo task graph).
-- Lint: `pnpm lint`
-- Format: `pnpm format` (Prettier + Tailwind plugin).
-- Type check: `pnpm type-check`
-- Clean: `pnpm clean` (purges outputs + `node_modules`).
+- Dev server: `pnpm dev` (runs `turbo dev` for monorepo)
+- Build: `pnpm build` (Next.js build via turbo)
+- Lint: `pnpm lint` (ESLint + Next.js rules)
+- Format: `pnpm format` (Prettier + Tailwind plugin)
+- Type check: `pnpm type-check` (TypeScript strict mode)
+- Clean: `pnpm clean` (purges outputs + node_modules)
 
-## Coding Style & Conventions
-- Language: TypeScript everywhere.
-- Formatting: Prettier (2‑space indent, double quotes, trailing commas). Do not hand‑edit formatting; run `pnpm format`.
-- Imports: use absolute (via TS config paths) for shared packages; relative for local module siblings.
-- Components: PascalCase (`ProjectCard.tsx`). Hooks: `useX`. Utility modules: `camelCase` exports.
-- Avoid large multifunction files; co-locate component + styles + tests.
+## Code Style Guidelines
 
-## Testing Guidelines (planned)
-- Unit: Vitest; place in same folder as code (`Component.spec.tsx`) or `__tests__/` sibling. Name with `.spec.ts` or `.test.ts`.
-- E2E: Playwright in `e2e/` at app root (`apps/web/e2e/home.spec.ts`).
-- Prefer fast unit tests over broad integration. Mock external services (Supabase) with lightweight stubs.
-- Aim for critical path coverage (routing, data transforms, forms). Target >70% for core utils; do not chase 100%.
+- Language: TypeScript everywhere with strict mode enabled
+- Formatting: Prettier (2-space indent, double quotes, semicolons, trailing commas)
+- Components: PascalCase (`ProjectCard.tsx`), Hooks: `useX`, Utils: `camelCase`
+- Imports: Use absolute paths via `@/*` alias for src/ directory
+- ESLint: Next.js core web vitals + TypeScript rules, warn on `any` types
+- File organization: Co-locate components with styles, use `src/` structure
 
-## Commit & Pull Request Guidelines
-- Commits: imperative present tense, concise: `Add project card grid`, `Refactor MDX loader`. Group related changes; avoid monolithic "misc" commits.
-- Optionally follow Conventional Commits types (`feat:`, `fix:`, `docs:`) for clarity.
-- PRs: include purpose, key changes, any follow‑ups, and screenshots for UI/UX changes. Link issue/ticket if exists.
-- Keep diffs focused; update docs when architecture or content model shifts.
+## Testing (Not Yet Configured)
 
-## Security & Configuration Notes
-- Do not commit secrets; keep environment variables in `.env` (git‑ignored) and document required keys in a future `docs/ENV.md`.
-- Follow RLS guidance in `docs/ARCHITECTURE.md` for data access; never bypass policies in client code.
+- No test framework currently set up
+- When adding tests: Use Vitest for unit tests, place `.spec.ts` files alongside code
+- For E2E: Consider Playwright when needed
 
-## Agent-Specific Instructions
-- When modifying code, respect these conventions and update this file if rules change.
-- Prefer minimal diffs and avoid speculative refactors.
-- Cross‑check decisions against `docs/ARCHITECTURE.md` & `docs/CONTENT_MODEL.md` before introducing new models.
+## Project Structure
 
+- Monorepo with `apps/web` (Next.js portfolio)
+- Content: MDX files in `content/posts/` with Contentlayer2
+- Styling: Tailwind CSS with custom design system
+- No Cursor/Copilot rules found in repository

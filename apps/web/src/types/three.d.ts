@@ -1,7 +1,7 @@
-import { Object3DNode } from '@react-three/fiber';
-import * as THREE from 'three';
+import { Object3DNode } from "@react-three/fiber";
+import * as THREE from "three";
 
-declare module '@react-three/fiber' {
+declare module "@react-three/fiber" {
   interface ThreeElements {
     // Geometries
     sphereGeometry: Object3DNode<THREE.SphereGeometry, typeof THREE.SphereGeometry>;
@@ -11,7 +11,10 @@ declare module '@react-three/fiber' {
     bufferGeometry: Object3DNode<THREE.BufferGeometry, typeof THREE.BufferGeometry>;
 
     // Materials
-    meshStandardMaterial: Object3DNode<THREE.MeshStandardMaterial, typeof THREE.MeshStandardMaterial>;
+    meshStandardMaterial: Object3DNode<
+      THREE.MeshStandardMaterial,
+      typeof THREE.MeshStandardMaterial
+    >;
     meshBasicMaterial: Object3DNode<THREE.MeshBasicMaterial, typeof THREE.MeshBasicMaterial>;
     lineBasicMaterial: Object3DNode<THREE.LineBasicMaterial, typeof THREE.LineBasicMaterial>;
     pointsMaterial: Object3DNode<THREE.PointsMaterial, typeof THREE.PointsMaterial>;

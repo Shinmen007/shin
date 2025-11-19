@@ -2,12 +2,7 @@
   {
     "title": "Building Performant 3D Experiences on the Web",
     "summary": "A deep dive into optimizing Three.js applications for production, covering rendering techniques, memory management, and mobile performance.",
-    "tags": [
-      "WebGL",
-      "Performance",
-      "Three.js",
-      "Tutorial"
-    ],
+    "tags": ["WebGL", "Performance", "Three.js", "Tutorial"],
     "publishedAt": "2024-10-15T00:00:00.000Z",
     "published": true,
     "body": {
@@ -34,12 +29,7 @@
   {
     "title": "Scaling Real-Time Systems: Lessons from Production",
     "summary": "Practical insights from scaling WebSocket infrastructure to handle 10,000+ concurrent connections with sub-100ms latency.",
-    "tags": [
-      "Backend",
-      "WebSockets",
-      "Scalability",
-      "Architecture"
-    ],
+    "tags": ["Backend", "WebSockets", "Scalability", "Architecture"],
     "publishedAt": "2024-09-22T00:00:00.000Z",
     "published": true,
     "body": {

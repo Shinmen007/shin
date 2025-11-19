@@ -15,9 +15,7 @@ export async function generateStaticParams() {
   }));
 }
 
-export async function generateMetadata({
-  params,
-}: PostPageProps): Promise<Metadata> {
+export async function generateMetadata({ params }: PostPageProps): Promise<Metadata> {
   const { slug } = await params;
   const post = allPosts.find((p) => p.slug === slug);
 
@@ -48,12 +46,7 @@ export default async function PostPage({ params }: PostPageProps) {
 
   // Related posts: share at least one tag, exclude current, limit 6, newest first
   const related = allPosts
-    .filter(
-      (p) =>
-        p.slug !== post.slug &&
-        p.published &&
-        p.tags.some((t) => post.tags.includes(t))
-    )
+    .filter((p) => p.slug !== post.slug && p.published && p.tags.some((t) => post.tags.includes(t)))
     .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime())
     .slice(0, 6);
 

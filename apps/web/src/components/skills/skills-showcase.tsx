@@ -112,7 +112,7 @@ export function SkillsShowcase() {
               "rounded-xl px-6 py-3 text-sm font-medium transition-all duration-300",
               "border-2 hover:scale-105 active:scale-95",
               selectedCategory === category.id
-                ? "border-cyber-cyan bg-cyber-cyan/20 text-cyber-cyan shadow-lg shadow-cyber-cyan/20"
+                ? "border-cyber-cyan bg-cyber-cyan/20 text-cyber-cyan shadow-cyber-cyan/20 shadow-lg"
                 : "border-border bg-background/50 text-muted-foreground hover:border-cyber-cyan/50 hover:text-foreground"
             )}
           >
@@ -132,8 +132,8 @@ export function SkillsShowcase() {
               key={skill.name}
               className={cn(
                 "group relative overflow-hidden transition-all duration-300",
-                "hover:shadow-lg hover:-translate-y-1",
-                isHovered && "ring-2 ring-cyber-cyan ring-offset-2 ring-offset-background"
+                "hover:-translate-y-1 hover:shadow-lg",
+                isHovered && "ring-cyber-cyan ring-offset-background ring-2 ring-offset-2"
               )}
               onMouseEnter={() => setHoveredSkill(skill.name)}
               onMouseLeave={() => setHoveredSkill(null)}
@@ -142,17 +142,17 @@ export function SkillsShowcase() {
               <div
                 className={cn(
                   "absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100",
-                  color === "cyan" && "bg-gradient-to-br from-cyber-cyan/10 to-transparent",
-                  color === "magenta" && "bg-gradient-to-br from-cyber-magenta/10 to-transparent",
-                  color === "purple" && "bg-gradient-to-br from-cyber-purple/10 to-transparent",
-                  color === "success" && "bg-gradient-to-br from-success/10 to-transparent"
+                  color === "cyan" && "from-cyber-cyan/10 bg-gradient-to-br to-transparent",
+                  color === "magenta" && "from-cyber-magenta/10 bg-gradient-to-br to-transparent",
+                  color === "purple" && "from-cyber-purple/10 bg-gradient-to-br to-transparent",
+                  color === "success" && "from-success/10 bg-gradient-to-br to-transparent"
                 )}
               />
 
-              <CardContent className="relative p-6 space-y-4">
+              <CardContent className="relative space-y-4 p-6">
                 {/* Skill Name & Badge */}
                 <div className="flex items-start justify-between gap-2">
-                  <h3 className="font-semibold text-foreground group-hover:text-cyber-cyan transition-colors">
+                  <h3 className="text-foreground group-hover:text-cyber-cyan font-semibold transition-colors">
                     {skill.name}
                   </h3>
                   <Badge
@@ -171,20 +171,20 @@ export function SkillsShowcase() {
 
                 {/* Progress Bar */}
                 <div className="space-y-2">
-                  <div className="flex justify-between text-xs text-muted-foreground">
+                  <div className="text-muted-foreground flex justify-between text-xs">
                     <span>Proficiency</span>
-                    <span className="font-medium text-foreground">{skill.level}%</span>
+                    <span className="text-foreground font-medium">{skill.level}%</span>
                   </div>
-                  <div className="relative h-2 w-full overflow-hidden rounded-full bg-muted">
+                  <div className="bg-muted relative h-2 w-full overflow-hidden rounded-full">
                     <div
                       className={cn(
                         "h-full rounded-full transition-all duration-500 ease-out",
-                        color === "cyan" && "bg-gradient-to-r from-cyber-cyan to-cyber-cyan/80",
+                        color === "cyan" && "from-cyber-cyan to-cyber-cyan/80 bg-gradient-to-r",
                         color === "magenta" &&
-                          "bg-gradient-to-r from-cyber-magenta to-cyber-magenta/80",
+                          "from-cyber-magenta to-cyber-magenta/80 bg-gradient-to-r",
                         color === "purple" &&
-                          "bg-gradient-to-r from-cyber-purple to-cyber-purple/80",
-                        color === "success" && "bg-gradient-to-r from-success to-success/80",
+                          "from-cyber-purple to-cyber-purple/80 bg-gradient-to-r",
+                        color === "success" && "from-success to-success/80 bg-gradient-to-r",
                         isHovered && "shadow-lg"
                       )}
                       style={{
@@ -206,7 +206,7 @@ export function SkillsShowcase() {
                 </div>
 
                 {/* Category Label */}
-                <div className="text-xs text-muted-foreground uppercase tracking-wider">
+                <div className="text-muted-foreground text-xs uppercase tracking-wider">
                   {skill.category}
                 </div>
               </CardContent>
@@ -216,40 +216,40 @@ export function SkillsShowcase() {
       </div>
 
       {/* Skills Summary */}
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 mt-12">
+      <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <Card className="border-cyber-cyan/30 bg-cyber-cyan/5">
           <CardContent className="p-6 text-center">
-            <div className="text-3xl font-bold text-cyber-cyan">
+            <div className="text-cyber-cyan text-3xl font-bold">
               {skills.filter((s) => s.category === "frontend").length}
             </div>
-            <div className="text-sm text-muted-foreground">Frontend Technologies</div>
+            <div className="text-muted-foreground text-sm">Frontend Technologies</div>
           </CardContent>
         </Card>
 
         <Card className="border-cyber-magenta/30 bg-cyber-magenta/5">
           <CardContent className="p-6 text-center">
-            <div className="text-3xl font-bold text-cyber-magenta">
+            <div className="text-cyber-magenta text-3xl font-bold">
               {skills.filter((s) => s.category === "backend").length}
             </div>
-            <div className="text-sm text-muted-foreground">Backend Technologies</div>
+            <div className="text-muted-foreground text-sm">Backend Technologies</div>
           </CardContent>
         </Card>
 
         <Card className="border-cyber-purple/30 bg-cyber-purple/5">
           <CardContent className="p-6 text-center">
-            <div className="text-3xl font-bold text-cyber-purple">
+            <div className="text-cyber-purple text-3xl font-bold">
               {skills.filter((s) => s.category === "devops").length}
             </div>
-            <div className="text-sm text-muted-foreground">DevOps Tools</div>
+            <div className="text-muted-foreground text-sm">DevOps Tools</div>
           </CardContent>
         </Card>
 
         <Card className="border-success/30 bg-success/5">
           <CardContent className="p-6 text-center">
-            <div className="text-3xl font-bold text-success">
+            <div className="text-success text-3xl font-bold">
               {skills.filter((s) => s.level >= 90).length}
             </div>
-            <div className="text-sm text-muted-foreground">Expert Level Skills</div>
+            <div className="text-muted-foreground text-sm">Expert Level Skills</div>
           </CardContent>
         </Card>
       </div>

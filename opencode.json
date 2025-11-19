@@ -1,0 +1,29 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "provider": {
+    "anthropic": {
+      "models": {
+        "gpt-5.1": {
+          "id": "gpt-5.1",
+          "name": "GPT-5.1 (Via MegaLLM)"
+        },
+        "minimax-m2glm-4.6": {
+          "id": "minimaxai/minimax-m2",
+          "name": "Minimax M2GLM 4.6 (Via MegaLLM)"
+        },
+        "kimi-k2-instruct-0905": {
+          "id": "moonshotai/kimi-k2-instruct-0905",
+          "name": "Kimi K2 Instruct 0905 (Via MegaLLM)"
+        },
+        "glm-4.6": {
+          "id": "gemini-3-pro-preview",
+          "name": "GLM 4.6 (Via MegaLLM)"
+        }
+      },
+      "options": {
+        "apiKey": "{env:MEGALLM_API_KEY}",
+        "baseURL": "https://ai.megallm.io/v1"
+      }
+    }
+  }
+}

@@ -191,7 +191,6 @@ Target: MVP in 7-10 days, then iterate.
 - Newsletter and double opt-in.
 - Case study PDF exports and shareable assets.
 
-
 ---
 
 ## 9. Definition of Done

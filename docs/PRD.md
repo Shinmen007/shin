@@ -99,7 +99,7 @@ Build a futuristic, minimal, neon-accented portfolio that feels like a polished 
   - Filter by tag/technology.
   - Sort by recency or impact if needed.
 - Project detail page:
-  - Case study structure: problem  solution  stack  architecture  metrics  lessons learned.
+  - Case study structure: problem solution stack architecture metrics lessons learned.
   - Links to live demo and repository (if public).
   - Stack badges and metrics (e.g., Lighthouse score, users, performance).
   - Dynamic Open Graph image per project.

@@ -4,12 +4,7 @@
       "document": {
         "title": "Building Performant 3D Experiences on the Web",
         "summary": "A deep dive into optimizing Three.js applications for production, covering rendering techniques, memory management, and mobile performance.",
-        "tags": [
-          "WebGL",
-          "Performance",
-          "Three.js",
-          "Tutorial"
-        ],
+        "tags": ["WebGL", "Performance", "Three.js", "Tutorial"],
         "publishedAt": "2024-10-15T00:00:00.000Z",
         "published": true,
         "body": {
@@ -41,12 +36,7 @@
       "document": {
         "title": "Scaling Real-Time Systems: Lessons from Production",
         "summary": "Practical insights from scaling WebSocket infrastructure to handle 10,000+ concurrent connections with sub-100ms latency.",
-        "tags": [
-          "Backend",
-          "WebSockets",
-          "Scalability",
-          "Architecture"
-        ],
+        "tags": ["Backend", "WebSockets", "Scalability", "Architecture"],
         "publishedAt": "2024-09-22T00:00:00.000Z",
         "published": true,
         "body": {
@@ -81,19 +71,8 @@
         "cover": "/images/projects/3d-viz.jpg",
         "repoUrl": "https://github.com/roshankhatri/3d-data-viz",
         "liveUrl": "https://3d-viz-demo.vercel.app",
-        "tags": [
-          "3D/WebGL",
-          "Data Viz",
-          "Frontend"
-        ],
-        "stack": [
-          "Three.js",
-          "React",
-          "D3.js",
-          "WebGL",
-          "TypeScript",
-          "Tailwind CSS"
-        ],
+        "tags": ["3D/WebGL", "Data Viz", "Frontend"],
+        "stack": ["Three.js", "React", "D3.js", "WebGL", "TypeScript", "Tailwind CSS"],
         "metrics": {
           "lighthouse": 94,
           "perfScore": 91,
@@ -143,19 +122,8 @@
         "cover": "/images/projects/collab-platform.jpg",
         "repoUrl": "https://github.com/roshankhatri/collab-platform",
         "liveUrl": "https://collab-platform-demo.vercel.app",
-        "tags": [
-          "Featured",
-          "Full-Stack",
-          "Real-Time"
-        ],
-        "stack": [
-          "Next.js",
-          "TypeScript",
-          "WebSockets",
-          "PostgreSQL",
-          "Redis",
-          "Tailwind CSS"
-        ],
+        "tags": ["Featured", "Full-Stack", "Real-Time"],
+        "stack": ["Next.js", "TypeScript", "WebSockets", "PostgreSQL", "Redis", "Tailwind CSS"],
         "metrics": {
           "lighthouse": 98,
           "perfScore": 95,
@@ -205,19 +173,8 @@
         "cover": "/images/projects/ecommerce-ai.jpg",
         "repoUrl": "https://github.com/roshankhatri/ecommerce-ai",
         "liveUrl": "https://shop-demo.example.com",
-        "tags": [
-          "Featured",
-          "AI/ML",
-          "E-Commerce"
-        ],
-        "stack": [
-          "Next.js",
-          "Python",
-          "TensorFlow",
-          "Elasticsearch",
-          "Stripe",
-          "PostgreSQL"
-        ],
+        "tags": ["Featured", "AI/ML", "E-Commerce"],
+        "stack": ["Next.js", "Python", "TensorFlow", "Elasticsearch", "Stripe", "PostgreSQL"],
         "metrics": {
           "lighthouse": 96,
           "perfScore": 92,

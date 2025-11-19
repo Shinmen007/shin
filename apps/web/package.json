@@ -14,6 +14,7 @@
     "@hookform/resolvers": "^3.9.1",
     "@react-three/drei": "^10.7.7",
     "@react-three/fiber": "^9.4.0",
+    "@splinetool/react-spline": "^4.1.0",
     "@supabase/supabase-js": "^2.49.1",
     "@tanstack/react-query": "^5.62.11",
     "autoprefixer": "^10.4.20",

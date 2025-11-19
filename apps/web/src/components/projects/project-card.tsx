@@ -70,7 +70,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
         <div className="relative h-full" style={{ transformStyle: "preserve-3d" }}>
           {/* Floating base shadow */}
           <motion.div
-            className="absolute -inset-x-6 bottom-0 h-10 rounded-full bg-cyber-cyan/15 blur-2xl opacity-0 pointer-events-none"
+            className="bg-cyber-cyan/15 pointer-events-none absolute -inset-x-6 bottom-0 h-10 rounded-full opacity-0 blur-2xl"
             animate={{
               opacity: isHovered ? 1 : 0,
               scale: isHovered ? [1, 1.1, 1] : 1,
@@ -81,8 +81,8 @@ export function ProjectCard({ project }: ProjectCardProps) {
 
           <Card
             className={cn(
-              "relative h-full overflow-hidden cursor-pointer transition-all duration-500",
-              "border-2 border-border/40 bg-gradient-to-br backdrop-blur-xl",
+              "relative h-full cursor-pointer overflow-hidden transition-all duration-500",
+              "border-border/40 border-2 bg-gradient-to-br backdrop-blur-xl",
               isFeatured
                 ? "from-cyber-cyan/10 via-background/80 to-cyber-magenta/10 border-cyber-cyan/60"
                 : "from-background/80 to-background/60"
@@ -166,7 +166,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
             />
 
             {/* Glassmorphism overlay */}
-            <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-transparent to-black/10 rounded-lg" />
+            <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-white/5 via-transparent to-black/10" />
 
             <CardHeader
               className="relative space-y-4"
@@ -202,7 +202,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
                     >
                       <Badge
                         variant={variant as any}
-                        className="text-xs font-semibold shadow-lg relative group"
+                        className="group relative text-xs font-semibold shadow-lg"
                       >
                         {tag === "Featured" && (
                           <motion.div
@@ -214,7 +214,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
                               repeat: Infinity,
                               ease: "linear",
                             }}
-                            className="inline-block mr-1"
+                            className="mr-1 inline-block"
                           >
                             <Sparkles className="h-3 w-3" />
                           </motion.div>
@@ -228,7 +228,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
 
               {/* Title with glow effect */}
               <motion.h3
-                className="text-xl font-bold tracking-tight transition-all duration-300 relative"
+                className="relative text-xl font-bold tracking-tight transition-all duration-300"
                 style={{
                   transform: "translateZ(90px)",
                   textShadow: isHovered
@@ -240,10 +240,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
                 }}
               >
                 <span
-                  className={cn(
-                    "transition-colors duration-300",
-                    isHovered ? "gradient-text" : "",
-                  )}
+                  className={cn("transition-colors duration-300", isHovered ? "gradient-text" : "")}
                 >
                   {project.title}
                 </span>
@@ -251,7 +248,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
 
               {/* Summary */}
               <motion.p
-                className="text-sm text-muted-foreground line-clamp-3 leading-relaxed"
+                className="text-muted-foreground line-clamp-3 text-sm leading-relaxed"
                 style={{
                   transform: "translateZ(70px)",
                 }}
@@ -270,34 +267,28 @@ export function ProjectCard({ project }: ProjectCardProps) {
               {/* Metrics */}
               <div className="grid grid-cols-2 gap-3 text-xs">
                 <div className="flex items-center gap-2">
-                  <Zap className="h-3 w-3 text-cyber-cyan" />
+                  <Zap className="text-cyber-cyan h-3 w-3" />
                   <span className="text-muted-foreground">
                     Lighthouse: {project.metrics.lighthouse}
                   </span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <TrendingUp className="h-3 w-3 text-cyber-magenta" />
-                  <span className="text-muted-foreground">
-                    Perf: {project.metrics.perfScore}
-                  </span>
+                  <TrendingUp className="text-cyber-magenta h-3 w-3" />
+                  <span className="text-muted-foreground">Perf: {project.metrics.perfScore}</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Users className="h-3 w-3 text-cyber-purple" />
-                  <span className="text-muted-foreground">
-                    Users: {project.metrics.users}
-                  </span>
+                  <Users className="text-cyber-purple h-3 w-3" />
+                  <span className="text-muted-foreground">Users: {project.metrics.users}</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="h-3 w-3 inline-block rounded-full bg-success" />
-                  <span className="text-muted-foreground">
-                    {project.metrics.uptime} uptime
-                  </span>
+                  <span className="bg-success inline-block h-3 w-3 rounded-full" />
+                  <span className="text-muted-foreground">{project.metrics.uptime} uptime</span>
                 </div>
               </div>
 
               {/* Stack */}
               <div className="space-y-2" style={{ transform: "translateZ(40px)" }}>
-                <p className="text-xs font-medium text-muted-foreground">Tech Stack</p>
+                <p className="text-muted-foreground text-xs font-medium">Tech Stack</p>
                 <div className="flex flex-wrap gap-1.5">
                   {project.stack.slice(0, 5).map((tech) => (
                     <Badge key={tech} variant="outline" className="text-xs">
@@ -327,15 +318,15 @@ export function ProjectCard({ project }: ProjectCardProps) {
                       e.preventDefault();
                       window.open(project.repoUrl, "_blank", "noopener,noreferrer");
                     }}
-                    className="relative group"
+                    className="group relative"
                     whileHover={{ scale: 1.2, y: -2 }}
                     whileTap={{ scale: 0.9 }}
                   >
                     <motion.div
-                      className="absolute -inset-2 rounded-lg bg-cyber-cyan/20 opacity-0 group-hover:opacity-100 blur-lg"
+                      className="bg-cyber-cyan/20 absolute -inset-2 rounded-lg opacity-0 blur-lg group-hover:opacity-100"
                       transition={{ duration: 0.3 }}
                     />
-                    <Github className="h-5 w-5 text-muted-foreground group-hover:text-foreground transition-colors relative z-10" />
+                    <Github className="text-muted-foreground group-hover:text-foreground relative z-10 h-5 w-5 transition-colors" />
                     <span className="sr-only">View repository</span>
                   </motion.button>
                 )}
@@ -347,15 +338,15 @@ export function ProjectCard({ project }: ProjectCardProps) {
                       e.preventDefault();
                       window.open(project.liveUrl, "_blank", "noopener,noreferrer");
                     }}
-                    className="relative group"
+                    className="group relative"
                     whileHover={{ scale: 1.2, y: -2 }}
                     whileTap={{ scale: 0.9 }}
                   >
                     <motion.div
-                      className="absolute -inset-2 rounded-lg bg-cyber-cyan/30 opacity-0 group-hover:opacity-100 blur-lg"
+                      className="bg-cyber-cyan/30 absolute -inset-2 rounded-lg opacity-0 blur-lg group-hover:opacity-100"
                       transition={{ duration: 0.3 }}
                     />
-                    <ExternalLink className="h-5 w-5 text-muted-foreground group-hover:text-cyber-cyan transition-colors relative z-10" />
+                    <ExternalLink className="text-muted-foreground group-hover:text-cyber-cyan relative z-10 h-5 w-5 transition-colors" />
                     <span className="sr-only">View live demo</span>
                   </motion.button>
                 )}
@@ -363,7 +354,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
 
               {/* Corner accent glows */}
               <motion.div
-                className="absolute top-0 right-0 w-32 h-32 opacity-20 blur-3xl rounded-full pointer-events-none"
+                className="pointer-events-none absolute right-0 top-0 h-32 w-32 rounded-full opacity-20 blur-3xl"
                 style={{
                   background: isFeatured
                     ? "radial-gradient(circle, rgba(34, 211, 238, 0.6), transparent)"
@@ -381,7 +372,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
               />
 
               <motion.div
-                className="absolute bottom-0 left-0 w-32 h-32 opacity-15 blur-3xl rounded-full pointer-events-none"
+                className="pointer-events-none absolute bottom-0 left-0 h-32 w-32 rounded-full opacity-15 blur-3xl"
                 style={{
                   background: isFeatured
                     ? "radial-gradient(circle, rgba(202, 138, 227, 0.5), transparent)"
