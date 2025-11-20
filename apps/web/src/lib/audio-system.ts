@@ -41,7 +41,7 @@ class AudioSystem {
       ]);
 
       this.initialized = true;
-      console.log('🔊 Audio system initialized');
+      // Audio system initialized successfully
     } catch (error) {
       console.error('Failed to initialize audio system:', error);
     }

@@ -74,7 +74,7 @@ class PerformanceManager {
       };
     }
 
-    console.log('🎮 Performance config:', this.config);
+    // Performance config set based on device capabilities
   }
 
   /**

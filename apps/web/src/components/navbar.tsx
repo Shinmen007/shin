@@ -199,11 +199,105 @@ export function Navbar() {
             }}
           />
 
-          {/* Corner accent lights */}
-          <div className="absolute top-0 left-0 w-20 h-20 bg-gradient-to-br from-cyber-cyan/20 to-transparent rounded-tl-xl" />
-          <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-bl from-cyber-magenta/20 to-transparent rounded-tr-xl" />
-          <div className="absolute bottom-0 left-0 w-20 h-20 bg-gradient-to-tr from-cyber-purple/20 to-transparent rounded-bl-xl" />
-          <div className="absolute bottom-0 right-0 w-20 h-20 bg-gradient-to-tl from-cyber-cyan/20 to-transparent rounded-br-xl" />
+          {/* Matrix digital rain effect */}
+          <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-20">
+            {[...Array(12)].map((_, i) => (
+              <motion.div
+                key={i}
+                className="absolute top-0 w-px"
+                style={{
+                  left: `${(i + 1) * 8}%`,
+                  height: "100%",
+                  background: "linear-gradient(180deg, transparent, rgba(0,245,255,0.8) 20%, transparent 40%)",
+                }}
+                animate={{
+                  y: ["-100%", "200%"],
+                  opacity: [0, 1, 0.5, 0],
+                }}
+                transition={{
+                  duration: 2 + Math.random() * 2,
+                  repeat: Infinity,
+                  delay: i * 0.2,
+                  ease: "linear",
+                }}
+              />
+            ))}
+          </div>
+
+          {/* Floating data particles */}
+          <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-30">
+            {[...Array(8)].map((_, i) => (
+              <motion.div
+                key={i}
+                className="absolute w-1 h-1 rounded-full bg-cyber-cyan"
+                style={{
+                  left: `${10 + i * 12}%`,
+                  boxShadow: "0 0 10px rgba(0,245,255,1), 0 0 20px rgba(0,245,255,0.5)",
+                }}
+                animate={{
+                  y: ["-10%", "110%"],
+                  x: [0, Math.sin(i) * 30],
+                  opacity: [0, 1, 1, 0],
+                  scale: [0.5, 1, 0.8, 0.5],
+                }}
+                transition={{
+                  duration: 3 + Math.random() * 2,
+                  repeat: Infinity,
+                  delay: i * 0.4,
+                  ease: "easeInOut",
+                }}
+              />
+            ))}
+          </div>
+
+          {/* Corner accent lights with pulse */}
+          <motion.div
+            className="absolute top-0 left-0 w-20 h-20 bg-gradient-to-br from-cyber-cyan/20 to-transparent rounded-tl-xl"
+            animate={{
+              opacity: [0.2, 0.4, 0.2],
+            }}
+            transition={{
+              duration: 3,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
+          <motion.div
+            className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-bl from-cyber-magenta/20 to-transparent rounded-tr-xl"
+            animate={{
+              opacity: [0.2, 0.4, 0.2],
+            }}
+            transition={{
+              duration: 3,
+              repeat: Infinity,
+              delay: 0.75,
+              ease: "easeInOut",
+            }}
+          />
+          <motion.div
+            className="absolute bottom-0 left-0 w-20 h-20 bg-gradient-to-tr from-cyber-purple/20 to-transparent rounded-bl-xl"
+            animate={{
+              opacity: [0.2, 0.4, 0.2],
+            }}
+            transition={{
+              duration: 3,
+              repeat: Infinity,
+              delay: 1.5,
+              ease: "easeInOut",
+            }}
+          />
+          <motion.div
+            className="absolute bottom-0 right-0 w-20 h-20 bg-gradient-to-tl from-cyber-cyan/20 to-transparent rounded-br-xl"
+            animate={{
+              opacity: [0.2, 0.4, 0.2],
+            }}
+            transition={{
+              duration: 3,
+              repeat: Infinity,
+              delay: 2.25,
+              ease: "easeInOut",
+            }}
+          />
 
           <div className="relative flex h-14 sm:h-16 items-center justify-between px-4 sm:px-6">
             {/* Cyberpunk Logo */}
@@ -243,9 +337,10 @@ export function Navbar() {
                     }}
                     transition={{ duration: 2, repeat: Infinity }}
                   >
-                    {/* Hexagon background */}
+                    {/* Hexagon background with data streams */}
                     <div className="absolute inset-0 w-10 h-10 sm:w-12 sm:h-12">
                       <svg viewBox="0 0 100 100" className="w-full h-full">
+                        {/* Outer hexagon with animated stroke */}
                         <motion.path
                           d="M 50,5 L 90,30 L 90,70 L 50,95 L 10,70 L 10,30 Z"
                           fill="none"
@@ -260,12 +355,107 @@ export function Navbar() {
                             ease: "linear",
                           }}
                         />
+                        {/* Inner pulsing hexagon */}
+                        <motion.path
+                          d="M 50,15 L 80,35 L 80,65 L 50,85 L 20,65 L 20,35 Z"
+                          fill="rgba(0,245,255,0.1)"
+                          stroke="url(#gradient2)"
+                          strokeWidth="2"
+                          animate={{
+                            opacity: [0.3, 0.8, 0.3],
+                            scale: [0.95, 1, 0.95],
+                          }}
+                          transition={{
+                            duration: 2,
+                            repeat: Infinity,
+                            ease: "easeInOut",
+                          }}
+                          style={{ transformOrigin: "50px 50px" }}
+                        />
+                        {/* Circuit-like connecting lines */}
+                        <motion.line
+                          x1="50" y1="5" x2="50" y2="25"
+                          stroke="#00f5ff"
+                          strokeWidth="1.5"
+                          animate={{
+                            opacity: [0, 1, 0],
+                          }}
+                          transition={{
+                            duration: 1.5,
+                            repeat: Infinity,
+                            delay: 0,
+                          }}
+                        />
+                        <motion.line
+                          x1="90" y1="30" x2="75" y2="40"
+                          stroke="#ff00ff"
+                          strokeWidth="1.5"
+                          animate={{
+                            opacity: [0, 1, 0],
+                          }}
+                          transition={{
+                            duration: 1.5,
+                            repeat: Infinity,
+                            delay: 0.25,
+                          }}
+                        />
+                        <motion.line
+                          x1="90" y1="70" x2="75" y2="60"
+                          stroke="#9d00ff"
+                          strokeWidth="1.5"
+                          animate={{
+                            opacity: [0, 1, 0],
+                          }}
+                          transition={{
+                            duration: 1.5,
+                            repeat: Infinity,
+                            delay: 0.5,
+                          }}
+                        />
+                        {/* Data flow particles */}
+                        {[0, 120, 240].map((angle, i) => (
+                          <motion.circle
+                            key={i}
+                            r="2"
+                            fill="#00f5ff"
+                            filter="url(#glow)"
+                            animate={{
+                              cx: [
+                                50 + Math.cos((angle * Math.PI) / 180) * 45,
+                                50 + Math.cos((angle * Math.PI) / 180) * 20,
+                              ],
+                              cy: [
+                                50 + Math.sin((angle * Math.PI) / 180) * 45,
+                                50 + Math.sin((angle * Math.PI) / 180) * 20,
+                              ],
+                              opacity: [0, 1, 0],
+                            }}
+                            transition={{
+                              duration: 1.5,
+                              repeat: Infinity,
+                              delay: i * 0.5,
+                              ease: "easeInOut",
+                            }}
+                          />
+                        ))}
                         <defs>
                           <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
                             <stop offset="0%" stopColor="#00f5ff" />
                             <stop offset="50%" stopColor="#ff00ff" />
                             <stop offset="100%" stopColor="#9d00ff" />
                           </linearGradient>
+                          <linearGradient id="gradient2" x1="100%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" stopColor="#9d00ff" />
+                            <stop offset="50%" stopColor="#ff00ff" />
+                            <stop offset="100%" stopColor="#00f5ff" />
+                          </linearGradient>
+                          <filter id="glow">
+                            <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+                            <feMerge>
+                              <feMergeNode in="coloredBlur"/>
+                              <feMergeNode in="SourceGraphic"/>
+                            </feMerge>
+                          </filter>
                         </defs>
                       </svg>
                     </div>
@@ -283,7 +473,7 @@ export function Navbar() {
                     </motion.div>
                   </motion.div>
 
-                  {/* Cyberpunk Text */}
+                  {/* Brand Text */}
                   <div className="flex flex-col -space-y-1">
                     <motion.span
                       className="text-xl sm:text-2xl font-black tracking-wider"
@@ -293,7 +483,7 @@ export function Navbar() {
                       }}
                     >
                       <span className="bg-gradient-to-r from-cyber-cyan via-cyber-magenta to-cyber-purple bg-clip-text text-transparent">
-                        CYBER
+                        ROSHAN
                       </span>
                     </motion.span>
                     <motion.span
@@ -303,7 +493,7 @@ export function Navbar() {
                         textShadow: "0 0 5px rgba(0,245,255,0.6)",
                       }}
                     >
-                      PUNK
+                      KHATRI
                     </motion.span>
                   </div>
 
@@ -322,22 +512,69 @@ export function Navbar() {
                   </motion.div>
                 </div>
 
-                {/* Glitch effect overlay */}
+                {/* Advanced Multi-layer Glitch effect */}
                 <motion.div
                   className="absolute inset-0"
                   animate={{
-                    opacity: [0, 0.3, 0],
-                    x: [-2, 2, -2],
+                    opacity: [0, 0.7, 0, 0.5, 0],
+                    x: [-3, 3, -2, 2, 0],
+                    skewX: [0, -5, 5, -3, 0],
                   }}
                   transition={{
-                    duration: 0.2,
+                    duration: 0.15,
                     repeat: Infinity,
-                    repeatDelay: 3,
+                    repeatDelay: 2.5,
+                    times: [0, 0.2, 0.4, 0.6, 1],
                   }}
                   style={{
-                    background: "linear-gradient(90deg, transparent, rgba(0,245,255,0.3), transparent)",
+                    background: "linear-gradient(90deg, rgba(255,0,0,0.3), rgba(0,245,255,0.5), rgba(0,255,0,0.3))",
+                    mixBlendMode: "screen",
                   }}
                 />
+                {/* Chromatic aberration glitch */}
+                <motion.div
+                  className="absolute inset-0"
+                  animate={{
+                    opacity: [0, 0.8, 0],
+                    x: [2, -2, 2],
+                  }}
+                  transition={{
+                    duration: 0.1,
+                    repeat: Infinity,
+                    repeatDelay: 4,
+                  }}
+                  style={{
+                    background: "linear-gradient(90deg, rgba(255,0,255,0.4), transparent, rgba(0,245,255,0.4))",
+                    mixBlendMode: "color-dodge",
+                  }}
+                />
+                {/* Digital corruption effect */}
+                <motion.div
+                  className="absolute inset-0 overflow-hidden"
+                  animate={{
+                    opacity: [0, 1, 0],
+                  }}
+                  transition={{
+                    duration: 0.08,
+                    repeat: Infinity,
+                    repeatDelay: 5,
+                  }}
+                >
+                  <motion.div
+                    className="absolute inset-0"
+                    animate={{
+                      y: ["-100%", "100%"],
+                    }}
+                    transition={{
+                      duration: 0.3,
+                      repeat: Infinity,
+                      repeatDelay: 5,
+                    }}
+                    style={{
+                      background: "repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,245,255,0.8) 2px, rgba(0,245,255,0.8) 4px)",
+                    }}
+                  />
+                </motion.div>
               </motion.div>
             </Link>
 
@@ -421,38 +658,151 @@ export function Navbar() {
                           </>
                         )}
 
-                        {/* Cyberpunk hover glow */}
+                        {/* Holographic hover shimmer */}
+                        <motion.div
+                          className="absolute inset-0 rounded-lg opacity-0 group-hover:opacity-100 overflow-hidden"
+                          transition={{ duration: 0.3 }}
+                        >
+                          <motion.div
+                            className="absolute inset-0"
+                            style={{
+                              background: "linear-gradient(135deg, transparent 30%, rgba(0,245,255,0.6) 45%, rgba(255,0,255,0.8) 50%, rgba(157,0,255,0.6) 55%, transparent 70%)",
+                            }}
+                            animate={{
+                              x: ["-200%", "200%"],
+                            }}
+                            transition={{
+                              duration: 1.5,
+                              repeat: Infinity,
+                              ease: "linear",
+                            }}
+                          />
+                        </motion.div>
+
+                        {/* Cyberpunk hover glow with prismatic effect */}
                         <motion.div
                           className="absolute inset-0 rounded-lg opacity-0 group-hover:opacity-100"
                           style={{
-                            background: "radial-gradient(circle at center, rgba(0,245,255,0.4), rgba(255,0,255,0.25), transparent 70%)",
-                            boxShadow: "0 0 20px rgba(0,245,255,0.4)",
+                            background: "radial-gradient(circle at center, rgba(0,245,255,0.5), rgba(255,0,255,0.3), rgba(157,0,255,0.2), transparent 70%)",
+                            boxShadow: "0 0 25px rgba(0,245,255,0.5), 0 0 50px rgba(255,0,255,0.3)",
                           }}
                           transition={{ duration: 0.3 }}
+                          animate={{
+                            scale: [1, 1.05, 1],
+                          }}
+                          whileHover={{
+                            transition: { duration: 2, repeat: Infinity },
+                          }}
                         />
 
-                        {/* Neon border on hover */}
+                        {/* Animated neon border with color shift */}
                         <motion.div
-                          className="absolute inset-0 rounded-lg border-2 border-transparent opacity-0 group-hover:opacity-100 group-hover:border-cyber-cyan/60"
+                          className="absolute inset-0 rounded-lg border-2 opacity-0 group-hover:opacity-100"
                           transition={{ duration: 0.3 }}
+                          animate={{
+                            borderColor: [
+                              "rgba(0,245,255,0.6)",
+                              "rgba(255,0,255,0.6)",
+                              "rgba(157,0,255,0.6)",
+                              "rgba(0,245,255,0.6)",
+                            ],
+                          }}
+                          whileHover={{
+                            transition: { duration: 3, repeat: Infinity },
+                          }}
                           style={{
-                            boxShadow: "0 0 15px rgba(0,245,255,0.5)",
+                            boxShadow: "0 0 20px rgba(0,245,255,0.6), inset 0 0 10px rgba(0,245,255,0.2)",
                           }}
                         />
+
+                        {/* Data stream particles */}
+                        <motion.div
+                          className="absolute inset-0 rounded-lg opacity-0 group-hover:opacity-60 overflow-hidden pointer-events-none"
+                          transition={{ duration: 0.3 }}
+                        >
+                          {[...Array(3)].map((_, i) => (
+                            <motion.div
+                              key={i}
+                              className="absolute w-px h-full bg-gradient-to-b from-transparent via-cyber-cyan to-transparent"
+                              style={{
+                                left: `${25 + i * 25}%`,
+                              }}
+                              animate={{
+                                y: ["-100%", "100%"],
+                                opacity: [0, 1, 0],
+                              }}
+                              transition={{
+                                duration: 1 + i * 0.2,
+                                repeat: Infinity,
+                                delay: i * 0.3,
+                                ease: "linear",
+                              }}
+                            />
+                          ))}
+                        </motion.div>
 
                         <span
                           className={cn(
                             "relative z-10 transition-all duration-300 flex items-center gap-2",
                             isActive
-                              ? "text-white font-black tracking-wide drop-shadow-[0_0_12px_rgba(0,245,255,1)]"
-                              : "text-gray-400 font-bold group-hover:text-white group-hover:tracking-wide group-hover:drop-shadow-[0_0_10px_rgba(0,245,255,0.6)]"
+                              ? "text-white font-black tracking-wide"
+                              : "text-gray-400 font-bold group-hover:text-white group-hover:tracking-wide"
                           )}
                           style={{
                             fontFamily: isActive ? "monospace" : "inherit",
-                            textShadow: isActive ? "0 0 15px rgba(0,245,255,0.8), 0 0 30px rgba(255,0,255,0.5)" : undefined,
                           }}
                         >
-                          {item.name}
+                          {/* Chromatic aberration text layers */}
+                          <span className="relative inline-block">
+                            {/* Red channel offset */}
+                            <motion.span
+                              className="absolute inset-0 opacity-0 group-hover:opacity-40"
+                              style={{
+                                color: "#ff0040",
+                                textShadow: isActive ? "0 0 15px rgba(255,0,64,0.8)" : undefined,
+                              }}
+                              animate={{
+                                x: isActive ? [-1, 1, -1] : 0,
+                              }}
+                              transition={{
+                                duration: 0.15,
+                                repeat: isActive ? Infinity : 0,
+                                repeatDelay: 3,
+                              }}
+                            >
+                              {item.name}
+                            </motion.span>
+                            {/* Cyan channel offset */}
+                            <motion.span
+                              className="absolute inset-0 opacity-0 group-hover:opacity-40"
+                              style={{
+                                color: "#00f5ff",
+                                textShadow: isActive ? "0 0 15px rgba(0,245,255,0.8)" : undefined,
+                              }}
+                              animate={{
+                                x: isActive ? [1, -1, 1] : 0,
+                              }}
+                              transition={{
+                                duration: 0.15,
+                                repeat: isActive ? Infinity : 0,
+                                repeatDelay: 3,
+                              }}
+                            >
+                              {item.name}
+                            </motion.span>
+                            {/* Main text */}
+                            <motion.span
+                              className="relative"
+                              style={{
+                                textShadow: isActive
+                                  ? "0 0 15px rgba(0,245,255,0.8), 0 0 30px rgba(255,0,255,0.5), 0 0 5px rgba(255,255,255,0.9)"
+                                  : undefined,
+                                filter: "drop-shadow(0 0 12px rgba(0,245,255,1))",
+                              }}
+                            >
+                              {item.name}
+                            </motion.span>
+                          </span>
                           {isActive && (
                             <motion.span
                               initial={{ scale: 0, rotate: -180 }}
@@ -684,7 +1034,7 @@ export function Navbar() {
                     textShadow: "0 0 10px rgba(0,245,255,0.5)",
                   }}
                 >
-                  CYBERPUNK.2077
+                  ROSHAN.KHATRI
                 </span>
                 <motion.div
                   animate={{

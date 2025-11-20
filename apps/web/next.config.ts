@@ -4,8 +4,8 @@ import { withContentlayer } from "next-contentlayer2";
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   transpilePackages: ["ui"],
+  // Empty turbopack config to acknowledge Contentlayer's webpack config
   turbopack: {},
-  allowedDevOrigins: ["127.0.0.1", "localhost"],
   images: {
     formats: ["image/avif", "image/webp"],
     remotePatterns: [

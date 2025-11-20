@@ -209,25 +209,27 @@ export function HexagonPattern() {
 }
 
 /**
- * Animated circles with glow
+ * Animated circles with glow - Enhanced
  */
 export function GlowingCircles() {
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
       {/* Large cyan circle */}
       <motion.div
-        className="absolute w-96 h-96 rounded-full"
+        className="absolute w-[500px] h-[500px] rounded-full blur-3xl"
         style={{
-          background: 'radial-gradient(circle, rgba(0,245,255,0.3) 0%, transparent 70%)',
-          left: '10%',
-          top: '20%',
+          background: 'radial-gradient(circle, rgba(0,245,255,0.4) 0%, rgba(0,245,255,0.2) 40%, transparent 70%)',
+          left: '5%',
+          top: '15%',
         }}
         animate={{
-          scale: [1, 1.3, 1],
-          opacity: [0.3, 0.6, 0.3],
+          scale: [1, 1.4, 1],
+          opacity: [0.3, 0.7, 0.3],
+          x: [0, 50, 0],
+          y: [0, -30, 0],
         }}
         transition={{
-          duration: 8,
+          duration: 10,
           repeat: Infinity,
           ease: 'easeInOut',
         }}
@@ -235,41 +237,85 @@ export function GlowingCircles() {
 
       {/* Medium magenta circle */}
       <motion.div
-        className="absolute w-80 h-80 rounded-full"
+        className="absolute w-96 h-96 rounded-full blur-3xl"
         style={{
-          background: 'radial-gradient(circle, rgba(255,0,255,0.3) 0%, transparent 70%)',
-          right: '15%',
-          top: '30%',
+          background: 'radial-gradient(circle, rgba(255,0,255,0.4) 0%, rgba(255,0,255,0.2) 40%, transparent 70%)',
+          right: '10%',
+          top: '25%',
         }}
         animate={{
-          scale: [1, 1.4, 1],
-          opacity: [0.3, 0.5, 0.3],
+          scale: [1, 1.5, 1],
+          opacity: [0.3, 0.6, 0.3],
+          x: [0, -40, 0],
+          y: [0, 40, 0],
         }}
         transition={{
-          duration: 10,
+          duration: 12,
           repeat: Infinity,
           ease: 'easeInOut',
           delay: 1,
         }}
       />
 
-      {/* Small purple circle */}
+      {/* Purple circle */}
       <motion.div
-        className="absolute w-64 h-64 rounded-full"
+        className="absolute w-80 h-80 rounded-full blur-3xl"
         style={{
-          background: 'radial-gradient(circle, rgba(157,0,255,0.3) 0%, transparent 70%)',
-          left: '50%',
-          bottom: '20%',
+          background: 'radial-gradient(circle, rgba(157,0,255,0.4) 0%, rgba(157,0,255,0.2) 40%, transparent 70%)',
+          left: '45%',
+          bottom: '15%',
         }}
         animate={{
-          scale: [1, 1.2, 1],
-          opacity: [0.3, 0.7, 0.3],
+          scale: [1, 1.3, 1],
+          opacity: [0.3, 0.8, 0.3],
+          x: [0, 30, 0],
+          y: [0, -50, 0],
         }}
         transition={{
-          duration: 6,
+          duration: 8,
           repeat: Infinity,
           ease: 'easeInOut',
           delay: 2,
+        }}
+      />
+
+      {/* Additional accent circles */}
+      <motion.div
+        className="absolute w-64 h-64 rounded-full blur-2xl"
+        style={{
+          background: 'radial-gradient(circle, rgba(0,245,255,0.3) 0%, transparent 70%)',
+          right: '25%',
+          bottom: '30%',
+        }}
+        animate={{
+          scale: [1, 1.2, 1],
+          opacity: [0.2, 0.5, 0.2],
+          rotate: [0, 180, 360],
+        }}
+        transition={{
+          duration: 15,
+          repeat: Infinity,
+          ease: 'easeInOut',
+          delay: 3,
+        }}
+      />
+
+      <motion.div
+        className="absolute w-72 h-72 rounded-full blur-2xl"
+        style={{
+          background: 'radial-gradient(circle, rgba(255,0,255,0.3) 0%, transparent 70%)',
+          left: '30%',
+          top: '50%',
+        }}
+        animate={{
+          scale: [1, 1.35, 1],
+          opacity: [0.2, 0.55, 0.2],
+        }}
+        transition={{
+          duration: 11,
+          repeat: Infinity,
+          ease: 'easeInOut',
+          delay: 4,
         }}
       />
     </div>
