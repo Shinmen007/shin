@@ -1,0 +1,90 @@
+---
+title: "Mastering Next.js 15 Server Actions"
+summary: "A deep dive into building high-performance, secure, and interactive web applications using Next.js 15 Server Actions. Learn about caching strategies, optimistic UI, and avoiding common pitfalls."
+publishedAt: "2025-11-15"
+tags: ["Next.js", "Performance", "React", "Server Actions"]
+published: true
+---
+
+Next.js 15 has revolutionized how we think about data mutations and server-client communication. Server Actions allow you to execute server-side code directly from your components without creating separate API endpoints. In this guide, we'll explore advanced techniques to leverage their full potential.
+
+## The Power of Server Actions
+
+Traditionally, handling form submissions or data mutations required creating an API route handler (`pages/api` or `app/api`), managing state for loading/error, and fetching that endpoint from the client. Server Actions simplify this by letting you define asynchronous functions that run on the server.
+
+```tsx
+// actions.ts
+"use server";
+
+import { revalidatePath } from "next/cache";
+
+export async function updateUser(userId: string, data: FormData) {
+  // 1. Validate input
+  const name = data.get("name");
+  if (!name) throw new Error("Name is required");
+
+  // 2. Mutate database
+  await db.user.update({
+    where: { id: userId },
+    data: { name: name.toString() },
+  });
+
+  // 3. Revalidate cache
+  revalidatePath("/profile");
+}
+```
+
+## Optimizing Performance
+
+### 1. Parallel Execution
+Server Actions run sequentially by default if called one after another. To speed up multiple mutations, use `Promise.all`.
+
+### 2. Aggressive Caching
+Combine Server Actions with `revalidateTag` for granular cache control. Instead of revalidating entire paths, you can invalidate specific data fetches.
+
+```tsx
+import { revalidateTag } from "next/cache";
+
+export async function updatePost(id: string) {
+  await db.post.update(...);
+  revalidateTag(`post-${id}`); // Only invalidates this specific post
+}
+```
+
+## Optimistic UI Updates
+
+One of the biggest UX improvements is Optimistic UI—showing the result of an action before the server responds. React's `useOptimistic` hook makes this seamless.
+
+```tsx
+"use client";
+
+import { useOptimistic } from "react";
+
+export function PostLike({ likes, postId }) {
+  const [optimisticLikes, addOptimisticLike] = useOptimistic(
+    likes,
+    (state, newLike) => state + 1
+  );
+
+  return (
+    <form action={async () => {
+        addOptimisticLike(1);
+        await likePost(postId);
+    }}>
+      <button>{optimisticLikes} Likes</button>
+    </form>
+  );
+}
+```
+
+## Security Considerations
+
+Since Server Actions are public API endpoints under the hood, security is paramount.
+
+1.  **Authentication**: Always verify the user is authenticated inside the action.
+2.  **Authorization**: Check if the user has permission to perform the specific action.
+3.  **Validation**: Never trust client input. Use Zod or similar libraries to validate arguments.
+
+## Conclusion
+
+Server Actions in Next.js 15 are more than just syntactical sugar; they represent a shift towards a more unified, full-stack mental model for React developers. By mastering caching, optimistic updates, and security patterns, you can build applications that feel instant and robust.

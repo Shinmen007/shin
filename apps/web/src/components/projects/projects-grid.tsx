@@ -282,7 +282,7 @@ export function ProjectsGrid({ projects, allTags, allStackItems }: ProjectsGridP
             </motion.div>
             <h3 className="mb-2 text-xl font-semibold">No projects found</h3>
             <p className="text-muted-foreground mx-auto mb-6 max-w-md">
-              We couldn't find any projects matching your criteria. Try adjusting your filters or
+              We couldn&apos;t find any projects matching your criteria. Try adjusting your filters or
               search query.
             </p>
             <Button

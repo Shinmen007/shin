@@ -1,0 +1,311 @@
+---
+title: "Mastering TypeScript: Advanced Patterns and Best Practices"
+summary: "Deep dive into advanced TypeScript patterns, generics, utility types, and techniques to write type-safe, maintainable code."
+publishedAt: "2024-11-10"
+published: true
+tags: ["TypeScript", "JavaScript", "Programming"]
+cover: "/images/blog/typescript.jpg"
+---
+
+## 🎯 Introduction
+
+TypeScript has become the de facto standard for building large-scale JavaScript applications. This guide explores **advanced patterns** and **best practices** that will level up your TypeScript skills.
+
+---
+
+## 🔥 Advanced Type Patterns
+
+### 1. Conditional Types
+
+```typescript
+type IsString<T> = T extends string ? true : false;
+
+type A = IsString<string>;  // true
+type B = IsString<number>;  // false
+
+// Practical example
+type Flatten<T> = T extends Array<infer U> ? U : T;
+
+type Str = Flatten<string[]>;    // string
+type Num = Flatten<number>;      // number
+```
+
+### 2. Mapped Types
+
+```typescript
+type Readonly<T> = {
+  readonly [P in keyof T]: T[P];
+};
+
+type Optional<T> = {
+  [P in keyof T]?: T[P];
+};
+
+interface User {
+  id: string;
+  name: string;
+  email: string;
+}
+
+type ReadonlyUser = Readonly<User>;
+type PartialUser = Optional<User>;
+```
+
+### 3. Template Literal Types
+
+```typescript
+type EventName = 'click' | 'focus' | 'blur';
+type EventHandler = `on${Capitalize<EventName>}`;
+// Result: 'onClick' | 'onFocus' | 'onBlur'
+
+type HTTPMethod = 'GET' | 'POST' | 'PUT' | 'DELETE';
+type Endpoint = `/api/${string}`;
+type APIRoute = `${HTTPMethod} ${Endpoint}`;
+// Result: 'GET /api/...' | 'POST /api/...' etc.
+```
+
+---
+
+## 💎 Utility Types
+
+### Built-in Utilities
+
+```typescript
+// Pick - Select specific properties
+type UserPreview = Pick<User, 'id' | 'name'>;
+
+// Omit - Exclude specific properties
+type UserWithoutEmail = Omit<User, 'email'>;
+
+// Record - Create object type
+type UserRoles = Record<string, 'admin' | 'user' | 'guest'>;
+
+// ReturnType - Extract return type
+function getUser() {
+  return { id: '1', name: 'John' };
+}
+type User = ReturnType<typeof getUser>;
+```
+
+### Custom Utilities
+
+```typescript
+// Deep Partial
+type DeepPartial<T> = {
+  [P in keyof T]?: T[P] extends object
+    ? DeepPartial<T[P]>
+    : T[P];
+};
+
+// Non-Nullable
+type NonNullable<T> = T extends null | undefined ? never : T;
+
+// Awaited (for promises)
+type Awaited<T> = T extends Promise<infer U> ? U : T;
+```
+
+---
+
+## 🎨 Generics Mastery
+
+### Generic Constraints
+
+```typescript
+interface HasId {
+  id: string;
+}
+
+function findById<T extends HasId>(
+  items: T[],
+  id: string
+): T | undefined {
+  return items.find(item => item.id === id);
+}
+
+// Usage
+const users = [{ id: '1', name: 'John' }];
+const user = findById(users, '1'); // Type: User | undefined
+```
+
+### Generic Factories
+
+```typescript
+class Repository<T extends { id: string }> {
+  private items: T[] = [];
+  
+  add(item: T): void {
+    this.items.push(item);
+  }
+  
+  findById(id: string): T | undefined {
+    return this.items.find(item => item.id === id);
+  }
+  
+  getAll(): T[] {
+    return [...this.items];
+  }
+}
+
+const userRepo = new Repository<User>();
+const postRepo = new Repository<Post>();
+```
+
+---
+
+## 🔧 Type Guards
+
+### Built-in Type Guards
+
+```typescript
+function processValue(value: string | number) {
+  if (typeof value === 'string') {
+    return value.toUpperCase();
+  }
+  return value.toFixed(2);
+}
+```
+
+### Custom Type Guards
+
+```typescript
+interface Cat {
+  meow(): void;
+}
+
+interface Dog {
+  bark(): void;
+}
+
+function isCat(animal: Cat | Dog): animal is Cat {
+  return 'meow' in animal;
+}
+
+function makeSound(animal: Cat | Dog) {
+  if (isCat(animal)) {
+    animal.meow(); // TypeScript knows it's a Cat
+  } else {
+    animal.bark(); // TypeScript knows it's a Dog
+  }
+}
+```
+
+---
+
+## 🚀 Real-World Patterns
+
+### API Response Handler
+
+```typescript
+type ApiResponse<T> = 
+  | { success: true; data: T }
+  | { success: false; error: string };
+
+async function fetchUser(id: string): Promise<ApiResponse<User>> {
+  try {
+    const response = await fetch(`/api/users/${id}`);
+    const data = await response.json();
+    return { success: true, data };
+  } catch (error) {
+    return { 
+      success: false, 
+      error: error instanceof Error ? error.message : 'Unknown error'
+    };
+  }
+}
+
+// Usage
+const result = await fetchUser('123');
+if (result.success) {
+  console.log(result.data.name); // Type-safe!
+} else {
+  console.error(result.error);
+}
+```
+
+### Builder Pattern
+
+```typescript
+class QueryBuilder<T> {
+  private filters: Array<(item: T) => boolean> = [];
+  
+  where(predicate: (item: T) => boolean): this {
+    this.filters.push(predicate);
+    return this;
+  }
+  
+  execute(items: T[]): T[] {
+    return items.filter(item => 
+      this.filters.every(filter => filter(item))
+    );
+  }
+}
+
+// Usage
+const results = new QueryBuilder<User>()
+  .where(u => u.age > 18)
+  .where(u => u.isActive)
+  .execute(users);
+```
+
+---
+
+## 📊 Performance Tips
+
+### 1. Use `const` Assertions
+
+```typescript
+const config = {
+  apiUrl: 'https://api.example.com',
+  timeout: 5000,
+} as const;
+
+// Type: { readonly apiUrl: "https://api.example.com"; readonly timeout: 5000 }
+```
+
+### 2. Avoid `any`
+
+```typescript
+// ❌ Bad
+function process(data: any) {
+  return data.value;
+}
+
+// ✅ Good
+function process<T extends { value: unknown }>(data: T) {
+  return data.value;
+}
+```
+
+### 3. Use Type Inference
+
+```typescript
+// ❌ Redundant
+const numbers: number[] = [1, 2, 3];
+
+// ✅ Better
+const numbers = [1, 2, 3]; // Type inferred as number[]
+```
+
+---
+
+## 🎓 Best Practices
+
+1. **Enable strict mode** in `tsconfig.json`
+2. **Use interfaces for objects**, types for unions
+3. **Prefer `unknown` over `any`**
+4. **Use discriminated unions** for complex types
+5. **Leverage type inference** when possible
+6. **Write type guards** for runtime checks
+7. **Document complex types** with JSDoc
+
+---
+
+## 🔗 Resources
+
+- [TypeScript Handbook](https://www.typescriptlang.org/docs/handbook/intro.html)
+- [Type Challenges](https://github.com/type-challenges/type-challenges)
+- [Total TypeScript](https://www.totaltypescript.com/)
+
+---
+
+**Master TypeScript** and write safer, more maintainable code! 💪

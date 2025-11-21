@@ -14,7 +14,7 @@ interface PageLayoutProps {
 export function PageLayout({ children }: PageLayoutProps) {
   return (
     <ErrorBoundary>
-      <div className="flex min-h-screen flex-col relative overflow-x-hidden">
+      <div className="relative flex min-h-screen flex-col overflow-x-hidden">
         {/* Cyberpunk ambient background effects */}
         <div className="fixed inset-0 -z-10 overflow-hidden">
           {/* Animated gradient orbs */}

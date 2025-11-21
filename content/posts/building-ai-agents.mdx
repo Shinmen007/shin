@@ -1,0 +1,89 @@
+---
+title: "Building Intelligent Agents with Vercel AI SDK"
+summary: "Learn how to build autonomous AI agents that can use tools, maintain memory, and execute complex multi-step workflows using the Vercel AI SDK and Next.js."
+publishedAt: "2025-11-20"
+tags: ["AI", "Agents", "Vercel", "Next.js"]
+published: true
+---
+
+The era of static chatbots is ending. The future belongs to AI Agents—systems that don't just talk, but *do*. They can browse the web, query databases, and interact with APIs to solve complex problems. Vercel's AI SDK makes building these agents incredibly intuitive.
+
+## What Makes an Agent?
+
+An agent needs three core capabilities:
+1.  **Reasoning**: The ability to break down a goal into steps (via an LLM).
+2.  **Tools**: Functions the agent can call to interact with the world.
+3.  **Memory**: Context awareness of past actions and results.
+
+## Defining Tools
+
+With the AI SDK `generateText` or `streamText` functions, you can pass a `tools` object. The SDK handles the tool calling loop automatically.
+
+```tsx
+import { openai } from "@ai-sdk/openai";
+import { generateText, tool } from "ai";
+import { z } from "zod";
+
+const result = await generateText({
+  model: openai("gpt-4-turbo"),
+  tools: {
+    getWeather: tool({
+      description: "Get the weather in a location",
+      parameters: z.object({
+        location: z.string().describe("The city and state"),
+      }),
+      execute: async ({ location }) => {
+        const response = await fetch(`https://api.weather.com/...`);
+        return response.json();
+      },
+    }),
+  },
+  prompt: "What should I wear in Kathmandu today?",
+});
+```
+
+In this example, the model sees the `getWeather` tool, decides to call it with "Kathmandu", waits for the result, and then uses that data to generate the final answer about what to wear.
+
+## Streaming & UI
+
+For a great UX, you need streaming. The `useChat` hook in the AI SDK handles the complex state management of streaming tool calls and UI updates.
+
+```tsx
+// client-component.tsx
+"use client";
+import { useChat } from "ai/react";
+
+export default function AgentChat() {
+  const { messages, input, handleInputChange, handleSubmit } = useChat();
+
+  return (
+    <div>
+      {messages.map(m => (
+        <div key={m.id}>
+          {m.toolInvocations ? (
+            <div className="italic">Calling tool: {m.toolInvocations[0].toolName}...</div>
+          ) : (
+            m.content
+          )}
+        </div>
+      ))}
+      <form onSubmit={handleSubmit}>
+         <input value={input} onChange={handleInputChange} />
+      </form>
+    </div>
+  );
+}
+```
+
+## Multi-Step Workflows
+
+Real-world tasks often require multiple steps. For example, "Research this topic and write a summary." This requires:
+1.  Search Google.
+2.  Read 3-4 pages.
+3.  Synthesize information.
+
+The AI SDK supports `maxSteps` (in `streamText`) to allow the model to go back and forth between tool calls and reasoning until it solves the problem.
+
+## Conclusion
+
+Vercel AI SDK abstracts away the complexity of prompt engineering for tool use, letting you focus on the logic of your tools and the user experience. It's the fastest way to build agentic workflows today.

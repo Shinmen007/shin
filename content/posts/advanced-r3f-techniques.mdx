@@ -1,0 +1,75 @@
+---
+title: "Advanced React Three Fiber Techniques: Shaders & Particles"
+summary: "Unlock the full potential of WebGL in React. A guide to creating immersive 3D experiences using custom shaders, FBOs, and high-performance particle systems with React Three Fiber."
+publishedAt: "2025-11-18"
+tags: ["3D", "React Three Fiber", "WebGL", "Shaders"]
+published: true
+---
+
+The web is becoming increasingly immersive. React Three Fiber (R3F) bridges the gap between the declarative nature of React and the imperative world of Three.js. But to truly stand out, you need to go beyond standard geometries and materials. You need shaders.
+
+## Why Shaders?
+
+Shaders are small programs that run on the GPU. They determine how every pixel of your 3D objects is rendered. They are the secret sauce behind water effects, glowing holograms, and complex distortions.
+
+In R3F, `shaderMaterial` makes using them easy:
+
+```tsx
+import { shaderMaterial } from "@react-three/drei";
+import { extend } from "@react-three/fiber";
+
+const WaveMaterial = shaderMaterial(
+  { time: 0, color: new THREE.Color(0.0, 0.0, 0.0) },
+  // Vertex Shader
+  `
+    varying vec2 vUv;
+    void main() {
+      vUv = uv;
+      gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+    }
+  `,
+  // Fragment Shader
+  `
+    uniform float time;
+    uniform vec3 color;
+    varying vec2 vUv;
+    void main() {
+      gl_FragColor.rgba = vec4(0.5 + 0.3 * sin(vUv.yxx + time) + color, 1.0);
+    }
+  `
+);
+
+extend({ WaveMaterial });
+```
+
+## FBO Particles (Frame Buffer Objects)
+
+For massive particle systems (100k+ particles), CPU calculations are too slow. FBOs allow us to store particle positions in a texture and update them entirely on the GPU.
+
+1.  **Simulation Shader**: Reads current positions from a texture, applies physics (velocity, noise), and writes new positions to a target texture.
+2.  **Render Shader**: Reads positions from the simulation texture to place vertices in 3D space.
+
+This technique allows for fluid simulations, morphing shapes, and complex flocking behaviors at 60FPS.
+
+## Post-Processing
+
+Post-processing adds the final polish. Effects like Bloom, Chromatic Aberration, and Depth of Field can transform a flat 3D scene into a cinematic experience.
+
+```tsx
+import { EffectComposer, Bloom, Noise } from "@react-three/postprocessing";
+
+<EffectComposer>
+  <Bloom luminanceThreshold={0.5} intensity={2.0} />
+  <Noise opacity={0.05} />
+</EffectComposer>
+```
+
+## Performance Tips
+
+*   **Instancing**: Use `InstancedMesh` for repeating objects.
+*   **Texture Compression**: Use `.ktx2` or `.webp` textures.
+*   **dpr**: Limit pixel ratio on high-DPI screens (`dpr={[1, 2]}`).
+
+## Conclusion
+
+Mastering shaders and GPU-driven techniques in R3F opens up a universe of creative possibilities. It allows you to build experiences that are not just functional, but emotional and memorable.

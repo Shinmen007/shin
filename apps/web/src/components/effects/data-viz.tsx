@@ -258,27 +258,36 @@ export function StatCounter({
 }
 
 /**
- * Live data feed simulation
+ * Live data feed simulation - Enhanced
  */
 export function LiveDataFeed({ className }: { className?: string }) {
-  const [logs, setLogs] = useState<{ id: number; text: string; type: 'info' | 'success' | 'error' }[]>([]);
+  const [logs, setLogs] = useState<{ id: number; text: string; type: 'info' | 'success' | 'error'; icon: string }[]>([]);
+  const [stats, setStats] = useState({ requests: 0, latency: 0, uptime: 0 });
 
   const logMessages = [
-    { text: 'System online - All modules operational', type: 'success' as const },
-    { text: 'Initializing neural network...', type: 'info' as const },
-    { text: 'Quantum encryption activated', type: 'success' as const },
-    { text: 'Warning: High data throughput detected', type: 'error' as const },
-    { text: 'Establishing secure connection', type: 'info' as const },
-    { text: 'Blockchain verification complete', type: 'success' as const },
-    { text: 'AI model training in progress...', type: 'info' as const },
+    { text: 'NEURAL NETWORK INITIALIZED', type: 'success' as const, icon: '✓' },
+    { text: 'QUANTUM ENCRYPTION ACTIVE', type: 'success' as const, icon: '🔒' },
+    { text: 'PROCESSING DATA STREAM...', type: 'info' as const, icon: '⚡' },
+    { text: 'WARNING: HIGH THROUGHPUT', type: 'error' as const, icon: '⚠' },
+    { text: 'BLOCKCHAIN VERIFIED', type: 'success' as const, icon: '✓' },
+    { text: 'AI MODEL TRAINING...', type: 'info' as const, icon: '🧠' },
+    { text: 'SECURE CONNECTION ESTABLISHED', type: 'success' as const, icon: '🔗' },
+    { text: 'CACHE OPTIMIZATION COMPLETE', type: 'success' as const, icon: '⚡' },
   ];
 
   useEffect(() => {
     let id = 0;
     const interval = setInterval(() => {
       const message = logMessages[Math.floor(Math.random() * logMessages.length)];
-      setLogs(prev => [{ id: id++, ...message }, ...prev].slice(0, 8));
-    }, 2000);
+      setLogs(prev => [{ id: id++, ...message }, ...prev].slice(0, 6));
+      
+      // Update stats
+      setStats(prev => ({
+        requests: prev.requests + Math.floor(Math.random() * 50),
+        latency: Math.floor(Math.random() * 100) + 20,
+        uptime: prev.uptime + 1,
+      }));
+    }, 2500);
 
     return () => clearInterval(interval);
   }, []);
@@ -289,57 +298,161 @@ export function LiveDataFeed({ className }: { className?: string }) {
     error: 'text-cyber-error',
   };
 
+  const typeBg = {
+    info: 'bg-cyber-cyan/10',
+    success: 'bg-cyber-success/10',
+    error: 'bg-cyber-error/10',
+  };
+
   return (
-    <div className={cn("bg-black/80 border-2 border-cyber-cyan/30 rounded-xl p-4 backdrop-blur-xl overflow-hidden", className)}>
+    <div className={cn("relative bg-gradient-to-br from-black/90 to-black/70 border-2 border-cyber-cyan/40 rounded-2xl p-6 backdrop-blur-xl overflow-hidden shadow-2xl", className)}>
+      {/* Animated corner accents */}
+      <div className="absolute top-0 left-0 w-20 h-20 border-t-2 border-l-2 border-cyber-cyan/50 rounded-tl-2xl" />
+      <div className="absolute bottom-0 right-0 w-20 h-20 border-b-2 border-r-2 border-cyber-magenta/50 rounded-br-2xl" />
+      
+      {/* Glow effect */}
+      <motion.div
+        className="absolute -top-20 -right-20 w-40 h-40 bg-cyber-cyan/20 rounded-full blur-3xl"
+        animate={{
+          scale: [1, 1.2, 1],
+          opacity: [0.3, 0.5, 0.3],
+        }}
+        transition={{
+          duration: 4,
+          repeat: Infinity,
+        }}
+      />
+
       {/* Header */}
-      <div className="flex items-center gap-3 mb-4 border-b border-cyber-cyan/30 pb-3">
-        <motion.div
-          className="w-3 h-3 rounded-full bg-cyber-cyan"
-          animate={{
-            opacity: [0.5, 1, 0.5],
-            scale: [1, 1.2, 1],
-          }}
-          transition={{
-            duration: 2,
-            repeat: Infinity,
-          }}
-        />
-        <span className="text-sm font-bold text-cyber-cyan" style={{ fontFamily: 'monospace' }}>
-          LIVE DATA STREAM
-        </span>
+      <div className="flex items-center justify-between mb-6 pb-4 border-b-2 border-gradient-to-r from-cyber-cyan/30 via-cyber-magenta/30 to-transparent">
+        <div className="flex items-center gap-3">
+          <motion.div
+            className="relative w-4 h-4 rounded-full bg-cyber-cyan"
+            animate={{
+              boxShadow: [
+                '0 0 10px rgba(0,245,255,0.5)',
+                '0 0 20px rgba(0,245,255,1)',
+                '0 0 10px rgba(0,245,255,0.5)',
+              ],
+            }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+            }}
+          >
+            <motion.div
+              className="absolute inset-0 rounded-full bg-cyber-cyan"
+              animate={{
+                scale: [1, 1.5, 1],
+                opacity: [1, 0, 1],
+              }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+              }}
+            />
+          </motion.div>
+          <span className="text-base font-black text-cyber-cyan tracking-wider" style={{ fontFamily: 'monospace' }}>
+            LIVE DATA STREAM
+          </span>
+        </div>
+        <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-cyber-success/20 border border-cyber-success/50">
+          <div className="w-2 h-2 rounded-full bg-cyber-success animate-pulse" />
+          <span className="text-xs font-bold text-cyber-success">ONLINE</span>
+        </div>
+      </div>
+
+      {/* Stats Grid */}
+      <div className="grid grid-cols-3 gap-4 mb-6">
+        <div className="p-3 rounded-xl bg-cyber-cyan/10 border border-cyber-cyan/30">
+          <div className="text-xs text-gray-400 mb-1 font-mono">REQUESTS</div>
+          <motion.div 
+            className="text-2xl font-black text-cyber-cyan"
+            key={stats.requests}
+            initial={{ scale: 1.2, color: '#00f5ff' }}
+            animate={{ scale: 1, color: '#00f5ff' }}
+          >
+            {stats.requests.toLocaleString()}
+          </motion.div>
+        </div>
+        <div className="p-3 rounded-xl bg-cyber-magenta/10 border border-cyber-magenta/30">
+          <div className="text-xs text-gray-400 mb-1 font-mono">LATENCY</div>
+          <motion.div 
+            className="text-2xl font-black text-cyber-magenta"
+            key={stats.latency}
+            initial={{ scale: 1.2 }}
+            animate={{ scale: 1 }}
+          >
+            {stats.latency}ms
+          </motion.div>
+        </div>
+        <div className="p-3 rounded-xl bg-cyber-purple/10 border border-cyber-purple/30">
+          <div className="text-xs text-gray-400 mb-1 font-mono">UPTIME</div>
+          <div className="text-2xl font-black text-cyber-purple">99.9%</div>
+        </div>
       </div>
 
       {/* Logs */}
-      <div className="space-y-2 font-mono text-xs">
+      <div className="space-y-2 font-mono text-sm">
         {logs.map((log, index) => (
           <motion.div
             key={log.id}
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className={cn("flex gap-2", typeColors[log.type])}
-            style={{ opacity: 1 - index * 0.1 }}
+            initial={{ opacity: 0, x: -30, scale: 0.9 }}
+            animate={{ opacity: 1 - index * 0.15, x: 0, scale: 1 }}
+            transition={{ duration: 0.4, type: "spring" }}
+            className={cn(
+              "flex items-center gap-3 p-2 rounded-lg border transition-all",
+              typeBg[log.type],
+              `border-${log.type === 'info' ? 'cyber-cyan' : log.type === 'success' ? 'cyber-success' : 'cyber-error'}/30`
+            )}
           >
-            <span className="text-gray-600">[{new Date().toLocaleTimeString()}]</span>
-            <span>{log.text}</span>
+            <span className="text-lg">{log.icon}</span>
+            <span className="text-gray-500 text-xs">[{new Date().toLocaleTimeString()}]</span>
+            <span className={typeColors[log.type]}>{log.text}</span>
+            <motion.div
+              className={cn("ml-auto w-1 h-1 rounded-full", 
+                log.type === 'info' ? 'bg-cyber-cyan' : 
+                log.type === 'success' ? 'bg-cyber-success' : 
+                'bg-cyber-error'
+              )}
+              animate={{
+                scale: [1, 1.5, 1],
+                opacity: [1, 0.5, 1],
+              }}
+              transition={{
+                duration: 1.5,
+                repeat: Infinity,
+              }}
+            />
           </motion.div>
         ))}
       </div>
 
       {/* Scanline effect */}
       <motion.div
-        className="absolute inset-0 opacity-10 pointer-events-none"
+        className="absolute inset-0 opacity-5 pointer-events-none"
         style={{
-          background: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,245,255,0.1) 2px, rgba(0,245,255,0.1) 4px)',
+          background: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,245,255,0.3) 2px, rgba(0,245,255,0.3) 4px)',
         }}
         animate={{
-          y: [0, 16],
+          y: [0, 20],
         }}
         transition={{
-          duration: 1,
+          duration: 1.5,
           repeat: Infinity,
           ease: 'linear',
+        }}
+      />
+
+      {/* Bottom gradient line */}
+      <motion.div
+        className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-cyber-cyan via-cyber-magenta to-cyber-purple"
+        animate={{
+          opacity: [0.5, 1, 0.5],
+        }}
+        transition={{
+          duration: 2,
+          repeat: Infinity,
         }}
       />
     </div>

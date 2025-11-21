@@ -48,7 +48,7 @@ export function ContactForm({ onSubmit, className }: ContactFormProps) {
         <CheckCircle2 className="mb-4 h-16 w-16 text-green-400" />
         <h3 className="mb-2 text-2xl font-bold text-white">Message Sent Successfully!</h3>
         <p className="mb-6 text-slate-400">
-          Thank you for reaching out. I'll get back to you within 24 hours.
+          Thank you for reaching out. I&apos;ll get back to you within 24 hours.
         </p>
         <button
           onClick={() => window.location.reload()}

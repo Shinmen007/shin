@@ -28,34 +28,15 @@ const LiveDataFeed = dynamic(() => import("@/components/effects/data-viz").then(
 });
 
 export default function HomePage() {
-  const { playClick, playSuccess } = useAudioSystem();
+  const { playSuccess } = useAudioSystem();
 
   // Get featured projects and recent posts
   const featuredProjects = allProjects
     .filter((project) => project.published && project.tags.includes("Featured"))
     .slice(0, 3);
 
-  const recentPosts = allPosts
-    .filter((post) => post.published)
-    .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime())
-    .slice(0, 2);
-
-  const skills = [
-    { label: 'React/Next.js', value: 95, max: 100 },
-    { label: 'TypeScript', value: 90, max: 100 },
-    { label: 'Three.js/WebGL', value: 85, max: 100 },
-    { label: 'Node.js/Backend', value: 88, max: 100 },
-    { label: 'System Design', value: 92, max: 100 },
-  ];
-
-  const technologies = [
-    'react', 'nextjs', 'typescript', 'tailwind',
-    'threejs', 'nodejs', 'postgresql', 'docker',
-    'graphql', 'redis', 'github', 'vercel',
-  ];
-
   return (
-    <div className="flex flex-col relative">
+    <div className="relative flex flex-col">
       {/* Redesigned Hero Section - Modern & Clean */}
       <RedesignedHero />
 

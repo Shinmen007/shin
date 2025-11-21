@@ -26,21 +26,28 @@ export const CyberpunkCard = React.forwardRef<HTMLDivElement, CyberpunkCardProps
     enableSound = false,
     glowColor = 'cyan',
     ...props
-  }, ref) => {
+  }, _ref) => {
     const cardRef = React.useRef<HTMLDivElement>(null);
 
     // Mouse position tracking
     const mouseX = useMotionValue(0);
     const mouseY = useMotionValue(0);
 
+    // Determine rotation limit based on intensity
+    const rotationLimit = {
+      low: 2,
+      medium: 5,
+      high: 8
+    }[intensity];
+
     // Smooth spring animation for rotation
-    const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [15, -15]), {
-      stiffness: 150,
-      damping: 20,
+    const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [rotationLimit, -rotationLimit]), {
+      stiffness: 100,
+      damping: 30,
     });
-    const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-15, 15]), {
-      stiffness: 150,
-      damping: 20,
+    const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-rotationLimit, rotationLimit]), {
+      stiffness: 100,
+      damping: 30,
     });
 
     // Glow position tracking

@@ -15,6 +15,10 @@ if (typeof window !== "undefined") {
     const isBrowserExtensionWarning =
       errorString.includes("bis_skin_checked") ||
       errorString.includes("bis_register") ||
+      errorString.includes("bis_id") ||
+      // Generic hydration mismatch from browser extensions
+      (errorString.includes("hydrated but some attributes") &&
+        errorString.includes("didn't match")) ||
       (errorString.includes("Hydration") &&
         errorString.includes("didn't match") &&
         errorString.includes("server rendered HTML"));
